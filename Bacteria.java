@@ -1,4 +1,3 @@
-
 public class Bacteria extends Pathogen {
 	
 	public Bacteria() {
@@ -8,6 +7,22 @@ public class Bacteria extends Pathogen {
 	}
 	
 	public void transmit() {
+		
+	}
+	
+	public void infect() {
+		
+	}
+	
+	public void upgradeInfectivity() {
+		
+	}
+	
+	public void upgradeResistivity() {
+		
+	}
+	
+	public void upgradeLethality() {
 		
 	}
 }
