@@ -1,4 +1,3 @@
-
 public abstract class Pathogen {
 	double infectivity; 
 	double severity; 
@@ -7,5 +6,7 @@ public abstract class Pathogen {
 	public abstract void transmit();
 	public abstract void infect(); 
 	public abstract void resist(); 
-	public abstract void upgrade(); 
+	public abstract void upgradeInfectivity();
+	public abstract void upgradeResistivity(); 
+	public abstract void upgraddeLethality();
 }
