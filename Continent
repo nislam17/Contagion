@@ -1,0 +1,12 @@
+
+public class Continent {
+	int population; 
+	double chances;
+	//transportation??
+	
+	public Continent(int p, double c) {
+		population = p; 
+		chances = c;
+	}
+
+}
