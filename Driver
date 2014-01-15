@@ -1,0 +1,13 @@
+
+public class Driver {
+	public static void main (String[] args) {
+		Continent NorthAmerica = new Continent(0, 0); 
+		Continent SouthAmerica = new Continent(0, 0);
+		Continent Europe = new Continent(0, 0); 
+		Continent Africa = new Continent(0,0); 
+		Continent Asia = new Continent(0,0); 
+		Continent Australia = new Continent(0,0); 
+		
+		
+	}
+}
