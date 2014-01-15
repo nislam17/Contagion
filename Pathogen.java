@@ -1,6 +1,6 @@
 public abstract class Pathogen {
 	double infectivity; 
-	double severity; 
+	double resisitivity; 
 	double lethality; 
 	
 	public abstract void transmit();
