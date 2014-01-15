@@ -2,7 +2,7 @@ public class Bacteria extends Pathogen {
 	
 	public Bacteria() {
 		infectivity = 0; 
-		severity = 0; 
+		resistivity = 0; 
 		lethality = 0; 
 	}
 	
@@ -11,6 +11,10 @@ public class Bacteria extends Pathogen {
 	}
 	
 	public void infect() {
+		
+	}
+	
+	public void resist() {
 		
 	}
 	
