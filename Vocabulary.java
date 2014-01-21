@@ -12,15 +12,11 @@ public class Vocabulary implements ActionListener{
     //Declare the JTabbedPane that stores the vocabulary phrases and keys
     private JTabbedPane jtp;
     //Declare the JFrame
-    private JFrame jfrm;
+    private JFrame jframe;
     //Create an ArrayList called phrases to store the PhraseCollections
     private ArrayList <PhraseCollection> phrases;
     //Create a PhraseCollection called pc to store the current phrase collection
     private PhraseCollection pc;
-    
-    private JMenu jmFile;
-    private JMenuItem jmiSave;
-    private JMenuItem jmiLoad;
     
     private JMenuBar jmb;
     private JMenu jmKeyOptions;
@@ -42,10 +38,10 @@ public class Vocabulary implements ActionListener{
     
     public Vocabulary() {
         //Initialize the JFrame
-        jfrm = new JFrame("ChatBot Vocabulary Editor");
-        jfrm.setBounds(700, 300, 400, 400);
-        jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jfrm.setLayout(new FlowLayout());
+        jframe = new JFrame("ChatBot Vocabulary Editor");
+        jframe.setBounds(700, 300, 400, 400);
+        jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jframe.setLayout(new FlowLayout());
         
         //Initialize the phrases ArrayList
         phrases = new ArrayList();
@@ -54,16 +50,8 @@ public class Vocabulary implements ActionListener{
         jmb = new JMenuBar();
         
         //Set the JMenuBar to the Vocabulary JFrame
-        jfrm.setJMenuBar(jmb);
-        
-        jmFile = new JMenu("File");
-        jmiSave = new JMenuItem("Save");
-        jmiSave.addActionListener(this);
-        jmiLoad = new JMenuItem("Load");
-        jmiLoad.addActionListener(this);
-        jmFile.add(jmiSave);
-        jmFile.add(jmiLoad);
-        jmb.add(jmFile);
+        jframe.setJMenuBar(jmb);
+
         
         //Create the Key Options menu
         jmKeyOptions = new JMenu("Key Options");
@@ -91,18 +79,18 @@ public class Vocabulary implements ActionListener{
         jtp.setPreferredSize(new Dimension(400, 400));
         
         //Add the JTabbedPane to the JFrame
-        jfrm.add(jtp);
+        jframe.add(jtp);
     }
     
     //Create the actionPerformed method
     public void actionPerformed(ActionEvent ae) {
         if (ae.getActionCommand().equalsIgnoreCase("Add Key")) {
-            String key = JOptionPane.showInputDialog(jfrm, "Please enter the key: ");
+            String key = JOptionPane.showInputDialog(jframe, "Please enter the key: ");
             addKey(key);
         } else if (ae.getActionCommand().equalsIgnoreCase("Remove Key")) {
             removeKey();
         } else if (ae.getActionCommand().equalsIgnoreCase("Add Phrase")) {
-            String phrase = JOptionPane.showInputDialog(jfrm, "Please enter the phrase: ");
+            String phrase = JOptionPane.showInputDialog(jframe, "Please enter the phrase: ");
             addPhrase(phrase);
         } else if (ae.getActionCommand().equalsIgnoreCase("Remove Phrase")) {
             removePhrase();
@@ -118,8 +106,8 @@ public class Vocabulary implements ActionListener{
     }
     //Create a show method to show the JFrame
     public void show(boolean showMe) {
-       if (showMe) jfrm.setVisible(true);
-       else jfrm.setVisible(false);
+       if (showMe) jframe.setVisible(true);
+       else jframe.setVisible(false);
     }
     
     //Create the getPhrase method - takes in the userInput and searches the PhraseCollection
