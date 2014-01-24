@@ -17,8 +17,25 @@ public abstract class Pathogen {
 		_resistivity = resistivity; 
 		_lethality = lethality; 
 	} 
+	//===========================HELPER FUNCTIONS=============================
+	
+	public static long fib(int n) {
+        if (n <= 1) {
+        	return n;
+        }
+        else {
+        	return fib(n-1) + fib(n-2);
+        }
+	}
+	//===========================ACTIONS================================
+	
+	public void increaseDNApoints(int p) {
+		_DNApoints += p;
+	}
+	
 	public  void transmit(Continent c) {
-				
+		c.setInvaded(true);
+		increaseDNApoints(10);
 	}
 	
 	/*Pre-cond: 
@@ -26,16 +43,26 @@ public abstract class Pathogen {
 	 * infect works based on infectivity and controls how fast the disease spreads between countries*/
 	public void infect(Continent c) {
 		if (Math.random() < _infectivity) {
-			c.setInfected(c.getInfected*c.getInfected); 
+			if (! c.getInvaded()) { //If it's the first time the continent is being invaded, infect 1 person
+				increaseDNApoints(c.setInfected(1));
+				
+			}
+			else {
+				int points = c.getOldInfected() + c.getInfected();
+				increaseDNApoints(points);
+				c.setOldInfected(c.setInfected(points));
+			}
+			
+			
 		}
 	}
 	
 	/*Pre-cond: 
 	 * Post-cond: 
 	 * resist works based on resistivity and slows down the cure */
-	public void resist() {
+	public void resist(Continent c) {
 		if (Math.random() < _resistivity) {
-			c.setFirewall(c.getFirewall - )
+			c.setCure((c.getCure() - 1));
 		}
 	}
 	
@@ -49,14 +76,20 @@ public abstract class Pathogen {
 	 * kill works based on lethality and controls how fast the disease wipes out the population*/
 	public void kill(Continent c) {
 		if (Math.random() < _lethality) {
-			c.setDead(c.getDead*c.getDead); 
+			if (c.getDead() == 0) {
+				c.setDead(1);
+			}
+			else {
+				int points = c.getOldDead() + c.getDead(); 
+				increaseDNApoints(points);
+				c.setOldDead(c.setDead(points));
+			}
+			c.setDead(c.getDead() * c.getDead()); 
 		}
 	}
 	
-	public void increaseDNApoints() {
-		
-	}
 	
+	//=====================UPGRADES======================
 	/*Pre-cond: 
 	 * Post-cond: 
 	 * DNA points help upgrade Transmission */
