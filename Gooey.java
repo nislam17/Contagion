@@ -1,42 +1,50 @@
-
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.*;
 
-public class GooeyDemo01 extends JFrame {
-	JButton b1;
-	JLabel l1;
-    public GooeyDemo01() {
+import java.awt.*;
+  
+public class GOOEY extends JFrame{  
 
-        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          usage: Uncomment 1 line at a time, compile, run.
-          Observe, make notes.
-          Modify inputs, recompile, run.
-          Observe, make notes.
-          Q: What does each statement do? What do the inputs do?
-          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-        setTitle( "Contagion" );
-        setSize( 1700, 900 );
-        setLocation( 100, 100 );
-        setDefaultCloseOperation( EXIT_ON_CLOSE );
-        setLayout(new BorderLayout());
-    	JLabel background=new JLabel(new ImageIcon("C:\\Users\\Ruzeb\\workspace\\GOOEY\\mapfinale.jpg"));
-    	add(background);
-    	background.setLayout(new FlowLayout());
-    	//l1=new JLabel("Here is a button");
-    	//b1=new JButton("I am a button");
-    	//background.add(l1);
-    	//background.add(b1);
-    }
-
-
-    public static void main( String[] args ) {
-
-        GooeyDemo01 g = new GooeyDemo01();
-        g.setVisible( true );
-        
-        
-    }
-}
+	public GOOEY()  
+{ 
+	setTitle( "Contagion" );
+    setSize( 1500, 750 );
+    setLocation( 100, 100 );
+    setDefaultCloseOperation( EXIT_ON_CLOSE );
+    
+    JLabel background=new JLabel(new ImageIcon("C:\\Users\\Ruzeb\\workspace\\GOOEY\\mapfinale.jpg"));
+    add(background);
+    
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+    setVisible(true);  
+}  
+  
+public void paint(Graphics g){  
+	 super.paint(g);  
+	  
+	 //draw circle outline  
+	 //(posx, negy)
+	 g.drawOval(290,155,100,100);  //N.AM
+	 g.drawOval(470,390,100,100); //S.AM
+	 g.drawOval(900,100,90,90); //EU
+	 g.drawOval(800,305,100,100);//AF
+	 g.drawOval(1100,180,100,100);//ASIA
+	 g.drawOval(1275,435,90,90); //AUS
+	  
+	 //set color to CYAN
+	 //So after this, if you draw anything, all of it's result will be RED  
+	 g.setColor(Color.decode("#99FFFFFF"));  
+	  
+	 //fill circle with RED  
+	 
+	 g.fillOval(290,155,100,100);  //N.AM
+	 g.fillOval(470,390,100,100); //S.AM
+	 g.fillOval(900,100,90,90); //EU
+	 g.fillOval(800,305,100,100);//AF
+	 g.fillOval(1100,180,100,100);//ASIA
+	 g.fillOval(1275,435,90,90); //AUS
+}  
+  
+	public static void main(String[]args){  
+		GOOEY map=new GOOEY();  
+	}  
+} 
