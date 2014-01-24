@@ -9,30 +9,22 @@ public abstract class Pathogen {
 	private int _DNApoints; 
 	// DNA points let you evolve. Get them automatically
 	
-	/*Pre-cond: 
-	 * Post-cond: 
-	 * transmit works based on infectivity and controls how fast the disease spreads inside countries*/
+	
 	public Pathogen() {
 		_infectivity = 0; 
 		_resistivity = 0; 
 		_lethality = 0; 
 	} 
-	//===========================HELPER FUNCTIONS=============================
 	
-	public static long fib(int n) {
-        if (n <= 1) {
-        	return n;
-        }
-        else {
-        	return fib(n-1) + fib(n-2);
-        }
-	}
 	//===========================ACTIONS================================
 	
 	public void increaseDNApoints(int p) {
 		_DNApoints += p;
 	}
 	
+	/*Pre-cond: 
+	 * Post-cond: 
+	 * transmit works based on infectivity and controls how fast the disease spreads inside countries*/
 	public  void transmit(Continent c) {
 		c.setInvaded(true);
 		increaseDNApoints(10);
@@ -46,6 +38,10 @@ public abstract class Pathogen {
 			if (! c.getInvaded()) { //If it's the first time the continent is being invaded, infect 1 person
 				increaseDNApoints(c.setInfected(1));
 				
+			}
+			
+			else if (c.getPopulation() == c.getInfected()) {
+				return;
 			}
 			else {
 				int points = c.getOldInfected() + c.getInfected();
@@ -78,6 +74,11 @@ public abstract class Pathogen {
 		if (Math.random() < _lethality) {
 			if (c.getDead() == 0) {
 				c.setDead(1);
+			}
+			
+			else if (c.getPopulation() == c.getDead()) {
+				c.setDeadContinent(true);
+				return;
 			}
 			else {
 				int points = c.getOldDead() + c.getDead(); 
