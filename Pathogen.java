@@ -75,8 +75,7 @@ public abstract class Pathogen {
 				int points = c.getOldDead() + c.getDead(); 
 				increaseDNApoints(points);
 				c.setOldDead(c.setDead(points));
-			}
-			c.setDead(c.getDead() * c.getDead());  // kill ppl based on the fib code
+			} // kill ppl based on the fib code
 		}
 	}
 	
