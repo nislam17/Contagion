@@ -1,4 +1,3 @@
-
 public class Driver {
 	public static void main (String[] args) {
 		Continent NorthAmerica = new Continent(528700000, 0.9); 
