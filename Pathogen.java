@@ -1,6 +1,6 @@
 public abstract class Pathogen {
 	
-	private double _infectivity, _resistivity, _lethality; 
+	protected double _infectivity, _resistivity, _lethality; 
 	
 	//infectivity - how quickly the disease will spread! Controls how fast the disease spreads both inside and between countries. 
 	//resistivity - a sign of how bad the disease is if you catch it! It will slow down cure research and give you more DNA points. 
@@ -12,10 +12,10 @@ public abstract class Pathogen {
 	/*Pre-cond: 
 	 * Post-cond: 
 	 * transmit works based on infectivity and controls how fast the disease spreads inside countries*/
-	public Pathogen(double infectivity, double resistivity, double lethality) {
-		_infectivity = infectivity; 
-		_resistivity = resistivity; 
-		_lethality = lethality; 
+	public Pathogen() {
+		_infectivity = 0; 
+		_resistivity = 0; 
+		_lethality = 0; 
 	} 
 	//===========================HELPER FUNCTIONS=============================
 	
