@@ -2,7 +2,7 @@ public class Continent {
 	private int _oldInfected = 0, _infected = 0, _oldDead = 0, _dead = 0, _cure = 0; 
 	private double _chances;
 	private long _population; 
-	private boolean _invaded = false;
+	private boolean _invaded = false, _deadContinent = false;
 	
 	
 	public Continent(long p, double c) {
@@ -35,6 +35,10 @@ public class Continent {
 		return _invaded; 
 	}
 	
+	public long getPopulation() {
+		return _population;
+	}
+	
 	// ============ Mutator Methods ==================
 	public void setOldInfected(int i) {
 		_oldInfected = i; 
@@ -65,5 +69,7 @@ public class Continent {
 		_invaded = invaded;
 	}
 	
-	
+	public void setDeadContinent(boolean deadC) {
+		_deadContinent = deadC;
+	}
 }
