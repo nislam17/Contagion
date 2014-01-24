@@ -1,21 +1,20 @@
 import javax.swing.*;
+
 import java.net.*;
  
 public class Upgrades {
  
-    public static void main(String[] args) throws MalformedURLException {
-    URL yellow = new URL("http://www.iconsdb.com/icons/download/caribbean-blue/hexagon-512.jpg");
-    URL orange = new URL("http://www.iconsdb.com/icons/download/gray/hexagon-512.jpg");
+    public Upgrades() throws MalformedURLException{
     
- 
-        
- 
+    	ImageIcon red = new ImageIcon("red.png");
+    	ImageIcon gray = new ImageIcon("gray.png");
+    
         JButton b = new JButton("Round");
-        b.setIcon(new ImageIcon(yellow));
-        b.setRolloverIcon(new ImageIcon(orange));
+        b.setIcon(red);
+        b.setRolloverIcon(gray);
         
         b.setHorizontalTextPosition(JButton.CENTER);
-        b.setRolloverEnabled(false);
+        b.setRolloverEnabled(true);
         b.setFocusPainted(false);
         b.setBorderPainted(false);
         b.setContentAreaFilled(false);
@@ -24,10 +23,14 @@ public class Upgrades {
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JPanel p = new JPanel();
         p.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
-        
+        //p.add(b0);
         p.add(b);
         f.setContentPane(p);
         f.pack();
         f.setVisible(true);
+    }
+    
+    public static void main(String[] args) throws MalformedURLException{
+    	Upgrades u = new Upgrades();
     }
 }
