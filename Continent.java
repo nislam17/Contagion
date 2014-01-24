@@ -91,7 +91,7 @@ public class Continent {
 	}
 	//=====================ACTIONS====================================
 	public void produceCure() {
-		if ((_population/((long)_infected)) <= 2) {
+		if ((_population/((long)_infected)) <= 2 && _cure <= 100) {
 			_cure += _chances; /* Once half of a continent has been infected, it starts to panic and contribute
 			to the cure  
 			*/
@@ -99,6 +99,7 @@ public class Continent {
 	}
 	
 	public void Cure() {
-		setInfected(setOldInfected(_oldInfected - _infected)); //the cure starts to bring people back from the disease
+		setInfected(setOldInfected(_oldInfected - _infected)); /*the cure starts to bring people back from 
+		*the disease (not the dead though, because that'd be creepy) */
 	}
 }
