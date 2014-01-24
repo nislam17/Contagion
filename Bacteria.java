@@ -1,32 +1,9 @@
 public class Bacteria extends Pathogen {
 	
-	public Bacteria() {
-		infectivity = 0; 
-		resistivity = 0; 
-		lethality = 0; 
-	}
-	
-	public void transmit() {
+	public Bacteria (double infectivity, double resistivity, double lethality) {
 		
-	}
-	
-	public void infect() {
-		
-	}
-	
-	public void resist() {
-		
-	}
-	
-	public void upgradeInfectivity() {
-		
-	}
-	
-	public void upgradeResistivity() {
-		
-	}
-	
-	public void upgradeLethality() {
-		
-	}
+		_infectivity = infectivity; 
+		_resistivity = resistivity; 
+		_lethality = lethality; 
+	} 
 }
