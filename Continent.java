@@ -104,8 +104,18 @@ public class Continent {
 	}
 	
 	public void Cure() {
-		setInfected(setOldInfected(_oldInfected - _infected)); /*the cure starts to bring people back from 
+		if (_invaded == false); // if the continent is healthy, no cure is needed 
+		else if (_deadContinent == true); // if the continent is dead, no one can be cured 
+		else if (_infected == 0) {
+			setInvaded(false);
+		}
+		else {
+		setInfected(setOldInfected(_oldInfected - _infected)); /*the cure starts to bring people back from
 		*the disease (not the dead though, because that'd be creepy) */
+			if (_infected < 0) {
+				_infected = 0; // a negative number of people can't be cured
+			}
+		}
 	}
 
 
