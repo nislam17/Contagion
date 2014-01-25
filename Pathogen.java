@@ -1,10 +1,9 @@
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public abstract class Pathogen{
+public class Pathogen{
 	
 
 	protected double _infectivity, _resistivity, _lethality; 
