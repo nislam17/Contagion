@@ -1,10 +1,10 @@
 public class Virus extends Pathogen {
 	
-	public Virus (double infectivity, double resistivity, double lethality) {
+	public Virus () {
 		
-		_infectivity = infectivity; 
-		_resistivity = resistivity; 
-		_lethality = lethality; 
+		_infectivity = 10; 
+		_resistivity = 1; 
+		_lethality = 5; 
 	} 
 	
 }

@@ -1,9 +1,9 @@
 public class Senioritis extends Pathogen {
 	
-	public Senioritis (double infectivity, double resistivity, double lethality) {
+	public Senioritis () {
 		
-		_infectivity = infectivity; 
-		_resistivity = resistivity; 
-		_lethality = lethality; 
+		_infectivity = 50; 
+		_resistivity = 20; 
+		_lethality = 20; 
 	} 
 }

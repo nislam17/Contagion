@@ -1,9 +1,9 @@
 public class Bacteria extends Pathogen {
 	
-	public Bacteria (double infectivity, double resistivity, double lethality) {
+	public Bacteria () {
 		
-		_infectivity = infectivity; 
-		_resistivity = resistivity; 
-		_lethality = lethality; 
+		_infectivity = 15; 
+		_resistivity = 1; 
+		_lethality = 1; 
 	} 
 }

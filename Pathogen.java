@@ -84,19 +84,19 @@ public abstract class Pathogen {
 	/*DNA points help upgrade Transmission */
 	public void upgradeTransmission() {
 		_DNApoints -= 9; 
-		_infectivity += .1; 
+		_infectivity += 1; 
 	} // upgrades infectivity
 	
 	/* DNA points help upgrade symptoms */
 	public void upgradeSymptoms() {
 		_DNApoints -= 9; 
-		_resistivity += .1; 
+		_resistivity += 1; 
 	}
 	
 	/*DNA points help upgrade abilities */
 	public void upgradeAbilities() {
 		_DNApoints -= 11; 
-		_lethality += .05; 
+		_lethality += .5; 
 	}
 	
 } //ends class Pathogen
