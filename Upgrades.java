@@ -1,10 +1,7 @@
 import javax.swing.*;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import java.net.*;
  
 public class Upgrades implements ActionListener{
 	
@@ -13,6 +10,18 @@ public class Upgrades implements ActionListener{
     public Upgrades(JButton a, JButton b, JButton c, 
     		JButton d, JButton e, JButton f, JButton g, JButton h, JButton i) {
     	JPanel p = new JPanel();
+    	
+    	a.addActionListener(new ActionListener() {
+    		 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+                System.out.println("You clicked the button");
+            }
+    	});
+    	
+    	
+    	
     	
     	p.add(a);
     	p.add(b);
@@ -42,6 +51,7 @@ public class Upgrades implements ActionListener{
         buttoner(h);
     }
     
+    
    
     
     
@@ -53,11 +63,11 @@ public class Upgrades implements ActionListener{
 	    
 	        
 	        b.setIcon(red);
-	        
+	        b.setRolloverIcon(gray);
 	        
 	        
 	        b.setHorizontalTextPosition(JButton.CENTER);
-	       // b.setRolloverEnabled(true);
+	        b.setRolloverEnabled(true);
 	        b.setFocusPainted(false);
 	        b.setBorderPainted(false);
 	        b.setContentAreaFilled(false);
@@ -72,6 +82,5 @@ public class Upgrades implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+    }
 
-
-}
