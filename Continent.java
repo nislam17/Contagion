@@ -91,6 +91,9 @@ public class Continent {
 	}
 	//=====================ACTIONS====================================
 	public void produceCure() {
+		if ((_population/((long)_dead)) <= 2 && _cure <=100) {
+			_cure +=_chances * 2;
+		}
 		if ((_population/((long)_infected)) <= 2 && _cure <= 100) {
 			_cure += _chances; /* Once half of a continent has been infected, it starts to panic and contribute
 			to the cure  
