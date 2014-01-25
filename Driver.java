@@ -89,7 +89,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     pathogen.transmit(SouthAmerica);
-                        
+                    f2.dispose();    
             }
             });
                 
@@ -100,7 +100,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     System.out.println("successful!");
-                        
+                    f2.dispose(); 
             }
             });
                 
@@ -111,7 +111,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     System.out.println("successful!");
-                        
+                    f2.dispose();
             }
             });
                 
@@ -122,7 +122,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     System.out.println("successful!");
-                        
+                    f2.dispose();
             }
             });
                 
@@ -133,7 +133,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     System.out.println("successful!");
-                        
+                    f2.dispose();
             }
             });
                 
