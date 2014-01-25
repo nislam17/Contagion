@@ -8,6 +8,7 @@ public class Driver extends JPanel implements ActionListener{
 	
 	public static void main (String[] args) {
 		
+		
 		final JFrame f1 = new JFrame("Choose Your Pathogen");
 		JPanel chooser = new JPanel();
 		//chooser.setSize(new Dimension(500,500));
@@ -21,6 +22,7 @@ public class Driver extends JPanel implements ActionListener{
                 System.out.println("You clicked the button");
                 GOOEY gui = new GOOEY();
                 f1.dispose();
+                //gui.repaint(getGraphics(), "NA");
         		
             }
     	});
