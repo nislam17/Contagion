@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class Pathogen{
-	
 
 	protected double _infectivity, _resistivity, _lethality; 
 	
@@ -267,4 +266,3 @@ public class Pathogen{
 		_resistivity += 2; 
 	}
 } //ends class Pathogen
-

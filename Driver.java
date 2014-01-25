@@ -8,7 +8,7 @@ public class Driver extends JPanel implements ActionListener{
 	
 	public static void main (String[] args) {
 		
-		
+		final JFrame f1 = new JFrame("Choose Your Pathogen");
 		JPanel chooser = new JPanel();
 		//chooser.setSize(new Dimension(500,500));
 		JButton Bacteria = new JButton("Bacteria");
@@ -20,6 +20,7 @@ public class Driver extends JPanel implements ActionListener{
             	Bacteria bac = new Bacteria();
                 System.out.println("You clicked the button");
                 GOOEY gui = new GOOEY();
+                f1.dispose();
         		
             }
     	});
@@ -32,7 +33,7 @@ public class Driver extends JPanel implements ActionListener{
             	Virus virus = new Virus();
                 System.out.println("You clicked the button");
                 GOOEY gui = new GOOEY();
-        		
+                f1.dispose();
             }
     	});
 		JButton Senioritis = new JButton("Senioritis");
@@ -44,13 +45,13 @@ public class Driver extends JPanel implements ActionListener{
             	Senioritis senior = new Senioritis();
                 System.out.println("You clicked the button");
                 GOOEY gui = new GOOEY();
-        	
+                f1.dispose();
             }
     	});
 		chooser.add(Bacteria);
 		chooser.add(Virus);
 		chooser.add(Senioritis);
-		JFrame f1 = new JFrame("Choose Your Pathogen");
+		
 		f1.setLocation(500, 500);
         //f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         
@@ -58,14 +59,14 @@ public class Driver extends JPanel implements ActionListener{
         f1.pack();
         f1.setVisible(true);
 		
-		Continent NorthAmerica = new Continent(528700000, 0.9); 
-		Continent SouthAmerica = new Continent(387500000, 0.2);
-		Continent Europe = new Continent(739200000, 0.4); 
-		Continent Africa = new Continent(1033000000,0.1); 
-		Continent Asia = new Continent(2147482999,0.6); 
-		Continent Australia = new Continent(22680000,0.8); 
+		Continent NorthAmerica = new Continent(528700000, 0.9, "NA"); 
+		Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
+		Continent Europe = new Continent(739200000, 0.4, "EU"); 
+		Continent Africa = new Continent(1033000000,0.1, "AF"); 
+		Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
+		Continent Australia = new Continent(22680000,0.8, "AUS"); 
 		
-	
+		
 	}
 
 	
@@ -76,4 +77,3 @@ public class Driver extends JPanel implements ActionListener{
 		
 	}
 }
-

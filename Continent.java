@@ -4,6 +4,7 @@ public class Continent {
 	private double _chances;
 	private long _population; 
 	private boolean _invaded = false, _deadContinent = false;
+	private String _abbreviation;
 	// _oldInfected and _infected are the numbers of how many people have been infected 
 	// _oldDead and _dead are the numbers of how many people have died 
 	// (the old vars are there because we plug them into a fib formula) 
@@ -16,9 +17,10 @@ public class Continent {
 	//_invaded indicates if the anyone in the continent has been infected yet 
 	//_deadContinent indicates if there is any living soul left in the continent (infected or not) 
 	
-	public Continent(long p, double c) {
+	public Continent(long p, double c, String nickname) {
 		_population = p; 
 		_chances = c;
+		_abbreviation = nickname;
 	}
 	
 	// ============= Accessor Methods ================
@@ -54,6 +56,9 @@ public class Continent {
 		return _deadContinent; 
 	}
 	
+	public String get_nickname(){
+		return _abbreviation;
+	}
 	// ============ Mutator Methods ==================
 	public int setOldInfected(int i) {
 		int veryOldInfected = _oldInfected;
@@ -91,9 +96,6 @@ public class Continent {
 	}
 	//=====================ACTIONS====================================
 	public void produceCure() {
-		if ((_population/((long)_dead)) <= 2 && _cure <=100) {
-			_cure +=_chances * 2;
-		}
 		if ((_population/((long)_infected)) <= 2 && _cure <= 100) {
 			_cure += _chances; /* Once half of a continent has been infected, it starts to panic and contribute
 			to the cure  
@@ -105,4 +107,7 @@ public class Continent {
 		setInfected(setOldInfected(_oldInfected - _infected)); /*the cure starts to bring people back from 
 		*the disease (not the dead though, because that'd be creepy) */
 	}
+
+
+
 }
