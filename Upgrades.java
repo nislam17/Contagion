@@ -12,16 +12,9 @@ public class Upgrades implements ActionListener{
     public Upgrades(JButton a, JButton b, JButton c, 
     		JButton d, JButton e, JButton f, JButton g, JButton h, JButton i) {
     	
-    	//Border subject = BorderFactory.createEmptyBorder();
-    	/*Border lineBorder = 
-    			BorderFactory.createTitledBorder
-    			(subject, "Upgrades", 50, 50, 
-    					new Font("Courier New",Font.ITALIC,12), Color.BLACK);
-    	JPanel title = new JPanel();
-    	title.setBorder(lineBorder);
-    	*/
     	JPanel mainPanel = new JPanel();
     	
+    	// ================ SETTING ACTION LISTENERS ===============
     	a.setText("Air");
     	a.addActionListener(new ActionListener() {
     		 
@@ -102,6 +95,9 @@ public class Upgrades implements ActionListener{
                 //Execute when button is pressed
                 System.out.println("You clicked the button");
             }
+        //===========================================================    
+            
+            
     	});
     	//mainPanel.add(title);
     	mainPanel.add(a);

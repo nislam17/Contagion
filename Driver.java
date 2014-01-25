@@ -24,8 +24,6 @@ public class Driver {
 		JButton h = new JButton();
 		JButton i = new JButton();
 		Upgrades u = new Upgrades(b,c,d,e,f,g,h,i);
-		u.buttoner(b);
-		u.buttoner(d);
-		u.buttoner(c);
+		
 	}
 }
