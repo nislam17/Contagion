@@ -40,9 +40,10 @@ public void paint(Graphics g){
 	 g.fillOval(800,305,100,100);//AF
 	 g.fillOval(1100,180,100,100);//ASIA
 	 g.fillOval(1275,435,90,90); //AUS
-	}
+}
 
   
 	 
 } 
+
 

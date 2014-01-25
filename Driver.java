@@ -1,7 +1,6 @@
 
 import javax.swing.*;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,16 +32,7 @@ public class Driver extends JPanel implements ActionListener{
             	Virus virus = new Virus();
                 System.out.println("You clicked the button");
                 GOOEY gui = new GOOEY();
-        		JButton b = new JButton();
-        		JButton c = new JButton();
-        		JButton d = new JButton();
-        		JButton e = new JButton();
-        		JButton f = new JButton();
-        		JButton g = new JButton();
-        		JButton h = new JButton();
-        		JButton i = new JButton();
-        		JButton j = new JButton();
-        		Upgrades u = new Upgrades(b,c,d,e,f,g,h,i, j);
+        		
             }
     	});
 		JButton Senioritis = new JButton("Senioritis");
@@ -86,3 +76,4 @@ public class Driver extends JPanel implements ActionListener{
 		
 	}
 }
+

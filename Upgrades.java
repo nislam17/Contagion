@@ -14,6 +14,7 @@ public class Upgrades implements ActionListener{
 
     	// ================ SETTING ACTION LISTENERS ===============
     	a.setText("Air");
+    	/*
     	a.addActionListener(new ActionListener() {
     		 
             public void actionPerformed(ActionEvent e)
@@ -27,6 +28,7 @@ public class Upgrades implements ActionListener{
 
             }
     	});
+    	*/
     	b.setText("Water");
     	b.addActionListener(new ActionListener() {
     		 

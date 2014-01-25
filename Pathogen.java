@@ -1,6 +1,12 @@
 
-public abstract class Pathogen {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+
+public abstract class Pathogen{
+	
+	
 	
 	protected double _infectivity, _resistivity, _lethality; 
 	
@@ -10,6 +16,133 @@ public abstract class Pathogen {
 	
 	private int _DNApoints; 
 	// DNA points let you evolve. Get them automatically.
+	
+	public Pathogen(){
+		_infectivity = 0; 
+		_resistivity = 0; 
+		_lethality = 0;
+		
+		JButton a = new JButton();
+		JButton b = new JButton();
+		JButton c = new JButton();
+		JButton d = new JButton();
+		JButton e = new JButton();
+		JButton f = new JButton();
+		JButton g = new JButton();
+		JButton h = new JButton();
+		JButton i = new JButton();
+		Upgrades u = new Upgrades(a,b,c,d,e,f,g,h,i);
+		
+		a.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_infectivity);
+            	upgradeTransmission();
+            	System.out.println(_infectivity);
+                System.out.println("You clicked the button");
+                
+
+            }
+    	});
+		b.addActionListener(new ActionListener() {
+   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_infectivity);
+            	upgradeTransmission();
+            	System.out.println(_infectivity);
+                System.out.println("You clicked the button");
+                
+                
+            }
+    	});
+		c.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_infectivity);
+            	upgradeTransmission();
+            	System.out.println(_infectivity);
+                System.out.println("You clicked the button");
+                
+                
+            }
+    	});
+		d.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_lethality);
+            	upgradeSymptoms();
+            	System.out.println(_lethality);
+                System.out.println("You clicked the button");
+                
+                
+            }
+    	});
+		e.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_lethality);
+            	upgradeSymptoms();
+            	System.out.println(_lethality);
+                System.out.println("You clicked the button");
+                
+                
+            }
+    	});
+		f.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_lethality);
+            	upgradeSymptoms();
+            	System.out.println(_lethality);
+                System.out.println("You clicked the button");
+                
+                
+            }
+    	});
+		g.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_lethality);
+            	upgradeSymptoms();
+            	System.out.println(_lethality);
+                System.out.println("You clicked the button");
+                
+                
+            }
+    	});
+		h.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_resistivity);
+            	upgradeResistivity();
+            	System.out.println(_resistivity);
+                System.out.println("You clicked the button");
+                
+                
+            }
+    	});
+		i.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_resistivity);
+            	upgradeResistivity();
+            	System.out.println(_resistivity);
+                System.out.println("You clicked the button");
+                
+                
+            }
+    	});
+		
+	}
 	
 	//===========================ACTIONS================================
 	
@@ -25,7 +158,7 @@ public abstract class Pathogen {
 	
 	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
 	public void infect(Continent c) {
-		if (Math.random() * 100 < _infectivity) { 
+		if (Math.random() < _infectivity) { 
 			if (! c.getInvaded()) { //If it's the first time the continent is being invaded, infect 1 person
 				increaseDNApoints(c.setInfected(1));
 				
@@ -61,7 +194,7 @@ public abstract class Pathogen {
 	 	
 	/* kill works based on lethality and controls how fast the disease wipes out the population*/
 	public void kill(Continent c) {
-		if (Math.random() * 100 < _lethality) {
+		if (Math.random() < _lethality) {
 			if (!c.getInvaded()) {
 				return; // if the country hasn't been infected yet, don't kill anyone
 			}
@@ -92,13 +225,13 @@ public abstract class Pathogen {
 	/* DNA points help upgrade symptoms */
 	public void upgradeSymptoms() {
 		_DNApoints -= 9; 
-		_resistivity += 1; 
+		_lethality += 1; 
 	}
 	
-	/*DNA points help upgrade abilities */
-	public void upgradeAbilities() {
+	/*DNA points help fight the cure */
+	public void upgradeResistivity() {
 		_DNApoints -= 11; 
-		_lethality += .5; 
+		_resistivity += .5; 
 	}
 	
 } //ends class Pathogen
