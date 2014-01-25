@@ -3,8 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Driver {
-	
-	
 
 	public static void main (String[] args) {
 		Continent NorthAmerica = new Continent(528700000, 0.9); 
@@ -23,7 +21,8 @@ public class Driver {
 		JButton g = new JButton();
 		JButton h = new JButton();
 		JButton i = new JButton();
-		Upgrades u = new Upgrades(b,c,d,e,f,g,h,i);
+		JButton j = new JButton();
+		Upgrades u = new Upgrades(b,c,d,e,f,g,h,i, j);
 		
 	}
 }
