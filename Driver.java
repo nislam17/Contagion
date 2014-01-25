@@ -5,72 +5,18 @@ import java.awt.event.ActionListener;
 
 public class Driver extends JPanel implements ActionListener{
         
-		static Pathogen pathogen;
-        public static void main (String[] args) {
-        	final JFrame f1 = new JFrame("Choose Your Pathogen");
-                
-                JPanel chooser = new JPanel(); // choose pathogen
-                //chooser.setSize(new Dimension(500,500));
-                JButton Bacteria = new JButton("Bacteria");
-                Bacteria.addActionListener(new ActionListener() {
-                    
-            public void actionPerformed(ActionEvent cr)
-            {
-                //Execute when button is pressed
-                    pathogen = new Bacteria(); 
-                System.out.println("You clicked the button");
-                GOOEY gui = new GOOEY();
-                f1.dispose();
-                        
-            }
-            });
-                JButton Virus = new JButton("Virus");
-                Virus.addActionListener(new ActionListener() {
-                    
-            public void actionPerformed(ActionEvent cr)
-            {
-                //Execute when button is pressed
-                    pathogen = new Virus();
-                System.out.println("You clicked the button");
-                GOOEY gui = new GOOEY();
-                f1.dispose();
-                        
-            }
-            });
-                JButton Senioritis = new JButton("Senioritis");
-                Senioritis.addActionListener(new ActionListener() {
-                    
-            public void actionPerformed(ActionEvent cr)
-            {
-                //Execute when button is pressed
-                    pathogen = new Senioritis();
-                System.out.println("You clicked the button");
-                GOOEY gui = new GOOEY();
-                f1.dispose();
-                
-            }
-            });
-                chooser.add(Bacteria);
-                chooser.add(Virus);
-                chooser.add(Senioritis);
-                
-                f1.setLocation(500, 500);
-		        f1.setContentPane(chooser);
-		        f1.pack();
-		        f1.setVisible(true);
-       
-        
-                
-        final Continent NorthAmerica = new Continent(528700000, 0.9, "NA"); 
-        final Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
-        Continent Europe = new Continent(739200000, 0.4, "EU"); 
-        Continent Africa = new Continent(1033000000,0.1, "AF"); 
-        Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
-        Continent Australia = new Continent(22680000,0.8, "AUS"); 
-        	final JFrame f2 = new JFrame("Choose Your Continent");   
-            JPanel ConChooser = new JPanel(); //choose continent
-                
-            JButton NA = new JButton("North America");
+	final static Continent NorthAmerica = new Continent(528700000, 0.9, "NA"); 
+    final static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
+    final static Continent Europe = new Continent(739200000, 0.4, "EU"); 
+    final static Continent Africa = new Continent(1033000000,0.1, "AF"); 
+    final static Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
+    final static Continent Australia = new Continent(22680000,0.8, "AUS"); 
+	static Pathogen pathogen;
+		
+		public static void Continental(){
+			final JPanel ConChooser = new JPanel(); //choose continent
+			final JFrame f2 = new JFrame("Choose your Continent");
+			JButton NA = new JButton("North America");
             NA.addActionListener(new ActionListener() {
                     
             public void actionPerformed(ActionEvent cr)
@@ -89,6 +35,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     pathogen.transmit(SouthAmerica);
+                    System.out.println(SouthAmerica.getInvaded());
                     f2.dispose();    
             }
             });
@@ -98,8 +45,8 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                //Execute when button is pressed
-                    System.out.println("successful!");
+            	pathogen.transmit(Europe);
+                System.out.println(Europe.getInvaded());
                     f2.dispose(); 
             }
             });
@@ -109,8 +56,8 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                //Execute when button is pressed
-                    System.out.println("successful!");
+            	pathogen.transmit(Africa);
+                System.out.println(Africa.getInvaded());
                     f2.dispose();
             }
             });
@@ -120,8 +67,8 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                //Execute when button is pressed
-                    System.out.println("successful!");
+            	pathogen.transmit(Asia);
+                System.out.println(Asia.getInvaded());
                     f2.dispose();
             }
             });
@@ -131,8 +78,8 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                //Execute when button is pressed
-                    System.out.println("successful!");
+            	pathogen.transmit(Australia);
+                System.out.println(Australia.getInvaded());
                     f2.dispose();
             }
             });
@@ -144,15 +91,68 @@ public class Driver extends JPanel implements ActionListener{
                 ConChooser.add(AS);
                 ConChooser.add(AU);
                 
-                
                 f2.setLocation(500, 500);
-        //f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        
-        f2.setContentPane(ConChooser);
-        f2.pack();
-        f2.setVisible(true);
+                f2.setContentPane(ConChooser);
+                f2.pack();
+                f2.setVisible(true);  
+		}
+		
+        public static void main (String[] args) {
+
+        	final JFrame f1 = new JFrame("Choose Your Pathogen");
+
                 
-        
+                JPanel chooser = new JPanel(); // choose pathogen
+                //chooser.setSize(new Dimension(500,500));
+                JButton Bacteria = new JButton("Bacteria");
+                Bacteria.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
+            {
+                //Execute when button is pressed
+                    pathogen = new Bacteria(); 
+                System.out.println("You clicked the button");
+                GOOEY gui = new GOOEY();
+                f1.dispose();
+                Continental();
+                 
+            }
+            });
+                JButton Virus = new JButton("Virus");
+                Virus.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
+            {
+                //Execute when button is pressed
+                    pathogen = new Virus();
+                System.out.println("You clicked the button");
+                GOOEY gui = new GOOEY();
+                f1.dispose();
+                Continental();     
+            }
+            });
+                JButton Senioritis = new JButton("Senioritis");
+                Senioritis.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
+            {
+                //Execute when button is pressed
+                    pathogen = new Senioritis();
+                System.out.println("You clicked the button");
+                GOOEY gui = new GOOEY();
+                f1.dispose();
+                Continental(); 
+            }
+            });
+                chooser.add(Bacteria);
+                chooser.add(Virus);
+                chooser.add(Senioritis);
+                
+                f1.setLocation(500, 500);
+		        f1.setContentPane(chooser);
+		        f1.pack();
+		        f1.setVisible(true);
+		       
         }
 
         @Override
