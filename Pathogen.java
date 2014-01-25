@@ -1,4 +1,3 @@
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,14 +21,14 @@ public abstract class Pathogen{
 		_resistivity = 0; 
 		_lethality = 0;
 		
-		JButton a = new JButton();
-		JButton b = new JButton();
-		JButton c = new JButton();
-		JButton d = new JButton();
-		JButton e = new JButton();
-		JButton f = new JButton();
-		JButton g = new JButton();
-		JButton h = new JButton();
+		JButton a = new JButton(); //air
+		JButton b = new JButton(); //water
+		JButton c = new JButton(); //livestock
+		JButton d = new JButton(); //insomnia
+		JButton e = new JButton(); //paranoia
+		JButton f = new JButton(); //coma
+		JButton g = new JButton(); //genetic reshuffle 
+		JButton h = new JButton(); //drug resistance 
 		JButton i = new JButton();
 		Upgrades u = new Upgrades(a,b,c,d,e,f,g,h,i);
 		
@@ -38,7 +37,7 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_infectivity);
-            	upgradeTransmission();
+            	upgradeTransmissionAir();
             	System.out.println(_infectivity);
                 System.out.println("You clicked the button");
                 
@@ -50,7 +49,7 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_infectivity);
-            	upgradeTransmission();
+            	upgradeTransmissionWater();
             	System.out.println(_infectivity);
                 System.out.println("You clicked the button");
                 
@@ -62,7 +61,7 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_infectivity);
-            	upgradeTransmission();
+            	upgradeTransmissionLivestock();
             	System.out.println(_infectivity);
                 System.out.println("You clicked the button");
                 
@@ -74,7 +73,7 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_lethality);
-            	upgradeSymptoms();
+            	upgradeSymptomsInsomnia();
             	System.out.println(_lethality);
                 System.out.println("You clicked the button");
                 
@@ -86,7 +85,7 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_lethality);
-            	upgradeSymptoms();
+            	upgradeSymptomsParanoia();
             	System.out.println(_lethality);
                 System.out.println("You clicked the button");
                 
@@ -98,7 +97,7 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_lethality);
-            	upgradeSymptoms();
+            	upgradeSymptomsComa();
             	System.out.println(_lethality);
                 System.out.println("You clicked the button");
                 
@@ -110,7 +109,7 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_lethality);
-            	upgradeSymptoms();
+            	upgradeResistivityGenetic();
             	System.out.println(_lethality);
                 System.out.println("You clicked the button");
                 
@@ -122,14 +121,14 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_resistivity);
-            	upgradeResistivity();
+            	upgradeResistivityDrug();
             	System.out.println(_resistivity);
                 System.out.println("You clicked the button");
                 
                 
             }
     	});
-		i.addActionListener(new ActionListener() {
+		/*i.addActionListener(new ActionListener() {
 	   		 
             public void actionPerformed(ActionEvent e)
             {
@@ -140,9 +139,9 @@ public abstract class Pathogen{
                 
                 
             }
-    	});
+    	} )*/;
 		
-	}
+	} 
 	
 	//===========================ACTIONS================================
 	
@@ -215,23 +214,50 @@ public abstract class Pathogen{
 	}
 	
 	
-	//=====================UPGRADES====================== ummm gonna need help with this part 
+	//=====================UPGRADES====================== 
 	/*DNA points help upgrade Transmission */
-	public void upgradeTransmission() {
+	public void upgradeTransmissionAir() {
+		_DNApoints -= 12; 
+		_infectivity += 3; 
+	} // upgrades infectivity
+	
+	public void upgradeTransmissionWater() {
+		_DNApoints -= 10; 
+		_infectivity += 2; 
+	} // upgrades infectivity
+	
+	public void upgradeTransmissionLivestock() {
 		_DNApoints -= 9; 
 		_infectivity += 1; 
 	} // upgrades infectivity
 	
 	/* DNA points help upgrade symptoms */
-	public void upgradeSymptoms() {
-		_DNApoints -= 9; 
+	public void upgradeSymptomsInsomnia() {
+		_DNApoints -= 8; 
 		_lethality += 1; 
 	}
 	
-	/*DNA points help fight the cure */
-	public void upgradeResistivity() {
-		_DNApoints -= 11; 
-		_resistivity += .5; 
+	/* DNA points help upgrade symptoms */
+	public void upgradeSymptomsParanoia() {
+		_DNApoints -= 9; 
+		_lethality += 2; 
 	}
 	
+	/* DNA points help upgrade symptoms */
+	public void upgradeSymptomsComa() {
+		_DNApoints -= 12; 
+		_lethality += 3; 
+	}
+	
+	/*DNA points help fight the cure */
+	public void upgradeResistivityGenetic() {
+		_DNApoints -= 11; 
+		_resistivity += 1; 
+	}
+	
+	/*DNA points help fight the cure */
+	public void upgradeResistivityDrug() {
+		_DNApoints -= 12; 
+		_resistivity += 2; 
+	}
 } //ends class Pathogen
