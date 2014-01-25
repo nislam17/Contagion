@@ -9,7 +9,7 @@ public class Driver extends JPanel implements ActionListener{
 	
 	public static void main (String[] args) {
 		
-				
+		
 		JPanel chooser = new JPanel();
 		//chooser.setSize(new Dimension(500,500));
 		JButton Bacteria = new JButton("Bacteria");
@@ -18,19 +18,10 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-            	//Bacteria();
+            	Bacteria bac = new Bacteria();
                 System.out.println("You clicked the button");
                 GOOEY gui = new GOOEY();
-        		JButton b = new JButton();
-        		JButton c = new JButton();
-        		JButton d = new JButton();
-        		JButton e = new JButton();
-        		JButton f = new JButton();
-        		JButton g = new JButton();
-        		JButton h = new JButton();
-        		JButton i = new JButton();
-        		JButton j = new JButton();
-        		Upgrades u = new Upgrades(b,c,d,e,f,g,h,i, j);
+        		
             }
     	});
 		JButton Virus = new JButton("Virus");
@@ -39,7 +30,7 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-            	//Virus();
+            	Virus virus = new Virus();
                 System.out.println("You clicked the button");
                 GOOEY gui = new GOOEY();
         		JButton b = new JButton();
@@ -60,19 +51,10 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-            	//Senioritis();
+            	Senioritis senior = new Senioritis();
                 System.out.println("You clicked the button");
                 GOOEY gui = new GOOEY();
-        		JButton b = new JButton();
-        		JButton c = new JButton();
-        		JButton d = new JButton();
-        		JButton e = new JButton();
-        		JButton f = new JButton();
-        		JButton g = new JButton();
-        		JButton h = new JButton();
-        		JButton i = new JButton();
-        		JButton j = new JButton();
-        		Upgrades u = new Upgrades(b,c,d,e,f,g,h,i, j);
+        	
             }
     	});
 		chooser.add(Bacteria);

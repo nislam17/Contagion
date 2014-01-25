@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
  
-public class Upgrades extends Pathogen implements ActionListener{
+public class Upgrades implements ActionListener{
 	
     public Upgrades(JButton a, JButton b, JButton c, 
     		JButton d, JButton e, JButton f, JButton g, JButton h, JButton i) {
@@ -19,9 +19,9 @@ public class Upgrades extends Pathogen implements ActionListener{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-            	System.out.println(_infectivity);
-            	upgradeTransmission();
-            	System.out.println(_infectivity);
+            	//System.out.println(_infectivity);
+            	//Bacteria.upgradeTransmission();
+            	//System.out.println(_infectivity);
                 System.out.println("You clicked the button");
                 
 
@@ -180,4 +180,5 @@ public class Upgrades extends Pathogen implements ActionListener{
 		// TODO Auto-generated method stub
 	}
 }
+
 

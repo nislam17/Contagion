@@ -1,4 +1,6 @@
-public abstract class Pathogen {
+import test.Continent;
+
+public abstract class Pathogen{
 	
 	protected double _infectivity, _resistivity, _lethality; 
 	
