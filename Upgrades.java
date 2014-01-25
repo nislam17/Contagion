@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,94 +12,14 @@ public class Upgrades implements ActionListener{
 
     	// ================ SETTING ACTION LISTENERS ===============
     	a.setText("Air");
-    	/*
-    	a.addActionListener(new ActionListener() {
-    		 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-            	//System.out.println(_infectivity);
-            	//Bacteria.upgradeTransmission();
-            	//System.out.println(_infectivity);
-                System.out.println("You clicked the button");
-                
-
-            }
-    	});
-    	*/
     	b.setText("Water");
-    	b.addActionListener(new ActionListener() {
-    		 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-                
-            }
-    	});
     	c.setText("Livestock");
-    	c.addActionListener(new ActionListener() {
-    		 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-            }
-    	});
     	d.setText("Insomnia");
-    	d.addActionListener(new ActionListener() {
-    		 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-            }
-    	});
     	e.setText("Paranoia");
-    	e.addActionListener(new ActionListener() {
-    		 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-            }
-    	});
     	f.setText("Paralysis");
-    	f.addActionListener(new ActionListener() {
-    		 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-            }
-    	});
     	g.setText("Coma");
-    	g.addActionListener(new ActionListener() {
-    		 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-            }
-    	});
     	h.setText("Genetic Reshuffle");
-    	h.addActionListener(new ActionListener() {
-    		 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-            }
-    	});
     	i.setText("Drug Resistance");
-    	i.addActionListener(new ActionListener() {
-    		 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-            }
-    	});
         //===========================================================       
     	//JPanel mainPanel = new JPanel();
     	//mainPanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 300, 100)); 
@@ -125,10 +43,10 @@ public class Upgrades implements ActionListener{
     	panel2.setPreferredSize(new Dimension(400, 200));
     	panel2.add(d);
     	panel2.add(e);
+    	panel2.add(f);
     	panel2.add(g);
-    	panel2.add(h);
 
-    	JComponent panel3 = makeTextPanel("Panel #3");
+    	JComponent panel3 = makeTextPanel("Abilities");
     	tabbedPane.addTab("Fight the Cure", null, panel3,
     	                  "To primarily decrease the cure");
     	tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
@@ -182,5 +100,3 @@ public class Upgrades implements ActionListener{
 		// TODO Auto-generated method stub
 	}
 }
-
-
