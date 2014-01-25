@@ -1,20 +1,38 @@
-
 import javax.swing.*;
 
 import java.awt.*;
 
   
 public class GOOEY extends JFrame{  
-
+	JProgressBar InfectedBar;
+	JProgressBar Bar;
+	JProgressBar progressBar;
 	public GOOEY()  
 	{ 
-	setTitle( "Contagion" );
-    setSize( 1500, 750 );
-    setLocation( 100, 100 );
-    JLabel background=new JLabel(new ImageIcon("mapfinale.jpg"));
-    add(background);	 
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-    setVisible(true);  
+		Panel p = new Panel();
+		p.setLayout(new BorderLayout());
+		progressBar = new JProgressBar(0,100);
+		progressBar.setValue(0);
+		progressBar.setStringPainted(true);
+		progressBar.setMaximum(100);
+		p.setLayout(new BorderLayout());
+		progressBar = new JProgressBar(0,100);
+		progressBar.setValue(0);
+		progressBar.setStringPainted(true);
+		progressBar.setMaximum(100);
+		setTitle( "Contagion" );
+	    setSize( 1500, 750 );
+	    setLocation( 100, 100 );
+	    JLabel background=new JLabel(new ImageIcon("mapfinale.jpg"));
+	    p.add(background, BorderLayout.CENTER);	 
+	    
+	    Panel bottom = new Panel();
+	    bottom.add(progressBar);
+	    p.add(bottom, BorderLayout.SOUTH);
+	    add(p);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+	    setVisible(true);
+	    
 	}  
   
 	public void paint(Graphics g){  
@@ -31,7 +49,7 @@ public class GOOEY extends JFrame{
 		  
 		 //set color to CYAN
 		 //So after this, if you draw anything, all of it's result will be RED  
-		 g.setColor(Color.decode("#80FFFFFF"));  
+		 g.setColor(Color.WHITE);  
 		  
 		 //fill circle with RED  
 		 
@@ -42,15 +60,7 @@ public class GOOEY extends JFrame{
 		 g.fillOval(1100,180,100,100);//ASIA
 		 g.fillOval(1275,435,90,90); //AUS
 	}
-	
-	public void repaint(Graphics g, Continent c){
-		
-		super.paint(g);
-		if (c.get_nickname().equals("NA")){
-			g.setColor(Color.RED);
-			g.fillOval(290,155,100,100);
-			
-		}
-	}
 
   
+	 
+} 
