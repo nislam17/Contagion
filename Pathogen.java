@@ -156,19 +156,13 @@ public class Pathogen{
 	
 	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
 	public void infect(Continent c) {
-		if (! c.getInvaded()) { //If it's the first time the continent is being invaded, infect 1 person
-			return; 
+		if (c.getInvaded()); //If the continent has not been invaded yet, don't infect anyone
+		else if (c.getPopulation() == c.getInfected()); // if the entire continent has been infected, stop infecting
+		else if (Math.random() < _infectivity) { 
 			
-		}
-		if (Math.random() < _infectivity) { 
-			if (c.getPopulation() == c.getInfected()) {
-				return; // if the entire continent has been infected, stop infecting
-			}
-			else {
 				int points = c.getOldInfected() + c.getInfected();
 				increaseDNApoints(points);
 				c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
-			}
 			
 			
 		}
