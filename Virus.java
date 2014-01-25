@@ -1,8 +1,5 @@
 import javax.swing.JButton;
 
-import test.Pathogen;
-import test.Upgrades;
-
 public class Virus extends Pathogen {
 	
 	public Virus () {
