@@ -11,7 +11,7 @@ public class Upgrades extends JPanel implements ActionListener{
 	
     public Upgrades(JButton a, JButton b, JButton c, 
     		JButton d, JButton e, JButton f, JButton g, JButton h, JButton i) {
-    	super(new GridLayout(100,100));
+    	//super(new GridLayout(100,100));
 
     	// ================ SETTING ACTION LISTENERS ===============
     	a.setText("Air");
@@ -21,6 +21,8 @@ public class Upgrades extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                 System.out.println("You clicked the button");
+                
+
             }
     	});
     	b.setText("Water");
@@ -30,6 +32,7 @@ public class Upgrades extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                 System.out.println("You clicked the button");
+                
             }
     	});
     	c.setText("Livestock");
