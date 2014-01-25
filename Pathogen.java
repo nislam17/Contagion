@@ -1,5 +1,6 @@
 
-public abstract class Pathogen{
+public abstract class Pathogen {
+
 	
 	protected double _infectivity, _resistivity, _lethality; 
 	
@@ -24,7 +25,7 @@ public abstract class Pathogen{
 	
 	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
 	public void infect(Continent c) {
-		if (Math.random() < _infectivity) { 
+		if (Math.random() * 100 < _infectivity) { 
 			if (! c.getInvaded()) { //If it's the first time the continent is being invaded, infect 1 person
 				increaseDNApoints(c.setInfected(1));
 				
@@ -60,7 +61,7 @@ public abstract class Pathogen{
 	 	
 	/* kill works based on lethality and controls how fast the disease wipes out the population*/
 	public void kill(Continent c) {
-		if (Math.random() < _lethality) {
+		if (Math.random() * 100 < _lethality) {
 			if (!c.getInvaded()) {
 				return; // if the country hasn't been infected yet, don't kill anyone
 			}
