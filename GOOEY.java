@@ -10,14 +10,8 @@ public class GOOEY extends JFrame{
 	setTitle( "Contagion" );
     setSize( 1500, 750 );
     setLocation( 100, 100 );
-    
-  
-    
     JLabel background=new JLabel(new ImageIcon("mapfinale.jpg"));
-    add(background);
-   
-
-  	 
+    add(background);	 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
     setVisible(true);  
 }  
