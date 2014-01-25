@@ -1,4 +1,3 @@
-import test.Continent;
 
 public abstract class Pathogen{
 	
