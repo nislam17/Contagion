@@ -1,13 +1,17 @@
 import javax.swing.*;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.net.*;
  
-public class Upgrades {
+public class Upgrades implements ActionListener{
 	
-	
+	//JButton x = new JButton();
 
     public Upgrades(JButton a, JButton b, JButton c, 
-    		JButton d, JButton e, JButton f, JButton g, JButton h) {
+    		JButton d, JButton e, JButton f, JButton g, JButton h, JButton i) {
     	JPanel p = new JPanel();
     	
     	p.add(a);
@@ -27,6 +31,7 @@ public class Upgrades {
         f1.setContentPane(p);
         f1.pack();
         f1.setVisible(true);
+        
         buttoner(a);
         buttoner(b);
         buttoner(c);
@@ -37,21 +42,36 @@ public class Upgrades {
         buttoner(h);
     }
     
-    public void buttoner(JButton b){
-    	ImageIcon red = new ImageIcon("red.png");
-    	ImageIcon gray = new ImageIcon("gray.png");
+   
     
-        
-        b.setIcon(red);
-        b.setRolloverIcon(gray);
-        
-        
-        b.setHorizontalTextPosition(JButton.CENTER);
-        b.setRolloverEnabled(true);
-        b.setFocusPainted(false);
-        b.setBorderPainted(false);
-        b.setContentAreaFilled(false);
-    }
     
+
+	 public void buttoner(JButton b){
+		 	
+	    	ImageIcon red = new ImageIcon("red.png");
+	    	ImageIcon gray = new ImageIcon("gray.png");
+	    
+	        
+	        b.setIcon(red);
+	        
+	        
+	        
+	        b.setHorizontalTextPosition(JButton.CENTER);
+	       // b.setRolloverEnabled(true);
+	        b.setFocusPainted(false);
+	        b.setBorderPainted(false);
+	        b.setContentAreaFilled(false);
+	    }
+
+
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
