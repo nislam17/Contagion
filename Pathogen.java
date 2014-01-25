@@ -216,52 +216,79 @@ public class Pathogen{
 	//=====================UPGRADES====================== 
 	/*DNA points help upgrade Transmission */
 	public void upgradeTransmissionAir() {
+		if (_DNApoints < 12) {
+			return; 
+		}
 		_DNApoints -= 12; 
 		_infectivity += 3; 
 	} // upgrades infectivity
 	
 	public void upgradeTransmissionWater() {
+		if (_DNApoints < 10) {
+			return; 
+		}
 		_DNApoints -= 10; 
 		_infectivity += 2; 
 	} // upgrades infectivity
 	
 	public void upgradeTransmissionLivestock() {
+		if (_DNApoints < 9) {
+			return; 
+		}
 		_DNApoints -= 9; 
 		_infectivity += 1; 
 	} // upgrades infectivity
 	
 	/* DNA points help upgrade symptoms */
 	public void upgradeSymptomsInsomnia() {
+		if (_DNApoints < 8) {
+			return; 
+		}
 		_DNApoints -= 8; 
 		_lethality += 1; 
 	}
 	
 	/* DNA points help upgrade symptoms */
 	public void upgradeSymptomsParanoia() {
+		if (_DNApoints < 9) {
+			return; 
+		}
 		_DNApoints -= 9; 
 		_lethality += 2; 
 	}
 	
 	/* DNA points help upgrade symptoms */
 	public void upgradeSymptomsParalysis() {
+		if (_DNApoints < 12) {
+			return; 
+		}
 		_DNApoints -= 12; 
 		_lethality += 3; 
 	}
 	
 	/* DNA points help upgrade symptoms */
 	public void upgradeSymptomsComa() {
+		if (_DNApoints < 12) {
+			return; 
+		}
 		_DNApoints -= 12; 
 		_lethality += 3; 
 	}
 	
 	/*DNA points help fight the cure */
 	public void upgradeResistivityGenetic() {
+		if (_DNApoints < 11) {
+			return; 
+		}
 		_DNApoints -= 11; 
 		_resistivity += 1; 
 	}
 	
 	/*DNA points help fight the cure */
 	public void upgradeResistivityDrug() {
+		if (_DNApoints < 12) {
+			return; 
+		}
 		_DNApoints -= 12; 
 		_resistivity += 2; 
 	}
