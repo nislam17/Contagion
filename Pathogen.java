@@ -1,3 +1,4 @@
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -5,8 +6,7 @@ import javax.swing.JButton;
 
 public abstract class Pathogen{
 	
-	
-	
+
 	protected double _infectivity, _resistivity, _lethality; 
 	
 	//infectivity - how quickly the disease will spread! Controls how fast the disease spreads both inside and between countries. 
@@ -97,7 +97,7 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_lethality);
-            	upgradeSymptomsComa();
+            	upgradeSymptomsParalysis();
             	System.out.println(_lethality);
                 System.out.println("You clicked the button");
                 
@@ -109,7 +109,7 @@ public abstract class Pathogen{
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(_lethality);
-            	upgradeResistivityGenetic();
+            	upgradeSymptomsComa();
             	System.out.println(_lethality);
                 System.out.println("You clicked the button");
                 
@@ -117,6 +117,18 @@ public abstract class Pathogen{
             }
     	});
 		h.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(_lethality);
+            	upgradeResistivityGenetic();
+            	System.out.println(_lethality);
+                System.out.println("You clicked the button");
+                
+                
+            }
+    	});
+		i.addActionListener(new ActionListener() {
 	   		 
             public void actionPerformed(ActionEvent e)
             {
@@ -128,18 +140,7 @@ public abstract class Pathogen{
                 
             }
     	});
-		/*i.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	System.out.println(_resistivity);
-            	upgradeResistivity();
-            	System.out.println(_resistivity);
-                System.out.println("You clicked the button");
-                
-                
-            }
-    	} )*/;
+		
 		
 	} 
 	
@@ -244,6 +245,12 @@ public abstract class Pathogen{
 	}
 	
 	/* DNA points help upgrade symptoms */
+	public void upgradeSymptomsParalysis() {
+		_DNApoints -= 12; 
+		_lethality += 3; 
+	}
+	
+	/* DNA points help upgrade symptoms */
 	public void upgradeSymptomsComa() {
 		_DNApoints -= 12; 
 		_lethality += 3; 
@@ -261,3 +268,4 @@ public abstract class Pathogen{
 		_resistivity += 2; 
 	}
 } //ends class Pathogen
+
