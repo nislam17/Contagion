@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -7,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
  
-public class Upgrades extends JPanel implements ActionListener{
+public class Upgrades extends Pathogen implements ActionListener{
 	
     public Upgrades(JButton a, JButton b, JButton c, 
     		JButton d, JButton e, JButton f, JButton g, JButton h, JButton i) {
@@ -20,6 +19,9 @@ public class Upgrades extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
+            	System.out.println(_infectivity);
+            	upgradeTransmission();
+            	System.out.println(_infectivity);
                 System.out.println("You clicked the button");
                 
 
@@ -104,22 +106,21 @@ public class Upgrades extends JPanel implements ActionListener{
     	JTabbedPane tabbedPane = new JTabbedPane();
     	
 
-    	JComponent panel1 = makeTextPanel("Panel #1");
+    	JComponent panel1 = makeTextPanel("Transmission Upgrades");
     	tabbedPane.addTab("Transmission", null, panel1,
-    	                  "Does nothing");
+    	                  "To primarily increase Infectivity");
     	//tabbedPane.setTabPlacement(JTabbedPane.CENTER);
     	tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-    	panel1.setPreferredSize(new Dimension(410, 100));
+    	panel1.setPreferredSize(new Dimension(400, 200));
     	panel1.add(a);
     	panel1.add(b);
     	panel1.add(c);
     	
-    	
-    	JComponent panel2 = makeTextPanel("Panel #2");
+    	JComponent panel2 = makeTextPanel("Symptoms");
     	tabbedPane.addTab("Symptoms", null, panel2,
-    	                  "Does twice as much nothing");
+    	                  "To primarily increase severity");
     	tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-    	panel2.setPreferredSize(new Dimension(410, 100));
+    	panel2.setPreferredSize(new Dimension(400, 200));
     	panel2.add(d);
     	panel2.add(e);
     	panel2.add(g);
@@ -127,29 +128,17 @@ public class Upgrades extends JPanel implements ActionListener{
 
     	JComponent panel3 = makeTextPanel("Panel #3");
     	tabbedPane.addTab("Fight the Cure", null, panel3,
-    	                  "Still does nothing");
+    	                  "To primarily decrease the cure");
     	tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
+    	panel3.setPreferredSize(new Dimension(400, 200));
     	panel3.add(h);
     	panel3.add(i);
-    	
-    	
-    	add(tabbedPane);
-    	
-    	/*
-    	mainPanel.add(a);
-    	mainPanel.add(b);
-    	mainPanel.add(c);
-    	mainPanel.add(d);
-    	mainPanel.add(e);
-    	mainPanel.add(f);
-    	mainPanel.add(g);
-    	mainPanel.add(h);
-    	mainPanel.add(i);
-    	*/
+
+    	//add(tabbedPane);
     	
         JFrame f1 = new JFrame("Upgrades");
         f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-       
+        
         f1.setContentPane(tabbedPane);
         f1.pack();
         f1.setVisible(true);
@@ -191,5 +180,4 @@ public class Upgrades extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 	}
 }
-
 
