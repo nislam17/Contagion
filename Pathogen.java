@@ -24,10 +24,10 @@ public class Pathogen{
 		JButton c = new JButton(); //livestock
 		JButton d = new JButton(); //insomnia
 		JButton e = new JButton(); //paranoia
-		JButton f = new JButton(); //coma
-		JButton g = new JButton(); //genetic reshuffle 
-		JButton h = new JButton(); //drug resistance 
-		JButton i = new JButton();
+		JButton f = new JButton(); //paralysis
+		JButton g = new JButton(); //coma 
+		JButton h = new JButton(); //genetic reshuffle
+		JButton i = new JButton(); //drug resistance
 		Upgrades u = new Upgrades(a,b,c,d,e,f,g,h,i);
 		
 		a.addActionListener(new ActionListener() {
