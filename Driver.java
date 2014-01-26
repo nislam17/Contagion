@@ -1,24 +1,60 @@
-
+package project;
 import javax.swing.*;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
-public class Driver extends JPanel implements ActionListener{
+public class Driver extends JFrame implements ActionListener{
         
+	// ===================== VARIABLES ====================================
         private static boolean winner, _submit; 
         private static String game = "continue";
         
-        final static Continent NorthAmerica = new Continent(528700000, 0.9, "NA"); 
-    final static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
-    final static Continent Europe = new Continent(739200000, 0.4, "EU"); 
-    final static Continent Africa = new Continent(1033000000,0.1, "AF"); 
-    final static Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
-    final static Continent Australia = new Continent(22680000,0.8, "AUS"); 
-    
-    static Continent [] ContinentArray = {NorthAmerica, SouthAmerica, Europe, Africa, Asia, Australia};
+	    final static Continent NorthAmerica = new Continent(528700000, 0.9, "NA"); 
+	    final static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
+	    final static Continent Europe = new Continent(739200000, 0.4, "EU"); 
+	    final static Continent Africa = new Continent(1033000000,0.1, "AF"); 
+	    final static Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
+	    final static Continent Australia = new Continent(22680000,0.8, "AUS"); 
+	    private static final Map<Integer, String> reds;
+		static {
+			reds = new HashMap<Integer, String>();
+			reds.put(1, "#FFFAFA");
+			reds.put(2, "#F4C2C2");
+			reds.put(3, "#FF6961");
+			reds.put(4, "#FF5C5C");
+			reds.put(5, "#FF1C00");
+			reds.put(6, "#CD5C5C");
+			reds.put(7, "#E34234");
+			reds.put(8, "#D73B3E");
+			reds.put(9, "#CE1620");
+			reds.put(10, "#CC0000");
+			reds.put(11, "#B22222");
+			reds.put(12, "#B31B1B");
+			reds.put(13, "#A40000");
+			reds.put(14, "#800000");
+			reds.put(15, "#701C1C");
+			reds.put(16, "#3C1414");
+			reds.put(17, "#321414");
+			
+		}
+	    
+	    static Continent [] ContinentArray = {NorthAmerica, SouthAmerica, 
+	    	Europe, Africa, Asia, Australia};
     
         static Pathogen pathogen;
+    
+     // =====================================================================    
+        
         
         //game play 
     public static void gamePlay() {
@@ -62,52 +98,42 @@ public class Driver extends JPanel implements ActionListener{
                                 return;
                         }
                 }
-       
-        
-        
     }
     
     	public static void Submitter() {
     		final JPanel stats = new JPanel(); 
             final JFrame f3 = new JFrame("STATS!");
-                                 gamePlay();
-                                if (game.equals("stop")) {
-	                                if (winner) {
-	                                    System.out.println("CONGRATS YOU WON!");
-	                            }
-	                                else {
-	                                    System.out.println("Good luck next time buddy. You lost.");
-	                                }
-                                }
-	                            else {
-	                          
-	                            }
-                                
-                                
-                        
-                       
-            			JTextArea attributes = new JTextArea(" DNApoints: "
-                        + pathogen.getDNApoints()
-                        + "\nInfectivity: "
-                        + pathogen.getInfectivity()
-                        +"\nResistivity: "
-                        + pathogen.getResistivity()
-                        +"\nLethality: "
-                        + pathogen.getLethality()); 
-                        stats.add(attributes);
-                       
-                        
-                        
-                        
-                        f3.setLocation(100, 300);
-                        f3.setContentPane(stats);
-                        f3.pack();
-                        f3.setVisible(true);
+            gamePlay();
+            if (game.equals("stop")) {
+                if (winner) {
+                    System.out.println("CONGRATS YOU WON!");
+            }
+                else {
+                    System.out.println("Good luck next time buddy. You lost.");
+                }
+            }
+            else {
+          
+            }
+
+			JTextArea attributes = new JTextArea(" DNApoints: "
+	        + pathogen.getDNApoints()
+	        + "\nInfectivity: "
+	        + pathogen.getInfectivity()
+	        +"\nResistivity: "
+	        + pathogen.getResistivity()
+	        +"\nLethality: "
+	        + pathogen.getLethality()); 
+	        stats.add(attributes);
+	        f3.setLocation(100, 300);
+	        f3.setContentPane(stats);
+	        f3.pack();
+	        f3.setVisible(true);
     	}
 
                 
-                public static void Continental(){
-                        final JPanel ConChooser = new JPanel(); //choose continent
+            public static void Continental(){
+                		final JPanel ConChooser = new JPanel(); //choose continent
                         final JFrame f2 = new JFrame("Choose your Continent");
                         JButton NA = new JButton("North America");
             NA.addActionListener(new ActionListener() {
@@ -116,6 +142,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     pathogen.transmit(NorthAmerica);
+                    
                     f2.dispose();
                     
             }
@@ -161,6 +188,7 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                     pathogen.transmit(Asia);
+                    
                     f2.dispose();
                     
             }
@@ -188,10 +216,84 @@ public class Driver extends JPanel implements ActionListener{
                 f2.setContentPane(ConChooser);
                 f2.pack();
                 f2.setVisible(true);  
-                }
+            }
+            
+            public static void setColor (Graphics g){
+            	
+            	Random generator1 = new Random();
+                int randomColor1 = generator1.nextInt(17);
+                String RGB = reds.get(randomColor1);
+            	g.setColor(Color.decode(RGB));
+            	System.out.println(Color.decode(RGB));
+            }
+            
+            public static void fillOvalNA(Graphics g){
+            	setColor(g);
+            	g.fillOval(290, 155, 100, 100);
+            	
+            }
+            public static void fillOvalSA(Graphics g){
+            	setColor(g);
+            	g.fillOval(470,390,100,100);
+            	
+            }
+            public static void fillOvalEU(Graphics g){
+            	setColor(g);
+            	g.fillOval(900,100,90,90);
+            	
+            }
+            public static void fillOvalAF(Graphics g){
+            	setColor(g);
+            	g.fillOval(800,305,100,100);
+            	
+            }
+            
+            public static void fillOvalASIA(Graphics g){
+            	setColor(g);
+            	g.fillOval(1100,180,100,100);
+            	
+            }
+            public static void fillOvalAUS(Graphics g){
+            	setColor(g);
+            	g.fillOval(1275,435,90,90);
+            	
+            }
                 
         public static void main (String[] args) {
-
+        	
+        	final JFrame map = new JFrame("Contagion");
+        	final JLabel background=new JLabel();
+        	ImageIcon ic = new ImageIcon("mapfinale.jpg");
+        	final Image infoBg = ic.getImage();
+        	
+        	map.setContentPane(new JPanel() {
+        		
+                public void paintComponent(Graphics g){
+                	setOpaque(false);
+                	g.drawImage(infoBg, 0, 0, this);
+                	
+                    super.paintComponent(g);
+                    Graphics2D g2d = (Graphics2D) g;
+                                 
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g.drawOval(290,155,100,100);  //N.AM        
+                    g.drawOval(470,390,100,100); //S.AM
+                    g.drawOval(900,100,90,90); //EU
+                    g.drawOval(800,305,100,100);//AF
+                    g.drawOval(1100,180,100,100);//ASIA
+                    g.drawOval(1275,435,90,90); //AUS
+            
+                    fillOvalNA(g);
+                    fillOvalSA(g);
+                    fillOvalEU(g);
+                    fillOvalAF(g);
+                    fillOvalASIA(g);
+                    fillOvalAUS(g);
+                    
+                    }
+                
+        });
+        	
                 final JFrame f1 = new JFrame("Choose Your Pathogen");
 
                 
@@ -203,8 +305,11 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-                    pathogen = new Bacteria(); 
-                GOOEY gui = new GOOEY();
+                pathogen = new Bacteria(); 
+                map.setSize(new Dimension(1500, 750));
+                map.setVisible(true);
+                map.setResizable(false);
+                map.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
                 f1.dispose();
                 Continental();
                  
@@ -217,9 +322,13 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     pathogen = new Virus();
-
-                GOOEY gui = new GOOEY();
+                    
+                    map.setSize(new Dimension(1500, 750));
+                    map.setVisible(true);
+                    map.setResizable(false);
+                    map.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
                 f1.dispose();
+                
                 Continental();     
             }
             });
@@ -230,7 +339,10 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     pathogen = new Senioritis();
-                GOOEY gui = new GOOEY();
+                    map.setSize(new Dimension(1500, 750));
+                    map.setVisible(true);
+                    map.setResizable(false);
+                    map.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
                 f1.dispose();
                 Continental(); 
             }
@@ -240,20 +352,18 @@ public class Driver extends JPanel implements ActionListener{
                 chooser.add(Senioritis);
                 
                 f1.setLocation(500, 500);
-                        f1.setContentPane(chooser);
-                        f1.pack();
-                        f1.setVisible(true);
+                f1.setContentPane(chooser);
+                f1.pack();
+                f1.setVisible(true);
                         
-                      
+                
+               // map.repaint();               
                        
         }// end main 
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
-                
-        
-        
-        
+        }
 }
-}
+
