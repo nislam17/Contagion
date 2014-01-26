@@ -3,6 +3,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import test.Driver;
+
 public class Pathogen{
 
 	protected double _infectivity = 0, _resistivity = 0, _lethality = 0; 
@@ -32,15 +34,18 @@ public class Pathogen{
 		Driver driver = new Driver();
 		
 		a.addActionListener(new ActionListener() {
-	   		 
+	   		
             public void actionPerformed(ActionEvent e)
             {
             	
-            	upgradeTransmissionAir();
-            	airUp = true;
-            	Driver.Submitter();
+            	if (airUp == false){
+                	upgradeTransmissionAir();
+                	airUp = true;
+                	Driver.Submitter();
+                }
 
-            }
+            
+	   		}
     	});
 		b.addActionListener(new ActionListener() {
    		 
@@ -228,8 +233,9 @@ public class Pathogen{
 			_DNApoints -= 12; 
 			_infectivity += 3; 
 			}
-			else
+			else{
 				System.out.println("You already upgraded this");
+			}
 	} // upgrades infectivity
 	
 	public void upgradeTransmissionWater() {
