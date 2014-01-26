@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class Driver extends JPanel implements ActionListener{
         
-        private static boolean winner; 
+        private static boolean winner, _submit; 
         private static String game = "continue";
         
         final static Continent NorthAmerica = new Continent(528700000, 0.9, "NA"); 
@@ -21,8 +21,6 @@ public class Driver extends JPanel implements ActionListener{
         
         //game play 
     public static void gamePlay() {
-    
-        while (game.equals("continue")) {
                 System.out.println("ahhh");
                 for (Continent c: ContinentArray) {
                         pathogen.infect(c);        //infects population of invaded continents
@@ -51,7 +49,7 @@ public class Driver extends JPanel implements ActionListener{
                         if (counterDead == 6) { // if all 6 continents are dead, the player is a winner 
                                 winner = true; 
                                 game = "stop";
-                                break;
+                                return;
                         }
                         int counterHealthy = 0; //counter for the # of healthy continents
                         if (c.getInvaded() == false) { //checks if continent is healthy
@@ -60,18 +58,61 @@ public class Driver extends JPanel implements ActionListener{
                         if (counterHealthy == 6) { // if all 6 continents are healthy, the player is a loser
                                 winner = false;
                                 game = "stop";
-                                break;
+                                return;
                         }
                 }
-        }
-        if (winner) {
-                System.out.println("CONGRATS YOU WON!");
-        }
-        else {
-                System.out.println("Good luck next time buddy. You lost.");
-        }
+       
+        
         
     }
+    
+    	public static void Submitter() {
+    		final JPanel Upgrader = new JPanel(); 
+            final JFrame f3 = new JFrame("Upgrade!");
+            JButton Submit = new JButton("Submit");
+            Submit.addActionListener(new ActionListener() {
+                                
+                        public void actionPerformed(ActionEvent cr)
+                        {
+                            //Execute when button is pressed
+                                f3.dispose();
+                                gamePlay();
+                                if (game.equals("stop")) {
+	                                if (winner) {
+	                                    System.out.println("CONGRATS YOU WON!");
+	                            }
+	                                else {
+	                                    System.out.println("Good luck next time buddy. You lost.");
+	                                }
+                                }
+	                            else {
+	                            	Submitter();
+	                            }
+                                
+                                
+                        }
+                        });
+            			JLabel attributes = new JLabel("<html> DNApoints: "
+                        + pathogen.getDNApoints()
+                        + "<br>Infectivity: "
+                        + pathogen.getInfectivity()
+                        +"<br>Resistivity: "
+                        + pathogen.getResistivity()
+                        +"<br>Lethality: "
+                        + pathogen.getLethality()
+                        + "</html>"); 
+                        Upgrader.add(attributes);
+                        Upgrader.add(Submit);
+                       
+                        
+                        
+                        
+                        f3.setLocation(100, 300);
+                        f3.setContentPane(Upgrader);
+                        f3.pack();
+                        f3.setVisible(true);
+    	}
+
                 
                 public static void Continental(){
                         final JPanel ConChooser = new JPanel(); //choose continent
@@ -83,8 +124,8 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     pathogen.transmit(NorthAmerica);
-                    f2.dispose();   
-                    gamePlay();
+                    f2.dispose();
+                    Submitter();
             }
             });
                 
@@ -96,7 +137,7 @@ public class Driver extends JPanel implements ActionListener{
                 //Execute when button is pressed
                     pathogen.transmit(SouthAmerica);
                     f2.dispose();  
-                    gamePlay();
+                    Submitter();
             }
             });
                 
@@ -107,7 +148,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                     pathogen.transmit(Europe);
                     f2.dispose(); 
-                    gamePlay();
+                    Submitter();
             }
             });
                 
@@ -118,7 +159,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                     pathogen.transmit(Africa);
                     f2.dispose();
-                    gamePlay();
+                    Submitter();
             }
             });
                 
@@ -129,7 +170,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                     pathogen.transmit(Asia);
                     f2.dispose();
-                    gamePlay();
+                    Submitter();
             }
             });
                 
@@ -140,7 +181,7 @@ public class Driver extends JPanel implements ActionListener{
             {
                     pathogen.transmit(Australia);
                     f2.dispose();
-                    gamePlay();
+                    Submitter();
             }
             });
                 
@@ -223,4 +264,4 @@ public class Driver extends JPanel implements ActionListener{
         
         
 }
-}}
+}
