@@ -1,304 +1,258 @@
+import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
+public class Driver extends JPanel implements ActionListener{
+        
+        private static boolean winner, _submit; 
+        private static String game = "continue";
+        
+        final static Continent NorthAmerica = new Continent(528700000, 0.9, "NA"); 
+    final static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
+    final static Continent Europe = new Continent(739200000, 0.4, "EU"); 
+    final static Continent Africa = new Continent(1033000000,0.1, "AF"); 
+    final static Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
+    final static Continent Australia = new Continent(22680000,0.8, "AUS"); 
+    
+    static Continent [] ContinentArray = {NorthAmerica, SouthAmerica, Europe, Africa, Asia, Australia};
+    
+        static Pathogen pathogen;
+        
+        //game play 
+    public static void gamePlay() {
+                System.out.println("ahhh");
+                for (Continent c: ContinentArray) {
+                        pathogen.infect(c);        //infects population of invaded continents
+                
+                }
+                pathogen.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
+                pathogen.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
+                for (Continent c: ContinentArray) {
+                        pathogen.kill(c);  //kills population of infected continents
+                }
+                for (Continent c: ContinentArray) {
+                        if (c.getDeadContinent() == true ); // if the continent is dead, it cannot contribute to the cure 
+                        else {
+                                c.produceCure(); // every infected (& alive) country produces a cure 
+                        }
+                        
+                }
+                for (Continent c: ContinentArray) {
+                        c.Cure(); // cures every continent that needs it 
+                }
+                for (Continent c: ContinentArray) {
+                        int counterDead = 0; //counter for the # of dead continents 
+                        if (c.getDeadContinent() == true) { // checks if continent is dead
+                                counterDead += 1; 
+                        }
+                        if (counterDead == 6) { // if all 6 continents are dead, the player is a winner 
+                                winner = true; 
+                                game = "stop";
+                                return;
+                        }
+                        int counterHealthy = 0; //counter for the # of healthy continents
+                        if (c.getInvaded() == false) { //checks if continent is healthy
+                                counterHealthy += 1; 
+                        }
+                        if (counterHealthy == 6) { // if all 6 continents are healthy, the player is a loser
+                                winner = false;
+                                game = "stop";
+                                return;
+                        }
+                }
+       
+        
+        
+    }
+    
+    	public static void Submitter() {
+    		final JPanel stats = new JPanel(); 
+            final JFrame f3 = new JFrame("STATS!");
+                                 gamePlay();
+                                if (game.equals("stop")) {
+	                                if (winner) {
+	                                    System.out.println("CONGRATS YOU WON!");
+	                            }
+	                                else {
+	                                    System.out.println("Good luck next time buddy. You lost.");
+	                                }
+                                }
+	                            else {
+	                          
+	                            }
+                                
+                                
+                        
+                       
+            			JTextArea attributes = new JTextArea(" DNApoints: "
+                        + pathogen.getDNApoints()
+                        + "\nInfectivity: "
+                        + pathogen.getInfectivity()
+                        +"\nResistivity: "
+                        + pathogen.getResistivity()
+                        +"\nLethality: "
+                        + pathogen.getLethality()); 
+                        stats.add(attributes);
+                       
+                        
+                        
+                        
+                        f3.setLocation(100, 300);
+                        f3.setContentPane(stats);
+                        f3.pack();
+                        f3.setVisible(true);
+    	}
 
-public class Pathogen{
+                
+                public static void Continental(){
+                        final JPanel ConChooser = new JPanel(); //choose continent
+                        final JFrame f2 = new JFrame("Choose your Continent");
+                        JButton NA = new JButton("North America");
+            NA.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
+            {
+                //Execute when button is pressed
+                    pathogen.transmit(NorthAmerica);
+                    f2.dispose();
+                    
+            }
+            });
+                
+                JButton SA = new JButton("South America");
+                SA.addActionListener(new ActionListener() {
+                  
+            public void actionPerformed(ActionEvent cr)
+            {
+                //Execute when button is pressed
+                    pathogen.transmit(SouthAmerica);
+                    f2.dispose();  
+                    
+            }
+            });
+                
+                JButton E = new JButton("Europe");
+                E.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
+            {
+                    pathogen.transmit(Europe);
+                    f2.dispose(); 
+                    
+            }
+            });
+                
+                JButton AF = new JButton("Africa");
+                AF.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
+            {
+                    pathogen.transmit(Africa);
+                    f2.dispose();
+                    
+            }
+            });
+                
+                JButton AS = new JButton("Asia");
+                AS.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
+            {
+                    pathogen.transmit(Asia);
+                    f2.dispose();
+                    
+            }
+            });
+                
+                JButton AU = new JButton("Australia");
+                AU.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
+            {
+                    pathogen.transmit(Australia);
+                    f2.dispose();
+                    
+            }
+            });
+                
+                ConChooser.add(NA);
+                ConChooser.add(SA);
+                ConChooser.add(E);
+                ConChooser.add(AF);
+                ConChooser.add(AS);
+                ConChooser.add(AU);
+                
+                f2.setLocation(500, 500);
+                f2.setContentPane(ConChooser);
+                f2.pack();
+                f2.setVisible(true);  
+                }
+                
+        public static void main (String[] args) {
 
-	protected double _infectivity = 0, _resistivity = 0, _lethality = 0; 
-	
-	//infectivity - how quickly the disease will spread! Controls how fast the disease spreads both inside and between countries. 
-	//resistivity - a sign of how bad the disease is if you catch it! It will slow down cure research and give you more DNA points. 
-	//lethality - How easily the disease can kill someone! It can slow/stop cure research and give you more DNA points.
-	
-	private int _DNApoints = 0; 
-	// DNA points let you evolve. Get them automatically.
-	
-	public Pathogen(){
-		_infectivity = 0; 
-		_resistivity = 0; 
-		_lethality = 0;
-		
-		JButton a = new JButton(); //air
-		JButton b = new JButton(); //water
-		JButton c = new JButton(); //livestock
-		JButton d = new JButton(); //insomnia
-		JButton e = new JButton(); //paranoia
-		JButton f = new JButton(); //paralysis
-		JButton g = new JButton(); //coma 
-		JButton h = new JButton(); //genetic reshuffle
-		JButton i = new JButton(); //drug resistance
-		Upgrades u = new Upgrades(a,b,c,d,e,f,g,h,i);
-		Driver driver = new Driver();
-		
-		a.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	
-            	upgradeTransmissionAir();
-            	Driver.Submitter();
-            	
-            	
-            	
+                final JFrame f1 = new JFrame("Choose Your Pathogen");
 
-            }
-    	});
-		b.addActionListener(new ActionListener() {
-   		 
-            public void actionPerformed(ActionEvent e)
+                
+                JPanel chooser = new JPanel(); // choose pathogen
+                //chooser.setSize(new Dimension(500,500));
+                JButton Bacteria = new JButton("Bacteria");
+                Bacteria.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
             {
-            	
-            	upgradeTransmissionWater();
-            
-                
-                
+                //Execute when button is pressed
+                    pathogen = new Bacteria(); 
+                GOOEY gui = new GOOEY();
+                f1.dispose();
+                Continental();
+                 
             }
-    	});
-		c.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
+            });
+                JButton Virus = new JButton("Virus");
+                Virus.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
             {
-            
-            	upgradeTransmissionLivestock();
-            
-                
+                //Execute when button is pressed
+                    pathogen = new Virus();
+
+                GOOEY gui = new GOOEY();
+                f1.dispose();
+                Continental();     
             }
-    	});
-		d.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
+            });
+                JButton Senioritis = new JButton("Senioritis");
+                Senioritis.addActionListener(new ActionListener() {
+                    
+            public void actionPerformed(ActionEvent cr)
             {
-            	System.out.println(_lethality);
-            	upgradeSymptomsInsomnia();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
-                
-                
+                //Execute when button is pressed
+                    pathogen = new Senioritis();
+                GOOEY gui = new GOOEY();
+                f1.dispose();
+                Continental(); 
             }
-    	});
-		e.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	System.out.println(_lethality);
-            	upgradeSymptomsParanoia();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
+            });
+                chooser.add(Bacteria);
+                chooser.add(Virus);
+                chooser.add(Senioritis);
                 
+                f1.setLocation(500, 500);
+                        f1.setContentPane(chooser);
+                        f1.pack();
+                        f1.setVisible(true);
+                        
+                      
+                       
+        }// end main 
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+                // TODO Auto-generated method stub
                 
-            }
-    	});
-		f.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	System.out.println(_lethality);
-            	upgradeSymptomsParalysis();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
-                
-                
-            }
-    	});
-		g.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	System.out.println(_lethality);
-            	upgradeSymptomsComa();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
-                
-                
-            }
-    	});
-		h.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	System.out.println(_lethality);
-            	upgradeResistivityGenetic();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
-                
-                
-            }
-    	});
-		i.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	System.out.println(_resistivity);
-            	upgradeResistivityDrug();
-            	System.out.println(_resistivity);
-                System.out.println("You clicked the button");
-                
-                
-            }
-    	});
-		
-		
-	} 
-	
-	//===========================ACTIONS================================
-	
-	public void increaseDNApoints(int p) {
-		_DNApoints += p;
-	}
-	
-	/* transmit works based on infectivity and controls how fast the disease spreads inside countries*/
-	public  void transmit(Continent c) {
-		c.setInvaded(true); //signifies when the pathogen first enters a continent
-		increaseDNApoints(10); //first time a pathogen enters a continent, player receives lotsa points
-	}
-	
-	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
-	public void infect(Continent c) {
-		if (c.getInvaded()); //If the continent has not been invaded yet, don't infect anyone
-		else if (c.getPopulation() == c.getInfected()); // if the entire continent has been infected, stop infecting
-		else if (Math.random() < _infectivity) { 
-			
-				int points = c.getOldInfected() + c.getInfected();
-				increaseDNApoints(points);
-				c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
-			
-			
-		}
-	}
-	
-	/*Pre-cond: 
-	 * Post-cond: 
-	 * resist works based on resistivity and slows down the cure */
-	public void resist(Continent c) {
-		if (Math.random() < _resistivity) {
-			if (c.getCure() >= 1) {
-				c.setCure((c.getCure() - 1)); /* if the production of the cure has been started, pathogen
-				 								* will start to resist */
-												
-			}
-		}
-	}
-	
-	
-	 	
-	/* kill works based on lethality and controls how fast the disease wipes out the population*/
-	public void kill(Continent c) {
-		if (Math.random() < _lethality) {
-			if (!c.getInvaded()) {
-				return; // if the country hasn't been infected yet, don't kill anyone
-			}
-			if (c.getDead() == 0) {
-				c.setDead(1); // if no one in the country is dead yet, start by killing 1 person
-			}
-			
-			else if (c.getPopulation() == c.getDead()) {
-				c.setDeadContinent(true); 
-				return; // if everyone has been wiped out, don't do anything
-			}
-			else {
-				int points = c.getOldDead() + c.getDead(); 
-				increaseDNApoints(points);
-				c.setOldDead(c.setDead(points));
-			} // kill ppl based on the fib code
-		}
-	}
-	
-	//====================Accessor methods========================
-	public int getDNApoints() {
-		return _DNApoints;
-	}
-	
-	public double getInfectivity() {
-		return _infectivity;
-	}
-	
-	public double getResistivity() {
-		return _resistivity; 
-		
-	}
-	
-	public double getLethality() {
-		return _lethality;
-	}
-	
-	//=====================UPGRADES====================== 
-	/*DNA points help upgrade Transmission */
-	public void upgradeTransmissionAir() {
-		if (_DNApoints < 12) {
-			return; 
-		}
-		_DNApoints -= 12; 
-		_infectivity += 3; 
-	} // upgrades infectivity
-	
-	public void upgradeTransmissionWater() {
-		if (_DNApoints < 10) {
-			return; 
-		}
-		_DNApoints -= 10; 
-		_infectivity += 2; 
-	} // upgrades infectivity
-	
-	public void upgradeTransmissionLivestock() {
-		if (_DNApoints < 9) {
-			return; 
-		}
-		_DNApoints -= 9; 
-		_infectivity += 1; 
-	} // upgrades infectivity
-	
-	/* DNA points help upgrade symptoms */
-	public void upgradeSymptomsInsomnia() {
-		if (_DNApoints < 8) {
-			return; 
-		}
-		_DNApoints -= 8; 
-		_lethality += 1; 
-	}
-	
-	/* DNA points help upgrade symptoms */
-	public void upgradeSymptomsParanoia() {
-		if (_DNApoints < 9) {
-			return; 
-		}
-		_DNApoints -= 9; 
-		_lethality += 2; 
-	}
-	
-	/* DNA points help upgrade symptoms */
-	public void upgradeSymptomsParalysis() {
-		if (_DNApoints < 12) {
-			return; 
-		}
-		_DNApoints -= 12; 
-		_lethality += 3; 
-	}
-	
-	/* DNA points help upgrade symptoms */
-	public void upgradeSymptomsComa() {
-		if (_DNApoints < 12) {
-			return; 
-		}
-		_DNApoints -= 12; 
-		_lethality += 3; 
-	}
-	
-	/*DNA points help fight the cure */
-	public void upgradeResistivityGenetic() {
-		if (_DNApoints < 11) {
-			return; 
-		}
-		_DNApoints -= 11; 
-		_resistivity += 1; 
-	}
-	
-	/*DNA points help fight the cure */
-	public void upgradeResistivityDrug() {
-		if (_DNApoints < 12) {
-			return; 
-		}
-		_DNApoints -= 12; 
-		_resistivity += 2; 
-	}
-} //ends class Pathogen
+        
+        
+        
+}
+}
