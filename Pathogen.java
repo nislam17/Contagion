@@ -227,8 +227,8 @@ public class Pathogen{
 	public void upgradeTransmissionAir() {
 		if (_DNApoints > 12 && airUp == false) {
 			
-			_DNApoints -= 12; 
-			_infectivity += 3; 
+			this._DNApoints -= 12; 
+			this._infectivity += 3; 
 			}
 			else{
 				System.out.println("You already upgraded this");
