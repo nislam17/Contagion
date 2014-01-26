@@ -3,6 +3,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import test.Driver;
+
 public class Pathogen{
 
 	protected double _infectivity = 0, _resistivity = 0, _lethality = 0; 
@@ -13,7 +15,7 @@ public class Pathogen{
 	
 	private int _DNApoints = 0; 
 	// DNA points let you evolve. Get them automatically.
-	
+	private boolean airUp = false;
 	public Pathogen(){
 		_infectivity = 0; 
 		_resistivity = 0; 
@@ -37,10 +39,8 @@ public class Pathogen{
             {
             	
             	upgradeTransmissionAir();
+            	airUp = true;
             	Driver.Submitter();
-            	
-            	
-            	
 
             }
     	});
@@ -225,11 +225,13 @@ public class Pathogen{
 	//=====================UPGRADES====================== 
 	/*DNA points help upgrade Transmission */
 	public void upgradeTransmissionAir() {
-		if (_DNApoints < 12) {
-			return; 
-		}
-		_DNApoints -= 12; 
-		_infectivity += 3; 
+		if (_DNApoints > 12 && airUp == false) {
+			
+			_DNApoints -= 12; 
+			_infectivity += 3; 
+			}
+			else
+				System.out.println("You already upgraded this");
 	} // upgrades infectivity
 	
 	public void upgradeTransmissionWater() {
