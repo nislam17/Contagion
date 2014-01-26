@@ -34,11 +34,9 @@ public class Pathogen{
 	   		 
             public void actionPerformed(ActionEvent e)
             {
-            	System.out.println(_infectivity);
+            	
             	upgradeTransmissionAir();
-            	System.out.println(_infectivity);
-                System.out.println("You clicked the button");
-                
+            	
 
             }
     	});
@@ -46,10 +44,9 @@ public class Pathogen{
    		 
             public void actionPerformed(ActionEvent e)
             {
-            	System.out.println(_infectivity);
+            	
             	upgradeTransmissionWater();
-            	System.out.println(_infectivity);
-                System.out.println("You clicked the button");
+            
                 
                 
             }
@@ -58,11 +55,9 @@ public class Pathogen{
 	   		 
             public void actionPerformed(ActionEvent e)
             {
-            	System.out.println(_infectivity);
+            
             	upgradeTransmissionLivestock();
-            	System.out.println(_infectivity);
-                System.out.println("You clicked the button");
-                
+            
                 
             }
     	});
@@ -205,6 +200,23 @@ public class Pathogen{
 		}
 	}
 	
+	//====================Accessor methods========================
+	public int getDNApoints() {
+		return _DNApoints;
+	}
+	
+	public double getInfectivity() {
+		return _infectivity;
+	}
+	
+	public double getResistivity() {
+		return _resistivity; 
+		
+	}
+	
+	public double getLethality() {
+		return _lethality;
+	}
 	
 	//=====================UPGRADES====================== 
 	/*DNA points help upgrade Transmission */
