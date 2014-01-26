@@ -5,13 +5,13 @@ import javax.swing.JButton;
 
 public class Pathogen{
 
-	protected double _infectivity, _resistivity, _lethality; 
+	protected double _infectivity = 0, _resistivity = 0, _lethality = 0; 
 	
 	//infectivity - how quickly the disease will spread! Controls how fast the disease spreads both inside and between countries. 
 	//resistivity - a sign of how bad the disease is if you catch it! It will slow down cure research and give you more DNA points. 
 	//lethality - How easily the disease can kill someone! It can slow/stop cure research and give you more DNA points.
 	
-	private int _DNApoints; 
+	private int _DNApoints = 0; 
 	// DNA points let you evolve. Get them automatically.
 	
 	public Pathogen(){
@@ -29,6 +29,7 @@ public class Pathogen{
 		JButton h = new JButton(); //genetic reshuffle
 		JButton i = new JButton(); //drug resistance
 		Upgrades u = new Upgrades(a,b,c,d,e,f,g,h,i);
+		Driver driver = new Driver();
 		
 		a.addActionListener(new ActionListener() {
 	   		 
@@ -36,6 +37,9 @@ public class Pathogen{
             {
             	
             	upgradeTransmissionAir();
+            	Driver.Submitter();
+            	
+            	
             	
 
             }
