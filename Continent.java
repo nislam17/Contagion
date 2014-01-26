@@ -1,3 +1,4 @@
+
 public class Continent {
 	private int _oldInfected = 0, _infected = 0, _oldDead = 0, _dead = 0; 
 	private static double _cure = 0;
