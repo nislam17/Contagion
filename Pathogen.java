@@ -3,8 +3,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import test.Driver;
-
 public class Pathogen{
 
 	protected double _infectivity = 0, _resistivity = 0, _lethality = 0; 
