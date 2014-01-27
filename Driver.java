@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,38 +17,36 @@ public class Driver  implements ActionListener{
         private static boolean winner, _submit; 
         private static String game = "continue";
         
-	    final static Continent NorthAmerica = new Continent(528700000, 0.9, "NA");
-	    
+	    final static Continent NorthAmerica = new Continent(528700000, 0.9, "NA");   
 	    final static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
 	    final static Continent Europe = new Continent(739200000, 0.4, "EU"); 
 	    final static Continent Africa = new Continent(1033000000,0.1, "AF"); 
 	    final static Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
 	    final static Continent Australia = new Continent(22680000,0.8, "AUS"); 
-	    private static final Map<Integer, String> reds;
+	    private static final Map<Integer, String> REDS;
 		static {
-			reds = new HashMap<Integer, String>();
-			reds.put(0, "#FFFFFF");
-			reds.put(5, "#FFFAFA");
-			reds.put(10, "#F4C2C2");
-			reds.put(15, "#FFC1CC");
-			reds.put(20, "#FF6961");
-			reds.put(25, "#FF5C5C");
-			reds.put(30, "#FF1C00");
-			reds.put(35, "#E00000");
-			reds.put(40, "#E34234");
-			reds.put(45, "#D10000");
-			reds.put(50, "#D73B3E");
-			reds.put(55, "#CE1620");
-			reds.put(60, "#CC0000");
-			reds.put(65, "#B22222");
-			reds.put(70, "#B31B1B");
-			reds.put(75, "#A40000");
-			reds.put(80, "#800000");
-			reds.put(85, "#701C1C");
-			reds.put(90, "#3C1414");
-			reds.put(95, "#321414");
-			reds.put(100, "#000000");
-			
+			REDS = new HashMap<Integer, String>();
+			REDS.put(0, "#FFFFFF");
+			REDS.put(5, "#FFFAFA");
+			REDS.put(10, "#F4C2C2");
+			REDS.put(15, "#FFC1CC");
+			REDS.put(20, "#FF6961");
+			REDS.put(25, "#FF5C5C");
+			REDS.put(30, "#FF1C00");
+			REDS.put(35, "#E00000");
+			REDS.put(40, "#E34234");
+			REDS.put(45, "#D10000");
+			REDS.put(50, "#D73B3E");
+			REDS.put(55, "#CE1620");
+			REDS.put(60, "#CC0000");
+			REDS.put(65, "#B22222");
+			REDS.put(70, "#B31B1B");
+			REDS.put(75, "#A40000");
+			REDS.put(80, "#800000");
+			REDS.put(85, "#701C1C");
+			REDS.put(90, "#3C1414");
+			REDS.put(95, "#321414");
+			REDS.put(100, "#000000");			
 		}
 	    
 	    static Continent [] ContinentArray = {NorthAmerica, SouthAmerica, 
@@ -62,6 +59,8 @@ public class Driver  implements ActionListener{
         
         //game play 
     public static void gamePlay() {
+    	while (Driver.game == "continue"){
+    		//System.out.println(NorthAmerica.getInfected());
                 System.out.println("ahhh");
                 for (Continent c: ContinentArray) {
                         pathogen.infect(c);        //infects population of invaded continents
@@ -102,6 +101,7 @@ public class Driver  implements ActionListener{
                                 break;
                         }
                 }
+    	}
                 
     }
     
@@ -147,7 +147,9 @@ public class Driver  implements ActionListener{
             {
                 //Execute when button is pressed
                     pathogen.transmit(NorthAmerica);     
-                    f2.dispose();       
+                    f2.dispose();   
+                    gamePlay();
+                    
             }
             });
                 
@@ -159,7 +161,7 @@ public class Driver  implements ActionListener{
                 //Execute when button is pressed
                     pathogen.transmit(SouthAmerica);
                     f2.dispose();  
-                    
+                    gamePlay();
             }
             });
                 
@@ -170,7 +172,7 @@ public class Driver  implements ActionListener{
             {
                     pathogen.transmit(Europe);
                     f2.dispose(); 
-                    
+                    gamePlay();                   
             }
             });
                 
@@ -181,7 +183,7 @@ public class Driver  implements ActionListener{
             {
                     pathogen.transmit(Africa);
                     f2.dispose();
-                    
+                    gamePlay();                    
             }
             });
                 
@@ -190,9 +192,9 @@ public class Driver  implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                    pathogen.transmit(Asia);
-                    
+                    pathogen.transmit(Asia);                    
                     f2.dispose();
+                    gamePlay();
                     
             }
             });
@@ -204,7 +206,7 @@ public class Driver  implements ActionListener{
             {
                     pathogen.transmit(Australia);
                     f2.dispose();
-                    
+                    gamePlay(); 
             }
             });
                 
@@ -229,94 +231,82 @@ public class Driver  implements ActionListener{
             	
             	int percent = (int) (c.getInfected()/ (c.getPopulation()/100)) ;
             	percent = round(percent);
-                String RGB = reds.get(percent);
+                String RGB = REDS.get(percent);
             	g.setColor(Color.decode(RGB));
             	//System.out.println(RGB);
             	System.out.println(c.getInfected() * 100/c.getPopulation() );
             	
-            	System.out.println(percent);
-            	
+            	System.out.println(percent);           	
             }
             
-            public static void fillOvalNA(Graphics g){
-            	
+            //=============== COLOR THE CIRCLES ======================
+            public static void fillOvalNA(Graphics g){            	
             	setColor(g, NorthAmerica);
-            	g.fillOval(290, 155, 100, 100);
-            	
+            	g.fillOval(290, 155, 100, 100);            	
             }
             public static void fillOvalSA(Graphics g){
             	setColor(g, SouthAmerica);
-            	g.fillOval(470,390,100,100);
-            	
+            	g.fillOval(470,390,100,100);            	
             }
             public static void fillOvalEU(Graphics g){
             	setColor(g, Europe);
-            	g.fillOval(900,100,90,90);
-            	
+            	g.fillOval(900,100,90,90);           	
             }
             public static void fillOvalAF(Graphics g){
             	setColor(g, Africa);
-            	g.fillOval(800,305,100,100);
-            	
+            	g.fillOval(800,305,100,100);           	
             }
             
             public static void fillOvalASIA(Graphics g){
             	setColor(g, Asia);
-            	g.fillOval(1100,180,100,100);
-            	
+            	g.fillOval(1100,180,100,100);           	
             }
             public static void fillOvalAUS(Graphics g){
             	setColor(g, Australia);
-            	g.fillOval(1275,435,90,90);
-            	
+            	g.fillOval(1275,435,90,90);          	
             }
+            //========================================================
                 
         public static void main (String[] args) {
         	//NorthAmerica.setInfected(264331400);
         	final JFrame map = new JFrame("Contagion");
-        	final JLabel background=new JLabel();
         	ImageIcon ic = new ImageIcon("mapfinale.jpg");
         	final Image infoBg = ic.getImage();
         	
         	map.setContentPane(new JPanel() {
         		
                 public void paintComponent(Graphics g){
+                	super.paintComponent(g);
                 	setOpaque(false);
-                	g.drawImage(infoBg, 0, 0, this);
-                	
-                    super.paintComponent(g);
-                    Graphics2D g2d = (Graphics2D) g;
-                                 
+                	g.drawImage(infoBg, 0, 0, this);               	                    
+                    Graphics2D g2d = (Graphics2D) g;                                 
                     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    //========== Drawing the Circle Outlines ===========
                     g.drawOval(290,155,100,100);  //N.AM        
                     g.drawOval(470,390,100,100); //S.AM
                     g.drawOval(900,100,90,90); //EU
                     g.drawOval(800,305,100,100);//AF
                     g.drawOval(1100,180,100,100);//ASIA
-                    g.drawOval(1275,435,90,90); //AUS
-            
+                    g.drawOval(1275,435,90,90); //AUS     
+                    //===================================================
                     fillOvalNA(g);
                     fillOvalSA(g);
                     fillOvalEU(g);
                     fillOvalAF(g);
                     fillOvalASIA(g);
-                    fillOvalAUS(g);
-                    
-                    }
-                
-        });
+                    fillOvalAUS(g);                    
+                    }                
+        	});
         	
-                final JFrame f1 = new JFrame("Choose Your Pathogen");
-
+            final JFrame f1 = new JFrame("Choose Your Pathogen");
+            JPanel chooser = new JPanel(); // choose pathogen
                 
-                JPanel chooser = new JPanel(); // choose pathogen
-                //chooser.setSize(new Dimension(500,500));
-                JButton Bacteria = new JButton("Bacteria");
-                Bacteria.addActionListener(new ActionListener() {
+            //===================== BACTERIA ======================
+            JButton Bacteria = new JButton("Bacteria");
+            Bacteria.addActionListener(new ActionListener() {
                     
             public void actionPerformed(ActionEvent cr)
-            {
-                //Execute when button is pressed
+            {              
                 pathogen = new Bacteria(); 
                 map.setSize(new Dimension(1500, 750));
                 map.setLocation(200,200);
@@ -324,12 +314,13 @@ public class Driver  implements ActionListener{
                 map.setResizable(false);
                 map.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
                 f1.dispose();
-                Continental();
-                 
+                Continental();                 
             }
             });
-                JButton Virus = new JButton("Virus");
-                Virus.addActionListener(new ActionListener() {
+                
+            //===================== VIRUS ======================    
+            JButton Virus = new JButton("Virus");
+            Virus.addActionListener(new ActionListener() {
                     
             public void actionPerformed(ActionEvent cr)
             {
@@ -346,8 +337,10 @@ public class Driver  implements ActionListener{
                 Continental();     
             }
             });
-                JButton Senioritis = new JButton("Senioritis");
-                Senioritis.addActionListener(new ActionListener() {
+                
+            //===================== SENIORITIS ======================    
+            JButton Senioritis = new JButton("Senioritis");
+            Senioritis.addActionListener(new ActionListener() {
                     
             public void actionPerformed(ActionEvent cr)
             {
@@ -369,11 +362,8 @@ public class Driver  implements ActionListener{
                 f1.setLocation(500, 500);
                 f1.setContentPane(chooser);
                 f1.pack();
-                f1.setVisible(true);
-                        
-                
-               // map.repaint();               
-                       
+                f1.setVisible(true);   
+               // map.repaint();                                     
         }// end main 
 
         @Override
