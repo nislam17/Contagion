@@ -1,10 +1,7 @@
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 
-import project.Upgrades;
 public class Pathogen{
 
 	protected double _infectivity = 0, _resistivity = 0, _lethality = 0; 
@@ -160,8 +157,7 @@ public class Pathogen{
 				int points = c.getOldInfected() + c.getInfected();
 				increaseDNApoints(points);
 				c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
-			
-			
+		
 		}
 	}
 	
@@ -172,8 +168,7 @@ public class Pathogen{
 		if (Math.random() < _resistivity) {
 			if (c.getCure() >= 1) {
 				c.setCure((c.getCure() - 1)); /* if the production of the cure has been started, pathogen
-				 								* will start to resist */
-												
+				 								* will start to resist */									
 			}
 		}
 	}

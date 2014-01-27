@@ -9,13 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Driver  implements ActionListener{
         
 	// ===================== VARIABLES ====================================
         private static boolean winner, _submit; 
         private static String game = "continue";
+        private static int up = 3, down = 3;
         
 	    final static Continent NorthAmerica = new Continent(528700000, 0.9, "NA");   
 	    final static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
@@ -54,61 +54,86 @@ public class Driver  implements ActionListener{
     
         static Pathogen pathogen;
     
-     // =====================================================================    
+        // =====================================================================    
         
         
         //game play 
-    public static void gamePlay() {
-    	while (Driver.game == "continue"){
-    		//System.out.println(NorthAmerica.getInfected());
-                System.out.println("ahhh");
-                for (Continent c: ContinentArray) {
-                        pathogen.infect(c);        //infects population of invaded continents
-                
-                }
-                pathogen.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
-                pathogen.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
-                for (Continent c: ContinentArray) {
-                        pathogen.kill(c);  //kills population of infected continents
-                }
-                for (Continent c: ContinentArray) {
-                        if (c.getDeadContinent() == true ); // if the continent is dead, it cannot contribute to the cure 
-                        else {
-                                c.produceCure(); // every infected (& alive) country produces a cure 
-                        }
-                        
-                }
-                for (Continent c: ContinentArray) {
-                        c.Cure(); // cures every continent that needs it 
-                }
-                for (Continent c: ContinentArray) {
-                        int counterDead = 0; //counter for the # of dead continents 
-                        if (c.getDeadContinent() == true) { // checks if continent is dead
-                                counterDead += 1; 
-                        }
-                        if (counterDead == 6) { // if all 6 continents are dead, the player is a winner 
-                                winner = true; 
-                                game = "stop";
-                                break;
-                        }
-                        int counterHealthy = 0; //counter for the # of healthy continents
-                        if (c.getInvaded() == false) { //checks if continent is healthy
-                                counterHealthy += 1; 
-                        }
-                        if (counterHealthy == 6) { // if all 6 continents are healthy, the player is a loser
-                                winner = false;
-                                game = "stop";
-                                break;
-                        }
-                }
-    	}
-                
-    }
-    
+	    public static void gamePlay() throws InterruptedException {
+	    	while (Driver.game == "continue"){
+	    		//System.out.println(NorthAmerica.getInfected());
+	                //System.out.println("ahhh");
+	                for (Continent c: ContinentArray) {
+	                        pathogen.infect(c);        //infects population of invaded continents              
+	                        System.out.println(c.getInfected());
+	                }
+	                pauser();
+	                pathogen.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
+	                pathogen.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
+	                for (Continent c: ContinentArray) {
+	                        pathogen.kill(c);  //kills population of infected continents
+	                }
+	                for (Continent c: ContinentArray) {
+	                        if (c.getDeadContinent() == true ); // if the continent is dead, it cannot contribute to the cure 
+	                        else {
+	                                c.produceCure(); // every infected (& alive) country produces a cure 
+	                }
+	                
+	                }
+	                for (Continent c: ContinentArray) {
+	                        c.Cure(); // cures every continent that needs it 
+	                }
+	                for (Continent c: ContinentArray) {
+	                        int counterDead = 0; //counter for the # of dead continents 
+	                        if (c.getDeadContinent() == true) { // checks if continent is dead
+	                                counterDead += 1; 
+	                        }
+	                        if (counterDead == 6) { // if all 6 continents are dead, the player is a winner 
+	                                winner = true; 
+	                                game = "stop";
+	                                break;
+	                        }
+	                        int counterHealthy = 0; //counter for the # of healthy continents
+	                        if (c.getInvaded() == false) { //checks if continent is healthy
+	                                counterHealthy += 1; 
+	                        }
+	                        if (counterHealthy == 6) { // if all 6 continents are healthy, the player is a loser
+	                                winner = false;
+	                                game = "stop";
+	                                break;
+	                        }
+	                }
+	    	}
+	                
+	    }
+	    
+	    public static void pauser() throws InterruptedException{
+	    	up = down;
+            while (up > 0){
+            	up -= 1;
+            	down = up;
+            	if (pathogen.buttonPressed == true){
+            		up = 0;
+            		Thread.sleep(4000);
+            		JFrame jan = new JFrame();
+            		JDialog upper;
+            		upper = new JDialog(jan, "J");
+            		jan.add(upper);
+            		jan.setSize(200,200);
+            		jan.setVisible(true);
+            		}
+            	else if (pathogen.buttonPressed == false){
+            		up = 0;
+            		break;}
+            	else
+            		break;
+
+            }
+	    }
+	    
     	public static void Submitter() {
     		final JPanel stats = new JPanel(); 
             final JFrame f3 = new JFrame("STATS!");
-            gamePlay();
+            //gamePlay();
             if (game.equals("stop")) {
                 if (winner) {
                     System.out.println("CONGRATS YOU WON!");
@@ -148,7 +173,12 @@ public class Driver  implements ActionListener{
                 //Execute when button is pressed
                     pathogen.transmit(NorthAmerica);     
                     f2.dispose();   
-                    gamePlay();
+                    try {
+						gamePlay();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                     
             }
             });
@@ -161,7 +191,12 @@ public class Driver  implements ActionListener{
                 //Execute when button is pressed
                     pathogen.transmit(SouthAmerica);
                     f2.dispose();  
-                    gamePlay();
+                    try {
+						gamePlay();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
             }
             });
                 
@@ -172,7 +207,15 @@ public class Driver  implements ActionListener{
             {
                     pathogen.transmit(Europe);
                     f2.dispose(); 
-                    gamePlay();                   
+                    
+						try {
+							gamePlay();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
+					                  
             }
             });
                 
@@ -183,7 +226,15 @@ public class Driver  implements ActionListener{
             {
                     pathogen.transmit(Africa);
                     f2.dispose();
-                    gamePlay();                    
+                    
+						try {
+							gamePlay();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
+					                
             }
             });
                 
@@ -194,8 +245,12 @@ public class Driver  implements ActionListener{
             {
                     pathogen.transmit(Asia);                    
                     f2.dispose();
-                    gamePlay();
-                    
+                    try {
+						gamePlay();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}         
             }
             });
                 
@@ -206,7 +261,12 @@ public class Driver  implements ActionListener{
             {
                     pathogen.transmit(Australia);
                     f2.dispose();
-                    gamePlay(); 
+                    try {
+						gamePlay();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
             }
             });
                 
@@ -325,13 +385,13 @@ public class Driver  implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-                    pathogen = new Virus();
-                    
+                    pathogen = new Virus();                    
                     map.setSize(new Dimension(1500, 750));
                     map.setLocation(200,200);
                     map.setVisible(true);
                     map.setResizable(false);
-                    map.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+                    map.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+                    
                 f1.dispose();
                 
                 Continental();     
@@ -371,4 +431,3 @@ public class Driver  implements ActionListener{
                 // TODO Auto-generated method stub
         }
 }
-
