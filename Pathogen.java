@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+
+import project.Upgrades;
 public class Pathogen{
 
 	protected double _infectivity = 0, _resistivity = 0, _lethality = 0; 
@@ -13,12 +15,11 @@ public class Pathogen{
 	
 	private int _DNApoints = 0; 
 	// DNA points let you evolve. Get them automatically.
-	private boolean airUp = false;
+	protected boolean airUp = false, waterUp = false, liveStockUp = false, buttonPressed = false ;
 	public Pathogen(){
 		_infectivity = 0; 
 		_resistivity = 0; 
 		_lethality = 0;
-		
 		JButton a = new JButton(); //air
 		JButton b = new JButton(); //water
 		JButton c = new JButton(); //livestock
@@ -29,7 +30,7 @@ public class Pathogen{
 		JButton h = new JButton(); //genetic reshuffle
 		JButton i = new JButton(); //drug resistance
 		Upgrades u = new Upgrades(a,b,c,d,e,f,g,h,i);
-		Driver driver = new Driver();
+		//Driver driver = new Driver();
 		
 		a.addActionListener(new ActionListener() {
 	   		
@@ -39,7 +40,8 @@ public class Pathogen{
             	if (airUp == false){
                 	upgradeTransmissionAir();
                 	airUp = true;
-                	Driver.Submitter();
+                	buttonPressed = true;
+                	//Driver.Submitter();
                 }
 
             
@@ -48,94 +50,89 @@ public class Pathogen{
 		b.addActionListener(new ActionListener() {
    		 
             public void actionPerformed(ActionEvent e)
-            {
-            	
-            	upgradeTransmissionWater();
-            
-                
-                
+            {            	
+            	if (waterUp == false){
+            		upgradeTransmissionWater(); 
+                	airUp = true;
+                	buttonPressed = true;
+            	}
             }
     	});
 		c.addActionListener(new ActionListener() {
 	   		 
             public void actionPerformed(ActionEvent e)
-            {
-            
-            	upgradeTransmissionLivestock();
-            
-                
+            {     
+            	if (liveStockUp == false){
+            		upgradeTransmissionLivestock(); 
+                	airUp = true;   
+                	buttonPressed = true;
+            	}
             }
     	});
 		d.addActionListener(new ActionListener() {
 	   		 
             public void actionPerformed(ActionEvent e)
             {
-            	System.out.println(_lethality);
-            	upgradeSymptomsInsomnia();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
-                
-                
+            	if (airUp == false){
+            		upgradeSymptomsInsomnia();
+                	airUp = true; 
+                	buttonPressed = true;
+            	}	                
             }
     	});
 		e.addActionListener(new ActionListener() {
 	   		 
             public void actionPerformed(ActionEvent e)
             {
-            	System.out.println(_lethality);
-            	upgradeSymptomsParanoia();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
-                
-                
+            	if (airUp == false){
+            		upgradeSymptomsParanoia();
+                	airUp = true;
+                	buttonPressed = true;
+            	}	
             }
     	});
 		f.addActionListener(new ActionListener() {
 	   		 
             public void actionPerformed(ActionEvent e)
             {
-            	System.out.println(_lethality);
-            	upgradeSymptomsParalysis();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
-                
-                
+            	if (airUp == false){
+            		upgradeSymptomsParalysis();
+                	airUp = true;
+                	buttonPressed = true;
+            	}	
             }
     	});
 		g.addActionListener(new ActionListener() {
 	   		 
             public void actionPerformed(ActionEvent e)
             {
-            	System.out.println(_lethality);
-            	upgradeSymptomsComa();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
-                
-                
+            	if (airUp == false){
+            		upgradeSymptomsComa();
+            		airUp = true; 
+                	buttonPressed = true;
+            	}	
             }
     	});
 		h.addActionListener(new ActionListener() {
 	   		 
             public void actionPerformed(ActionEvent e)
             {
-            	System.out.println(_lethality);
-            	upgradeResistivityGenetic();
-            	System.out.println(_lethality);
-                System.out.println("You clicked the button");
-                
-                
+            	if (airUp == false){
+            		upgradeResistivityGenetic();
+                	airUp = true;   
+                	buttonPressed = true;
+            	}	
             }
     	});
 		i.addActionListener(new ActionListener() {
 	   		 
             public void actionPerformed(ActionEvent e)
             {
-            	System.out.println(_resistivity);
-            	upgradeResistivityDrug();
-            	System.out.println(_resistivity);
-                System.out.println("You clicked the button");
-                
-                
+            	if (airUp == false){
+            		upgradeResistivityDrug();
+                	airUp = true;  
+                	buttonPressed = true;
+            	}	
             }
     	});
 		
@@ -306,3 +303,4 @@ public class Pathogen{
 		_resistivity += 2; 
 	}
 } //ends class Pathogen
+
