@@ -63,7 +63,7 @@ public class Driver  implements ActionListener{
 	    		//System.out.println(NorthAmerica.getInfected());
 	                //System.out.println("ahhh");
 	                for (Continent c: ContinentArray) {
-	                        pathogen.infect(c);        //infects population of invaded continents             
+	                        pathogen.infect(c);        //infects population of invaded continents  
 	                        System.out.println(c.getInfected());
 	                }
 	                pauser();
@@ -80,8 +80,17 @@ public class Driver  implements ActionListener{
 	                
 	                }
 	                for (Continent c: ContinentArray) {
-	                        c.Cure(); // cures every continent that needs it 
+	                        c.Cure(); // cures every continent that needs it
+	                        if (c.getInfected() < 0) {
+	                        	c.setInfected(0);
+	                        }
+	                        if (c.getOldInfected() < 0) {
+	                        	c.setOldInfected(0);
+	                        }
+	                       
 	                }
+	                
+	                
 	                for (Continent c: ContinentArray) {
 	                        int counterDead = 0; //counter for the # of dead continents 
 	                        if (c.getDeadContinent() == true) { // checks if continent is dead
@@ -102,6 +111,7 @@ public class Driver  implements ActionListener{
 	                                break;
 	                        }
 	                }
+	                
 	    	}
 	                
 	    }
