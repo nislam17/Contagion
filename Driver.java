@@ -63,11 +63,11 @@ public class Driver  implements ActionListener{
 	    		//System.out.println(NorthAmerica.getInfected());
 	                //System.out.println("ahhh");
 	                for (Continent c: ContinentArray) {
-	                        pathogen.infect(c);        //infects population of invaded continents              
+	                        pathogen.infect(c);        //infects population of invaded continents             
 	                        System.out.println(c.getInfected());
 	                }
 	                pauser();
-	                pathogen.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
+	                pathogen.transmit(ContinentArray[(int)(Math.random() * 5)] ); //transmits to a random continent
 	                pathogen.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
 	                for (Continent c: ContinentArray) {
 	                        pathogen.kill(c);  //kills population of infected continents
