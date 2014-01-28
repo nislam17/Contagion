@@ -1,4 +1,3 @@
-
 public class Continent {
 	private int _oldInfected = 0, _infected = 0, _oldDead = 0, _dead = 0; 
 	private static double _cure = 0;
@@ -106,17 +105,17 @@ public class Continent {
 	}
 	
 	public void Cure() {
-		if (_invaded == false); // if the continent is healthy, no cure is needed 
-		else if (_deadContinent == true); // if the continent is dead, no one can be cured 
+		if (!_invaded || _deadContinent); // if the continent is healthy, no cure is needed or if the continent is dead, no one can be cured 
 		else if (_infected == 0) {
 			setInvaded(false);
+		}
+		else if (_infected < 0) {
+			_infected = 0; // a negative number of people can't be cured
 		}
 		else {
 		setInfected(setOldInfected(_oldInfected - _infected)); /*the cure starts to bring people back from
 		*the disease (not the dead though, because that'd be creepy) */
-			if (_infected < 0) {
-				_infected = 0; // a negative number of people can't be cured
-			}
+			
 		}
 	}
 
