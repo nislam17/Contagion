@@ -145,16 +145,16 @@ public class Pathogen{
 	/* transmit works based on infectivity and controls how fast the disease spreads inside countries*/
 	public  void transmit(Continent c) {
 		c.setInvaded(true); //signifies when the pathogen first enters a continent
+		c.setInfected(1);
 		increaseDNApoints(10); //first time a pathogen enters a continent, player receives lotsa points
 	}
 	
 	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
 	public void infect(Continent c) {
-		if (c.getInvaded()); //If the continent has not been invaded yet, don't infect anyone
-		else if (c.getPopulation() == c.getInfected()); // if the entire continent has been infected, stop infecting
+		if (!c.getInvaded() || (c.getPopulation() == c.getInfected())); //If the continent has not been invaded yet, don't infect anyone or if the entire continent has been infected, stop infecting
 		else if (Math.random() < _infectivity) { 
-			
-				int points = c.getOldInfected() + c.getInfected();
+			int points = c.getOldInfected() + c.getInfected();
+				System.out.println(points);
 				increaseDNApoints(points);
 				c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
 		
