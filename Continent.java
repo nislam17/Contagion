@@ -53,6 +53,7 @@ public class Continent {
 	}
 	
 	public boolean getDeadContinent() {
+		System.out.println(getInfected());
 		return _deadContinent; 
 	}
 	
@@ -119,6 +120,7 @@ public class Continent {
 			_oldInfected = 0;
 			
 		if (_infected < 0) {
+			_oldInfected = 0;
 			_infected = 0; // a negative number of people can't be cured
 			}
 		}
