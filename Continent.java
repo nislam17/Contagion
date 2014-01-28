@@ -109,13 +109,18 @@ public class Continent {
 		else if (_infected == 0) {
 			setInvaded(false);
 		}
-		else if (_infected < 0) {
-			_infected = 0; // a negative number of people can't be cured
-		}
+		
 		else {
 		setInfected(setOldInfected(_oldInfected - _infected)); /*the cure starts to bring people back from
 		*the disease (not the dead though, because that'd be creepy) */
 			
+		}
+		if (_oldInfected < 0) {
+			_oldInfected = 0;
+			
+		if (_infected < 0) {
+			_infected = 0; // a negative number of people can't be cured
+			}
 		}
 	}
 
