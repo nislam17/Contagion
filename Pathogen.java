@@ -152,10 +152,9 @@ public class Pathogen{
 	
 	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
 	public void infect(Continent c) {
-		if (!c.getInvaded() || (c.getPopulation() == c.getInfected())); //If the continent has not been invaded yet, don't infect anyone or if the entire continent has been infected, stop infecting
+		if (!c.getInvaded() || (c.getPopulation() <= c.getInfected())); //If the continent has not been invaded yet, don't infect anyone or if the entire continent has been infected, stop infecting
 		else if (Math.random() * 46 < _infectivity) { 
 			int points = c.getOldInfected() + c.getInfected();
-			System.out.println(points);
 				increaseDNApoints(points);
 				c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
 		
@@ -188,7 +187,7 @@ public class Pathogen{
 				c.setInfected(c.getInfected() - 1);
 			}
 			
-			else if (c.getPopulation() == c.getDead()) {
+			else if (c.getPopulation() <= c.getDead()) {
 				c.setDeadContinent(true); 
 				c.setInvaded(true);
 			}
