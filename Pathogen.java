@@ -154,7 +154,6 @@ public class Pathogen{
 		if (!c.getInvaded() || (c.getPopulation() == c.getInfected())); //If the continent has not been invaded yet, don't infect anyone or if the entire continent has been infected, stop infecting
 		else if (Math.random() < _infectivity) { 
 			int points = c.getOldInfected() + c.getInfected();
-				System.out.println(points);
 				increaseDNApoints(points);
 				c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
 		
