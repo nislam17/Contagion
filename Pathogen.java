@@ -1,3 +1,4 @@
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -144,16 +145,17 @@ public class Pathogen{
 	
 	/* transmit works based on infectivity and controls how fast the disease spreads inside countries*/
 	public  void transmit(Continent c) {
+		if (c.getInvaded() == false){
 		c.setInvaded(true); //signifies when the pathogen first enters a continent
 		c.setInfected(1);
 		increaseDNApoints(10); //first time a pathogen enters a continent, player receives lotsa points
-		
+		}
 	}
 	
 	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
 	public void infect(Continent c) {
 		if (!c.getInvaded() || (c.getPopulation() <= c.getInfected())); //If the continent has not been invaded yet, don't infect anyone or if the entire continent has been infected, stop infecting
-		else if (Math.random() * 46 < _infectivity) { 
+		else if (Math.random() * 1000 < _infectivity) { 
 			int points = c.getOldInfected() + c.getInfected();
 				increaseDNApoints(points);
 				c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
@@ -196,6 +198,7 @@ public class Pathogen{
 				increaseDNApoints(points);
 				c.setOldInfected(c.getOldInfected()  - points);
 				c.setInfected(c.getInfected() - points);
+			}
 				if (c.getOldInfected() < 0) {
 					c.setOldInfected(0);
 				}
@@ -206,7 +209,7 @@ public class Pathogen{
 			} // kill ppl based on the fib code
 			
 		}
-	}
+	
 	
 	//====================Accessor methods========================
 	public int getDNApoints() {

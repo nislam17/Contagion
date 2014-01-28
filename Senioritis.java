@@ -1,4 +1,4 @@
-
+package project;
 public class Senioritis extends Pathogen {
 	
 	public Senioritis () {

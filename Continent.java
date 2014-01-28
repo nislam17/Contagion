@@ -1,3 +1,4 @@
+
 public class Continent {
 	private int _oldInfected = 0, _infected = 0, _oldDead = 0, _dead = 0; 
 	private static double _cure = 0;
@@ -25,40 +26,40 @@ public class Continent {
 	
 	// ============= Accessor Methods ================
 	public int getInfected(){
-		return _infected;
+		return this._infected;
 	}
 	
 	public int getOldInfected() {
-		return _oldInfected;
+		return this._oldInfected;
 	}
 	
 	public int getDead(){
-		return _dead;
+		return this._dead;
 	}
 	
 	public int getOldDead() {
-		return _oldDead;
+		return this._oldDead;
 	}
 	
 	public double getCure(){
-		return _cure;
+		return this._cure;
 	}
 	
 	public boolean getInvaded() {
-		return _invaded; 
+		return this._invaded; 
 	}
 	
 	public long getPopulation() {
-		return _population;
+		return this._population;
 	}
 	
 	public boolean getDeadContinent() {
-		System.out.println(getInfected());
-		return _deadContinent; 
+		//System.out.println(getInfected());
+		return this._deadContinent; 
 	}
 	
 	public String get_nickname(){
-		return _abbreviation;
+		return this._abbreviation;
 	}
 	// ============ Mutator Methods ==================
 	public int setOldInfected(int i) {
@@ -67,9 +68,9 @@ public class Continent {
 		return veryOldInfected;
 		
 	}
-	public int setInfected(int i){
+	public int setInfected(long l){
 		int oldInfected = _infected;
-		_infected += i;
+		_infected += l;
 		return oldInfected;
 	}
 	
