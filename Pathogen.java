@@ -147,13 +147,15 @@ public class Pathogen{
 		c.setInvaded(true); //signifies when the pathogen first enters a continent
 		c.setInfected(1);
 		increaseDNApoints(10); //first time a pathogen enters a continent, player receives lotsa points
+		
 	}
 	
 	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
 	public void infect(Continent c) {
 		if (!c.getInvaded() || (c.getPopulation() == c.getInfected())); //If the continent has not been invaded yet, don't infect anyone or if the entire continent has been infected, stop infecting
-		else if (Math.random() < _infectivity) { 
+		else if (Math.random() * 46 < _infectivity) { 
 			int points = c.getOldInfected() + c.getInfected();
+			System.out.println(points);
 				increaseDNApoints(points);
 				c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
 		
@@ -164,7 +166,7 @@ public class Pathogen{
 	 * Post-cond: 
 	 * resist works based on resistivity and slows down the cure */
 	public void resist(Continent c) {
-		if (Math.random() < _resistivity) {
+		if (Math.random() * 46 < _resistivity) {
 			if (c.getCure() >= 1) {
 				c.setCure((c.getCure() - 1)); /* if the production of the cure has been started, pathogen
 				 								* will start to resist */									
@@ -176,23 +178,34 @@ public class Pathogen{
 	 	
 	/* kill works based on lethality and controls how fast the disease wipes out the population*/
 	public void kill(Continent c) {
-		if (Math.random() < _lethality) {
+		if (Math.random() * 46 < _lethality) {
 			if (!c.getInvaded()) {
 				return; // if the country hasn't been infected yet, don't kill anyone
 			}
-			if (c.getDead() == 0) {
+			else if (c.getDead() == 0) {
 				c.setDead(1); // if no one in the country is dead yet, start by killing 1 person
+				c.setOldInfected(c.getOldInfected() - 1);
+				c.setInfected(c.getInfected() - 1);
 			}
 			
 			else if (c.getPopulation() == c.getDead()) {
 				c.setDeadContinent(true); 
-				return; // if everyone has been wiped out, don't do anything
+				c.setInvaded(true);
 			}
 			else {
 				int points = c.getOldDead() + c.getDead(); 
 				increaseDNApoints(points);
-				c.setOldDead(c.setDead(points));
+				c.setOldInfected(c.getOldInfected()  - points);
+				c.setInfected(c.getInfected() - points);
+				if (c.getOldInfected() < 0) {
+					c.setOldInfected(0);
+				}
+				if (c.getInfected() < 0) {
+					c.setOldInfected(0);
+					c.setInfected(0);
+				}
 			} // kill ppl based on the fib code
+			
 		}
 	}
 	
