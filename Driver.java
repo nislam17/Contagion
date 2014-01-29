@@ -1,7 +1,9 @@
 
 import javax.swing.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -20,12 +22,12 @@ public class Driver extends JPanel implements ActionListener{
         
         static JPanel drawingPanel;
         final static JFrame mapper = new JFrame("Contagion");
-	    final static Continent NorthAmerica = new Continent(528700000, 0.9, "NA");   
-	    final static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
-	    final static Continent Europe = new Continent(739200000, 0.4, "EU"); 
-	    final static Continent Africa = new Continent(1033000000,0.1, "AF"); 
-	    final static Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
-	    final static Continent Australia = new Continent(22680000,0.8, "AUS"); 
+	    static Continent NorthAmerica = new Continent(528700000, 0.9, "NA");   
+	    static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
+	    static Continent Europe = new Continent(739200000, 0.4, "EU"); 
+	    static Continent Africa = new Continent(1033000000,0.1, "AF"); 
+	    static Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
+	    static Continent Australia = new Continent(22680000,0.8, "AUS"); 
 	    
 	    
 	    static Continent [] ContinentArray = {NorthAmerica, SouthAmerica, 
@@ -52,7 +54,7 @@ public class Driver extends JPanel implements ActionListener{
 	                        }
 	                        System.out.println(c.get_nickname() +  c.getInfected());
 	                }
-	                //pauser();
+	                pauser();
 	                drawingPanel.repaint();
 	                pathogen.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
 	                pathogen.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
@@ -75,11 +77,9 @@ public class Driver extends JPanel implements ActionListener{
 	                        }
 	                        if (c.getOldInfected() < 0) {
 	                        	c.setOldInfected(0);
-	                        }
-	                       
+	                        }                      
 	                }
-	                
-	                
+
 	                for (Continent c: ContinentArray) {
 	                        int counterDead = 0; //counter for the # of dead continents 
 	                        if (c.getDeadContinent() == true) { // checks if continent is dead
@@ -100,9 +100,10 @@ public class Driver extends JPanel implements ActionListener{
 	                                break;
 	                        }
 	                }
-	                System.out.println("U SEE ME!");   
-	                drawingPanel.repaint();
-	              
+	                System.out.println("U SEE ME!");
+
+	             
+	                
 	    	}
 	                
 	    }
@@ -112,18 +113,19 @@ public class Driver extends JPanel implements ActionListener{
             while (up > 0){
             	up -= 1;
             	down = up;
-            	if (pathogen.buttonPressed == true){
+            	if (pathogen.buttonPressed == false){
             		up = 0;
             		Thread.sleep(4000);
             		JFrame jan = new JFrame();
             		JDialog upper;
             		upper = new JDialog(jan, "J");
-            		jan.add(upper);
-            		jan.setSize(200,200);
-            		jan.setVisible(true);
+            		//jan.setContentPane(upper);
+            		//jan.setSize(200,200);
+            		//jan.setVisible(true);
             		}
-            	else if (pathogen.buttonPressed == false){
+            	else if (pathogen.buttonPressed == true){
             		up = 0;
+            		pathogen.buttonPressed = false;
             		break;}
             	else
             		break;
@@ -285,121 +287,10 @@ public class Driver extends JPanel implements ActionListener{
             }
             
            
-            
-            static ImageIcon ic = new ImageIcon("mapfinale.jpg");
-        	final static Image infoBg = ic.getImage();
-
-         static class Mypanel extends JPanel{
-        	 
-        	 private static final Map<Integer, String> REDS;
-     		static {
-     			REDS = new HashMap<Integer, String>();
-     			REDS.put(0, "#FFFFFF");
-     			REDS.put(5, "#FFFAFA");
-     			REDS.put(10, "#F4C2C2");
-     			REDS.put(15, "#FFC1CC");
-     			REDS.put(20, "#FF6961");
-     			REDS.put(25, "#FF5C5C");
-     			REDS.put(30, "#FF1C00");
-     			REDS.put(35, "#E00000");
-     			REDS.put(40, "#E34234");
-     			REDS.put(45, "#D10000");
-     			REDS.put(50, "#D73B3E");
-     			REDS.put(55, "#CE1620");
-     			REDS.put(60, "#CC0000");
-     			REDS.put(65, "#B22222");
-     			REDS.put(70, "#B31B1B");
-     			REDS.put(75, "#A40000");
-     			REDS.put(80, "#800000");
-     			REDS.put(85, "#701C1C");
-     			REDS.put(90, "#3C1414");
-     			REDS.put(95, "#321414");
-     			REDS.put(100, "#000000");			
-     		}
-            
-            public void paintComponent(Graphics g){
-            	super.paintComponent(g);
-            	setOpaque(false);
-            	g.drawImage(infoBg, 0, 0, this);               	                    
-                Graphics2D g2d = (Graphics2D) g;                                 
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                //========== Drawing the Circle Outlines ===========
-                g.drawOval(290,155,100,100);  //N.AM        
-                g.drawOval(470,390,100,100); //S.AM
-                g.drawOval(900,100,90,90); //EU
-                g.drawOval(800,305,100,100);//AF
-                g.drawOval(1100,180,100,100);//ASIA
-                g.drawOval(1275,435,90,90); //AUS     
-                //===================================================
-                fillOvalNA(g);
-                fillOvalSA(g);
-                fillOvalEU(g);
-                fillOvalAF(g);
-                fillOvalASIA(g);
-                fillOvalAUS(g);    
-                
-                }
-            
-            static int round(int n){
-            	return (Math.round(n/5)*5);
-            }
-            
-            public static void setColor (Graphics g, Continent c){
-            	//NorthAmerica.setInfected(NorthAmerica.getInfected());
-            	int percent = (int) (c.getInfected()/ (c.getPopulation()/100)) ;
-            	if (percent > 100){
-            		percent = 100;
-            	}
-            	percent = round(percent);
-                String RGB = REDS.get(percent);
-                
-            	g.setColor(Color.decode(RGB));
-            	
-            	//System.out.println(RGB);
-            	//System.out.println(c.getInfected() * 100/c.getPopulation() );
-            	
-            	//System.out.println(percent);           	
-            }
-          //=============== COLOR THE CIRCLES ======================
-            public static void fillOvalNA(Graphics g){            	
-            	setColor(g, NorthAmerica);
-            	g.fillOval(290, 155, 100, 100);            	
-            }
-            public static void fillOvalSA(Graphics g){
-            	setColor(g, SouthAmerica);
-            	g.fillOval(470,390,100,100);            	
-            }
-            public static void fillOvalEU(Graphics g){
-            	setColor(g, Europe);
-            	g.fillOval(900,100,90,90);           	
-            }
-            public static void fillOvalAF(Graphics g){
-            	setColor(g, Africa);
-            	g.fillOval(800,305,100,100);           	
-            }    
-            public static void fillOvalASIA(Graphics g){
-            	setColor(g, Asia);
-            	g.fillOval(1100,180,100,100);           	
-            }
-            public static void fillOvalAUS(Graphics g){
-            	setColor(g, Australia);
-            	g.fillOval(1275,435,90,90);          	
-            }
-            //========================================================
-        }
-            
           
-            
-            
                 
         public static void main (String[] args) {
-        	//NorthAmerica.setInfected(264331400);
-        	
-        	drawingPanel = new Mypanel();
-        	
-        	
-        	mapper.setContentPane(drawingPanel);
-        	
+
             final JFrame f1 = new JFrame("Choose Your Pathogen");
             JPanel chooser = new JPanel(); // choose pathogen
                 
@@ -410,13 +301,19 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {              
                 pathogen = new Bacteria(); 
-                mapper.setSize(new Dimension(1500, 750));
-                mapper.setLocation(200,200);
-                mapper.setVisible(true);
-                mapper.setResizable(false);
-                mapper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+                Continental();     
+                EventQueue.invokeLater(new Runnable() {
+        			public void run() {
+        				try {
+        					GOOEY window = new GOOEY();
+        					window.frame.setVisible(true);
+        				} catch (Exception e) {
+        					e.printStackTrace();
+        				}
+        			}
+        		}); 
                 f1.dispose();
-                Continental();                 
+                            
             }
             });
                 
@@ -428,11 +325,16 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     pathogen = new Virus();                    
-                    mapper.setSize(new Dimension(1500, 750));
-                    mapper.setLocation(200,200);
-                    mapper.setVisible(true);
-                    mapper.setResizable(false);
-                    mapper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+                    EventQueue.invokeLater(new Runnable() {
+            			public void run() {
+            				try {
+            					GOOEY window = new GOOEY();
+            					window.frame.setVisible(true);
+            				} catch (Exception e) {
+            					e.printStackTrace();
+            				}
+            			}
+            		}); 
                     
                 f1.dispose();
                 
@@ -448,11 +350,16 @@ public class Driver extends JPanel implements ActionListener{
             {
                 //Execute when button is pressed
                     pathogen = new Senioritis();
-                    mapper.setSize(new Dimension(1500, 750));
-                    mapper.setLocation(200,200);
-                    mapper.setVisible(true);
-                    mapper.setResizable(false);
-                    mapper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+                    EventQueue.invokeLater(new Runnable() {
+            			public void run() {
+            				try {
+            					GOOEY window = new GOOEY();
+            					window.frame.setVisible(true);
+            				} catch (Exception e) {
+            					e.printStackTrace();
+            				}
+            			}
+            		});
                 f1.dispose();
                 Continental(); 
             }
