@@ -10,7 +10,6 @@ import java.awt.RenderingHints;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ import javax.swing.SpringLayout;
 import javax.swing.JProgressBar;
 import javax.swing.JLabel;
 
-public class GOOEY extends JPanel {
+public class GOOEY {
 	private static final Map<Integer, String> REDS;
 		static {
 			REDS = new HashMap<Integer, String>();
@@ -54,13 +53,6 @@ public class GOOEY extends JPanel {
 	static ImageIcon ic = new ImageIcon("mapfinale.jpg");
 	final static Image infoBg = ic.getImage();
 
-	/**
-	 * Launch the application.
-	 */
-	
-	/**
-	 * Create the application.
-	 */
 	public GOOEY() {
 		initialize();
 	}
@@ -219,5 +211,7 @@ public class GOOEY extends JPanel {
     	setColor(g, Australia);
     	g.fillOval(1275,435,90,90);          	
     }
+
+    
 }
 

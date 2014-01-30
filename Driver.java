@@ -1,6 +1,5 @@
 
 import javax.swing.*;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -19,8 +18,7 @@ public class Driver extends JPanel implements ActionListener{
         private static boolean winner, _submit; 
         private static String game = "continue";
         private static int up = 3, down = 3;
-        
-        static JPanel drawingPanel;
+
         final static JFrame mapper = new JFrame("Contagion");
 	    static Continent NorthAmerica = new Continent(528700000, 0.9, "NA");   
 	    static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
@@ -54,8 +52,8 @@ public class Driver extends JPanel implements ActionListener{
 	                        }
 	                        System.out.println(c.get_nickname() +  c.getInfected());
 	                }
-	                pauser();
-	                drawingPanel.repaint();
+	                //pauser();
+
 	                pathogen.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
 	                pathogen.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
 	                /*
