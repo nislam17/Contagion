@@ -24,7 +24,7 @@ public class Upgrades implements ActionListener{
         //===========================================================       
     	//JPanel mainPanel = new JPanel();
     	//mainPanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 300, 100)); 
-    	JTabbedPane tabbedPane = new JTabbedPane();
+    	/*JTabbedPane tabbedPane = new JTabbedPane();
     	
 
     	JComponent panel1 = makeTextPanel("Transmission Upgrades");
@@ -57,12 +57,12 @@ public class Upgrades implements ActionListener{
 
     	//add(tabbedPane);
     	
-        JFrame f1 = new JFrame("Upgrades");
-        f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        //JFrame f1 = new JFrame("Upgrades");
+        //f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         
-        f1.setContentPane(tabbedPane);
-        f1.pack();
-        f1.setVisible(true);
+        //f1.setContentPane(tabbedPane);
+       // f1.pack();
+        //f1.setVisible(true);*/
         
         buttoner(a);
         buttoner(b);
@@ -87,6 +87,7 @@ public class Upgrades implements ActionListener{
 	        b.setBorderPainted(false);
 	        b.setContentAreaFilled(false);
 	    }
+	 /*
 	 protected JComponent makeTextPanel(String text) {
 	        JPanel panel = new JPanel(false);
 	        JLabel filler = new JLabel(text);
@@ -95,6 +96,7 @@ public class Upgrades implements ActionListener{
 	        panel.add(filler);
 	        return panel;
 	    }
+	    */
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

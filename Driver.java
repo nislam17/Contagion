@@ -1,18 +1,18 @@
+
 import javax.swing.*;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Driver extends JPanel implements ActionListener{
+	
+	
+	
+	
+	public Driver(){
+		pathogenChoose();
+	}
         
 	// ===================== VARIABLES ====================================
         private static boolean winner, _submit; 
@@ -31,33 +31,223 @@ public class Driver extends JPanel implements ActionListener{
 	    static Continent [] ContinentArray = {NorthAmerica, SouthAmerica, 
 	    	Europe, Africa, Asia, Australia};
     
-        static Pathogen pathogen;
+      // static Pathogen p = new Pathogen();
+       
+       protected static double _infectivity = 0;
+	protected static double _resistivity = 0;
+	protected static double _lethality = 0; 
+   	
+   	//infectivity - how quickly the disease will spread! Controls how fast the disease spreads both inside and between countries. 
+   	//resistivity - a sign of how bad the disease is if you catch it! It will slow down cure research and give you more DNA points. 
+   	//lethality - How easily the disease can kill someone! It can slow/stop cure research and give you more DNA points.
+   	
+   	private static int _DNApoints = 0; 
+   	// DNA points let you evolve. Get them automatically.
+   	protected static boolean airUp = false ;
+	protected static boolean waterUp = false;
+	protected static boolean liveStockUp = false;
+	protected static boolean buttonPressed = false;
+	
+	static Driver man;
     
         // =====================================================================    
         
+   	
+   	
+   	public void increaseDNApoints(int p) {
+		_DNApoints += p;
+	}
+	
+	/* transmit works based on infectivity and controls how fast the disease spreads inside countries*/
+	public  void transmit(Continent c) {
+		if (c.getInvaded() == false){
+		c.setInvaded(true); //signifies when the pathogen first enters a continent
+		c.setInfected(1);
+		increaseDNApoints(10); //first time a pathogen enters a continent, player receives lotsa points
+		}
+	}
+	
+	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
+	public void infect(Continent c) {
+		if (!c.getInvaded() || (c.getPopulation() <= c.getInfected())); //If the continent has not been invaded yet, don't infect anyone or if the entire continent has been infected, stop infecting
+		else if (Math.random() * 1000 < _infectivity) { 
+			int points = c.getOldInfected() + c.getInfected();
+				increaseDNApoints(points);
+				c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
+		
+		}
+	}
+	
+	/*Pre-cond: 
+	 * Post-cond: 
+	 * resist works based on resistivity and slows down the cure */
+	public void resist(Continent c) {
+		if (Math.random() * 46 < _resistivity) {
+			if (c.getCure() >= 1) {
+				c.setCure((c.getCure() - 1)); /* if the production of the cure has been started, pathogen
+				 								* will start to resist */									
+			}
+		}
+	}
+	
+	
+	 	
+	/* kill works based on lethality and controls how fast the disease wipes out the population*/
+	public void kill(Continent c) {
+		if (Math.random() * 46 < _lethality) {
+			if (!c.getInvaded()) {
+				return; // if the country hasn't been infected yet, don't kill anyone
+			}
+			else if (c.getDead() == 0) {
+				c.setDead(1); // if no one in the country is dead yet, start by killing 1 person
+				c.setOldInfected(c.getOldInfected() - 1);
+				c.setInfected(c.getInfected() - 1);
+			}
+			
+			else if (c.getPopulation() <= c.getDead()) {
+				c.setDeadContinent(true); 
+				c.setInvaded(true);
+			}
+			else {
+				int points = c.getOldDead() + c.getDead(); 
+				increaseDNApoints(points);
+				c.setOldInfected(c.getOldInfected()  - points);
+				c.setInfected(c.getInfected() - points);
+			}
+				if (c.getOldInfected() < 0) {
+					c.setOldInfected(0);
+				}
+				if (c.getInfected() < 0) {
+					c.setOldInfected(0);
+					c.setInfected(0);
+				}
+			} // kill ppl based on the fib code
+			
+		}
+	
+	
+	//====================Accessor methods========================
+	public int getDNApoints() {
+		return _DNApoints;
+	}
+	
+	public double getInfectivity() {
+		return _infectivity;
+	}
+	
+	public double getResistivity() {
+		return _resistivity; 
+		
+	}
+	
+	public double getLethality() {
+		return _lethality;
+	}
+	
+	//=====================UPGRADES====================== 
+	/*DNA points help upgrade Transmission */
+	public static void upgradeTransmissionAir() {
+		if (_DNApoints > 12 && airUp == false) {
+			
+			_DNApoints -= 12; 
+			_infectivity += 3; 
+			}
+			else{
+				System.out.println("You already upgraded this");
+			}
+	} // upgrades infectivity
+	
+	public static void upgradeTransmissionWater() {
+		if (_DNApoints < 10) {
+			return; 
+		}
+		_DNApoints -= 10; 
+		_infectivity += 2; 
+	} // upgrades infectivity
+	
+	public static void upgradeTransmissionLivestock() {
+		if (_DNApoints < 9) {
+			return; 
+		}
+		_DNApoints -= 9; 
+		_infectivity += 1; 
+	} // upgrades infectivity
+	
+	/* DNA points help upgrade symptoms */
+	public static void upgradeSymptomsInsomnia() {
+		if (_DNApoints < 8) {
+			return; 
+		}
+		_DNApoints -= 8; 
+		_lethality += 1; 
+	}
+	
+	/* DNA points help upgrade symptoms */
+	public static void upgradeSymptomsParanoia() {
+		if (_DNApoints < 9) {
+			return; 
+		}
+		_DNApoints -= 9; 
+		_lethality += 2; 
+	}
+	
+	/* DNA points help upgrade symptoms */
+	public static void upgradeSymptomsParalysis() {
+		if (_DNApoints < 12) {
+			return; 
+		}
+		_DNApoints -= 12; 
+		_lethality += 3; 
+	}
+	
+	/* DNA points help upgrade symptoms */
+	public static void upgradeSymptomsComa() {
+		if (_DNApoints < 12) {
+			return; 
+		}
+		_DNApoints -= 12; 
+		_lethality += 3; 
+	}
+	
+	/*DNA points help fight the cure */
+	public static void upgradeResistivityGenetic() {
+		if (_DNApoints < 11) {
+			return; 
+		}
+		_DNApoints -= 11; 
+		_resistivity += 1; 
+	}
+	
+	/*DNA points help fight the cure */
+	public static void upgradeResistivityDrug() {
+		if (_DNApoints < 12) {
+			return; 
+		}
+		_DNApoints -= 12; 
+		_resistivity += 2; 
+	}
+   	
         
         //game play 
-	    public static void gamePlay() throws InterruptedException {
-	    
+	    public static void gamePlay() {
+	    	
 	    		
 	                //System.out.println("ahhh");
-	    			for (Continent c: ContinentArray){
-	    				System.out.println(c.get_nickname() +  c.getInfected());
-	    			}
+	    			
 	                for (Continent c: ContinentArray) {
-	                        pathogen.infect(c);        //infects population of invaded continents  
+	                        man.infect(c);        //infects population of invaded continents  
 	                        //Thread.sleep(50);
 	                        if (c.getInfected() > c.getPopulation()){
 	                        	
 	                        	c.setInfected(c.getPopulation());
 	                        	
 	                        }
-	                        
+	                        System.out.println(c.get_nickname() +  c.getInfected());
 	                }
-	                //pauser();
+	                
 
-	                pathogen.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
-	                pathogen.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
+	                man.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
+	                man.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
 	                /*
 	                for (Continent c: ContinentArray) {
 	                        pathogen.kill(c);  //kills population of infected continents
@@ -100,47 +290,13 @@ public class Driver extends JPanel implements ActionListener{
 	                                break;
 	                        }
 	                }
-	                System.out.println("U SEE ME!");            
+	                System.out.println("U SEE ME!");
+
+	             
 	                
 	    	}
-	    
-	    public static void textbox() {
-	    	JTextArea stats = new JTextArea();
-	    	stats.add("Infectivity: " + pathogen.getInfectivity(), stats);
-	    	stats.add("Resistvity: " + pathogen.getResistivity(), stats);
-	    	stats.add("Lethality: " + pathogen.getLethality(), stats);
-	    	
-	    	JFrame text = new JFrame("stats");
-	    	text.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-	    	text.setVisible(true);
-	    }
 	                
 	    
-	    
-	    public static void pauser() throws InterruptedException{
-	    	up = down;
-            while (up > 0){
-            	up -= 1;
-            	down = up;
-            	if (pathogen.buttonPressed == false){
-            		up = 0;
-            		Thread.sleep(4000);
-            		JFrame jan = new JFrame();
-            		JDialog upper;
-            		upper = new JDialog(jan, "J");
-            		//jan.setContentPane(upper);
-            		//jan.setSize(200,200);
-            		//jan.setVisible(true);
-            		}
-            	else if (pathogen.buttonPressed == true){
-            		up = 0;
-            		pathogen.buttonPressed = false;
-            		break;}
-            	else
-            		break;
-
-            }
-	    }
 	    
     	public static void Submitter() {
     		final JPanel stats = new JPanel(); 
@@ -157,14 +313,15 @@ public class Driver extends JPanel implements ActionListener{
             else {
           
             }
+
 			JTextArea attributes = new JTextArea(" DNApoints: "
-	        + pathogen.getDNApoints()
+	        + man.getDNApoints()
 	        + "\nInfectivity: "
-	        + pathogen.getInfectivity()
+	        + man.getInfectivity()
 	        +"\nResistivity: "
-	        + pathogen.getResistivity()
+	        + man.getResistivity()
 	        +"\nLethality: "
-	        + pathogen.getLethality()); 
+	        + man.getLethality()); 
 	        stats.add(attributes);
 	        f3.setLocation(100, 300);
 	        f3.setContentPane(stats);
@@ -182,14 +339,9 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-                    pathogen.transmit(NorthAmerica);     
+                    man.transmit(NorthAmerica);     
                     f2.dispose();   
-                    try {
-						gamePlay();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                    gamePlay();
                     
             }
             });
@@ -200,14 +352,9 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-                    pathogen.transmit(SouthAmerica);
+                    man.transmit(SouthAmerica);
                     f2.dispose();  
-                    try {
-						gamePlay();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                    gamePlay();
             }
             });
                 
@@ -216,15 +363,10 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                    pathogen.transmit(Europe);
+                    man.transmit(Europe);
                     f2.dispose(); 
                     
-						try {
-							gamePlay();
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						gamePlay();
 					
 					                  
             }
@@ -235,15 +377,10 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                    pathogen.transmit(Africa);
+                    man.transmit(Africa);
                     f2.dispose();
                     
-						try {
-							gamePlay();
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						gamePlay();
 					
 					                
             }
@@ -254,14 +391,9 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                    pathogen.transmit(Asia);                    
+                    man.transmit(Asia);                    
                     f2.dispose();
-                    try {
-						gamePlay();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}         
+                    gamePlay();         
             }
             });
                 
@@ -270,14 +402,9 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                    pathogen.transmit(Australia);
+                    man.transmit(Australia);
                     f2.dispose();
-                    try {
-						gamePlay();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} 
+                    gamePlay(); 
             }
             });
                 
@@ -294,203 +421,8 @@ public class Driver extends JPanel implements ActionListener{
                 f2.setVisible(true);  
             }
             
-            	private static final Map<Integer, String> REDS;
-            		static {
-            			REDS = new HashMap<Integer, String>();
-            			REDS.put(0, "#FFFFFF");
-            			REDS.put(5, "#FFFAFA");
-            			REDS.put(10, "#F4C2C2");
-            			REDS.put(15, "#FFC1CC");
-            			REDS.put(20, "#FF6961");
-            			REDS.put(25, "#FF5C5C");
-            			REDS.put(30, "#FF1C00");
-            			REDS.put(35, "#E00000");
-            			REDS.put(40, "#E34234");
-            			REDS.put(45, "#D10000");
-            			REDS.put(50, "#D73B3E");
-            			REDS.put(55, "#CE1620");
-            			REDS.put(60, "#CC0000");
-            			REDS.put(65, "#B22222");
-            			REDS.put(70, "#B31B1B");
-            			REDS.put(75, "#A40000");
-            			REDS.put(80, "#800000");
-            			REDS.put(85, "#701C1C");
-            			REDS.put(90, "#3C1414");
-            			REDS.put(95, "#321414");
-            			REDS.put(100, "#000000");			
-            		}
-            	static JFrame frame;
-
-            	static ImageIcon ic = new ImageIcon("mapfinale.jpg");
-            	final static Image infoBg = ic.getImage();
-
-
-            	/**
-            	 * Initialize the contents of the frame.
-            	 */
-            	private static void initialize() {
-            		
-            		JButton a = new JButton(); //air
-            		JButton b = new JButton(); //water
-            		JButton c = new JButton(); //livestock
-            		JButton d = new JButton(); //insomnia
-            		JButton e = new JButton(); //paranoia
-            		JButton f = new JButton(); //paralysis
-            		JButton g = new JButton(); //coma 
-            		JButton h = new JButton(); //genetic reshuffle
-            		JButton i = new JButton(); //drug resistance
-            		Upgrades u = new Upgrades(a,b,c,d,e,f,g,h,i);
-            		frame = new JFrame();
-            		frame.setBounds(100, 100, 1600, 850);
-            		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            		SpringLayout springLayout = new SpringLayout();
-            		frame.getContentPane().setLayout(springLayout);
-            		
-            		JPanel panel = new JPanel(){
-            			public void paintComponent(Graphics g){
-            	    	super.paintComponent(g);
-            	    	setOpaque(false);
-            	    	g.drawImage(infoBg, 0, 0, this);               	                    
-            	        Graphics2D g2d = (Graphics2D) g;                                 
-            	        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            	        //========== Drawing the Circle Outlines ===========
-            	        g.drawOval(290,155,100,100);  //N.AM        
-            	        g.drawOval(470,390,100,100); //S.AM
-            	        g.drawOval(900,100,90,90); //EU	        g.drawOval(800,305,100,100);//AF
-            	        g.drawOval(1100,180,100,100);//ASIA
-            	        g.drawOval(1275,435,90,90); //AUS     
-            	        //===================================================
-            	        fillOvalNA(g);
-            	        fillOvalSA(g);
-            	        fillOvalEU(g);
-            	        fillOvalAF(g);
-            	        fillOvalASIA(g);
-            	        fillOvalAUS(g);    
-            	        }
-            		};
-            		springLayout.putConstraint(SpringLayout.NORTH, panel, 10, SpringLayout.NORTH, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.WEST, panel, 10, SpringLayout.WEST, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.SOUTH, panel, 772, SpringLayout.NORTH, frame.getContentPane());
-            		frame.getContentPane().add(panel);
-            		
-            		JProgressBar progressBar = new JProgressBar();
-            		springLayout.putConstraint(SpringLayout.NORTH, progressBar, 790, SpringLayout.NORTH, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.WEST, progressBar, 63, SpringLayout.WEST, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.SOUTH, progressBar, -10, SpringLayout.SOUTH, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.EAST, progressBar, 209, SpringLayout.WEST, frame.getContentPane());
-            		frame.getContentPane().add(progressBar);
-            		
-            		JPanel panel_1 = new JPanel();
-            		springLayout.putConstraint(SpringLayout.WEST, panel_1, 1275, SpringLayout.WEST, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.EAST, panel_1, -10, SpringLayout.EAST, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.EAST, panel, -6, SpringLayout.WEST, panel_1);
-            		springLayout.putConstraint(SpringLayout.SOUTH, panel_1, -589, SpringLayout.SOUTH, frame.getContentPane());
-            		
-            		panel_1.add(a);
-            		panel_1.add(b);
-            		panel_1.add(c);
-            		frame.getContentPane().add(panel_1);
-            		
-            		JPanel panel_2 = new JPanel();
-            		springLayout.putConstraint(SpringLayout.EAST, panel_2, -10, SpringLayout.EAST, frame.getContentPane());
-            		panel_2.add(d);
-            		panel_2.add(e);
-            		panel_2.add(f);
-            		panel_2.add(g);
-            		frame.getContentPane().add(panel_2);
-            		
-            		JPanel panel_3 = new JPanel();
-            		springLayout.putConstraint(SpringLayout.WEST, panel_2, 0, SpringLayout.WEST, panel_3);
-            		springLayout.putConstraint(SpringLayout.SOUTH, panel_2, -25, SpringLayout.NORTH, panel_3);
-            		springLayout.putConstraint(SpringLayout.WEST, panel_3, 1275, SpringLayout.WEST, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.EAST, panel_3, -10, SpringLayout.EAST, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.NORTH, panel_3, 590, SpringLayout.NORTH, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.SOUTH, panel_3, -10, SpringLayout.SOUTH, frame.getContentPane());
-            		panel_3.add(h);
-            		panel_3.add(i);
-
-
-            		frame.getContentPane().add(panel_3);
-            		
-            		JLabel lblTransmissionUpgrades = new JLabel("Transmission Upgrades");
-            		springLayout.putConstraint(SpringLayout.NORTH, panel_1, 6, SpringLayout.SOUTH, lblTransmissionUpgrades);
-            		springLayout.putConstraint(SpringLayout.SOUTH, lblTransmissionUpgrades, -836, SpringLayout.SOUTH, frame.getContentPane());
-            		springLayout.putConstraint(SpringLayout.EAST, lblTransmissionUpgrades, -95, SpringLayout.EAST, frame.getContentPane());
-            		frame.getContentPane().add(lblTransmissionUpgrades);
-            		
-            		JLabel lblSymptomsUpgrades = new JLabel("Symptoms Upgrades");
-            		springLayout.putConstraint(SpringLayout.NORTH, panel_2, 6, SpringLayout.SOUTH, lblSymptomsUpgrades);
-            		springLayout.putConstraint(SpringLayout.NORTH, lblSymptomsUpgrades, 6, SpringLayout.SOUTH, panel_1);
-            		springLayout.putConstraint(SpringLayout.WEST, lblSymptomsUpgrades, 0, SpringLayout.WEST, lblTransmissionUpgrades);
-            		frame.getContentPane().add(lblSymptomsUpgrades);
-            		
-            		JLabel lblFightTheCure = new JLabel("Fight the Cure");
-            		springLayout.putConstraint(SpringLayout.WEST, lblFightTheCure, 0, SpringLayout.WEST, lblTransmissionUpgrades);
-            		springLayout.putConstraint(SpringLayout.SOUTH, lblFightTheCure, -6, SpringLayout.NORTH, panel_3);
-            		frame.getContentPane().add(lblFightTheCure);
-            		
-            		
-            	}
-            	
-            	
-                
-                static int round(int n){
-                	return (Math.round(n/5)*5);
-                }
-                
-                public static void setColor (Graphics g, Continent c){
-                	//NorthAmerica.setInfected(NorthAmerica.getInfected());
-                	int percent = (int) (c.getInfected()/ (c.getPopulation()/100)) ;
-                	if (percent > 100){
-                		percent = 100;
-                	}
-                	percent = round(percent);
-                    String RGB = REDS.get(percent);
-                    
-                	g.setColor(Color.decode(RGB));
-                	
-                	//System.out.println(RGB);
-                	//System.out.println(c.getInfected() * 100/c.getPopulation() );
-                	
-                	//System.out.println(percent);           	
-                }
-              //=============== COLOR THE CIRCLES ======================
-                public static void fillOvalNA(Graphics g){            	
-                	setColor(g, NorthAmerica);
-                	g.fillOval(290, 155, 100, 100);            	
-                }
-                public static void fillOvalSA(Graphics g){
-                	setColor(g, SouthAmerica);
-                	g.fillOval(470,390,100,100);            	
-                }
-                public static void fillOvalEU(Graphics g){
-                	setColor(g, Europe);
-                	g.fillOval(900,100,90,90);           	
-                }
-                public static void fillOvalAF(Graphics g){
-                	setColor(g, Africa);
-                	g.fillOval(800,305,100,100);           	
-                }    
-                public static void fillOvalASIA(Graphics g){
-                	setColor(g, Asia);
-                	g.fillOval(1100,180,100,100);           	
-                }
-                public static void fillOvalAUS(Graphics g){
-                	setColor(g, Australia);
-                	g.fillOval(1275,435,90,90);          	
-                }
-
-                
-            
-            
-           
-          
-                
-        public static void main (String[] args) {
-        	
-        	
-
-            final JFrame f1 = new JFrame("Choose Your Pathogen");
+        public static void pathogenChoose(){
+        	final JFrame f1 = new JFrame("Choose Your Pathogen");
             JPanel chooser = new JPanel(); // choose pathogen
                 
             //===================== BACTERIA ======================
@@ -499,13 +431,13 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {              
-                pathogen = new Bacteria(); 
+                //p = new Bacteria(); 
                 Continental();     
                 EventQueue.invokeLater(new Runnable() {
         			public void run() {
         				try {
-        					initialize();
-        					frame.setVisible(true);
+        					GOOEY window = new GOOEY();
+        					window.frame.setVisible(true);
         				} catch (Exception e) {
         					e.printStackTrace();
         				}
@@ -523,12 +455,12 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-                    pathogen = new Virus();                    
+                  //  p = new Virus();                    
                     EventQueue.invokeLater(new Runnable() {
             			public void run() {
             				try {
-            					initialize();
-            					frame.setVisible(true);
+            					GOOEY window = new GOOEY();
+            					window.frame.setVisible(true);
             				} catch (Exception e) {
             					e.printStackTrace();
             				}
@@ -548,12 +480,12 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-                    pathogen = new Senioritis();
+                    //p = new Senioritis();
                     EventQueue.invokeLater(new Runnable() {
             			public void run() {
             				try {
-            					initialize();
-            					frame.setVisible(true);
+            					GOOEY window = new GOOEY();
+            					window.frame.setVisible(true);
             				} catch (Exception e) {
             					e.printStackTrace();
             				}
@@ -570,11 +502,20 @@ public class Driver extends JPanel implements ActionListener{
                 f1.setLocation(500, 500);
                 f1.setContentPane(chooser);
                 f1.pack();
-                f1.setVisible(true);                                       
-        }// end main 
-
+                f1.setVisible(true);   
+                                                
+        }
+        
+          
+                
+        public static void main (String[] args) {
+        	man = new Driver();
+        	//man.Pathogen();
+        	
+            
+        }
         @Override
         public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
         }
-        }
+}

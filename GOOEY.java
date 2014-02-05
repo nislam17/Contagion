@@ -1,24 +1,21 @@
-
 import javax.swing.JFrame;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.ImageIcon;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.SpringLayout;
-import javax.swing.JProgressBar;
-import javax.swing.JLabel;
-
-public class GOOEY {
+public class GOOEY extends Driver {
 	private static final Map<Integer, String> REDS;
+	protected static double _infectivity = 0;
+	protected static double _resistivity = 0;
+	protected static double _lethality = 0; 
+   	
+   	//infectivity - how quickly the disease will spread! Controls how fast the disease spreads both inside and between countries. 
+   	//resistivity - a sign of how bad the disease is if you catch it! It will slow down cure research and give you more DNA points. 
+   	//lethality - How easily the disease can kill someone! It can slow/stop cure research and give you more DNA points.
+   	
+   	private static int _DNApoints = 0; 
+   	// DNA points let you evolve. Get them automatically.
+   	protected static boolean airUp = false ;
+	protected static boolean waterUp = false;
+	protected static boolean liveStockUp = false;
+	protected static boolean buttonPressed = false;
 		static {
 			REDS = new HashMap<Integer, String>();
 			REDS.put(0, "#FFFFFF");
@@ -72,6 +69,118 @@ public class GOOEY {
 		JButton h = new JButton(); //genetic reshuffle
 		JButton i = new JButton(); //drug resistance
 		Upgrades u = new Upgrades(a,b,c,d,e,f,g,h,i);
+a.addActionListener(new ActionListener() {
+	   		
+            public void actionPerformed(ActionEvent e)
+            {
+            	gamePlay();
+            	if (airUp == false){
+                	upgradeTransmissionAir();
+                	airUp = true;
+                	buttonPressed = true;
+                	gamePlay();
+                	
+                }
+
+            
+	   		}
+    	});
+		b.addActionListener(new ActionListener() {
+   		 
+            public void actionPerformed(ActionEvent e)
+            {            	
+            	if (waterUp == false){
+            		upgradeTransmissionWater(); 
+                	airUp = true;
+                	buttonPressed = true;
+                	gamePlay();
+            	}
+            }
+    	});
+		c.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {     
+            	if (liveStockUp == false){
+            		upgradeTransmissionLivestock(); 
+                	airUp = true;   
+                	buttonPressed = true;
+                	gamePlay();
+            	}
+            }
+    	});
+		d.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (airUp == false){
+            		upgradeSymptomsInsomnia();
+                	airUp = true; 
+                	buttonPressed = true;
+                	gamePlay();
+            	}	                
+            }
+    	});
+		e.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (airUp == false){
+            		upgradeSymptomsParanoia();
+                	airUp = true;
+                	buttonPressed = true;
+                	gamePlay();
+            	}	
+            }
+    	});
+		f.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (airUp == false){
+            		upgradeSymptomsParalysis();
+                	airUp = true;
+                	buttonPressed = true;
+                	gamePlay();
+            	}	
+            }
+    	});
+		g.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (airUp == false){
+            		upgradeSymptomsComa();
+            		airUp = true; 
+                	buttonPressed = true;
+                	gamePlay();
+            	}	
+            }
+    	});
+		h.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (airUp == false){
+            		upgradeResistivityGenetic();
+                	airUp = true;   
+                	buttonPressed = true;
+                	gamePlay();
+            	}	
+            }
+    	});
+		i.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (airUp == false){
+            		upgradeResistivityDrug();
+                	airUp = true;  
+                	buttonPressed = true;
+                	gamePlay();
+            	}	
+            }
+    	});
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1600, 850);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -212,6 +321,110 @@ public class GOOEY {
     	g.fillOval(1275,435,90,90);          	
     }
 
+    
+    
+    
+	
+	//====================Accessor methods========================
+	public int getDNApoints() {
+		return _DNApoints;
+	}
+	
+	public double getInfectivity() {
+		return _infectivity;
+	}
+	
+	public double getResistivity() {
+		return _resistivity; 
+		
+	}
+	
+	public double getLethality() {
+		return _lethality;
+	}
+	
+	//=====================UPGRADES====================== 
+	/*DNA points help upgrade Transmission */
+	public static void upgradeTransmissionAir() {
+		if (_DNApoints > 12 && airUp == false) {
+			
+			_DNApoints -= 12; 
+			_infectivity += 3; 
+			}
+			else{
+				System.out.println("You already upgraded this");
+			}
+	} // upgrades infectivity
+	
+	public static void upgradeTransmissionWater() {
+		if (_DNApoints < 10) {
+			return; 
+		}
+		_DNApoints -= 10; 
+		_infectivity += 2; 
+	} // upgrades infectivity
+	
+	public static void upgradeTransmissionLivestock() {
+		if (_DNApoints < 9) {
+			return; 
+		}
+		_DNApoints -= 9; 
+		_infectivity += 1; 
+	} // upgrades infectivity
+	
+	/* DNA points help upgrade symptoms */
+	public static void upgradeSymptomsInsomnia() {
+		if (_DNApoints < 8) {
+			return; 
+		}
+		_DNApoints -= 8; 
+		_lethality += 1; 
+	}
+	
+	/* DNA points help upgrade symptoms */
+	public static void upgradeSymptomsParanoia() {
+		if (_DNApoints < 9) {
+			return; 
+		}
+		_DNApoints -= 9; 
+		_lethality += 2; 
+	}
+	
+	/* DNA points help upgrade symptoms */
+	public static void upgradeSymptomsParalysis() {
+		if (_DNApoints < 12) {
+			return; 
+		}
+		_DNApoints -= 12; 
+		_lethality += 3; 
+	}
+	
+	/* DNA points help upgrade symptoms */
+	public static void upgradeSymptomsComa() {
+		if (_DNApoints < 12) {
+			return; 
+		}
+		_DNApoints -= 12; 
+		_lethality += 3; 
+	}
+	
+	/*DNA points help fight the cure */
+	public static void upgradeResistivityGenetic() {
+		if (_DNApoints < 11) {
+			return; 
+		}
+		_DNApoints -= 11; 
+		_resistivity += 1; 
+	}
+	
+	/*DNA points help fight the cure */
+	public static void upgradeResistivityDrug() {
+		if (_DNApoints < 12) {
+			return; 
+		}
+		_DNApoints -= 12; 
+		_resistivity += 2; 
+	}
     
 }
 
