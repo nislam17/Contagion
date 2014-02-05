@@ -1,6 +1,6 @@
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class Pathogen{
@@ -14,6 +14,8 @@ public class Pathogen{
 	private int _DNApoints = 0; 
 	// DNA points let you evolve. Get them automatically.
 	protected boolean airUp = false, waterUp = false, liveStockUp = false, buttonPressed = false ;
+	Driver driver = new Driver();
+	
 	public Pathogen(){
 		_infectivity = 0; 
 		_resistivity = 0; 
@@ -40,6 +42,13 @@ public class Pathogen{
                 	airUp = true;
                 	buttonPressed = true;
                 	//Driver.Submitter();
+                	try {
+						driver.gamePlay();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                	driver.textbox();
                 }
 
             
@@ -53,6 +62,12 @@ public class Pathogen{
             		upgradeTransmissionWater(); 
                 	airUp = true;
                 	buttonPressed = true;
+                	try {
+						driver.gamePlay();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             	}
             }
     	});
@@ -64,6 +79,12 @@ public class Pathogen{
             		upgradeTransmissionLivestock(); 
                 	airUp = true;   
                 	buttonPressed = true;
+                	try {
+						driver.gamePlay();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             	}
             }
     	});
@@ -75,6 +96,12 @@ public class Pathogen{
             		upgradeSymptomsInsomnia();
                 	airUp = true; 
                 	buttonPressed = true;
+                	try {
+						driver.gamePlay();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             	}	                
             }
     	});
@@ -86,6 +113,12 @@ public class Pathogen{
             		upgradeSymptomsParanoia();
                 	airUp = true;
                 	buttonPressed = true;
+                	try {
+						driver.gamePlay();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             	}	
             }
     	});
@@ -97,6 +130,12 @@ public class Pathogen{
             		upgradeSymptomsParalysis();
                 	airUp = true;
                 	buttonPressed = true;
+                	try {
+						driver.gamePlay();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             	}	
             }
     	});
@@ -108,6 +147,12 @@ public class Pathogen{
             		upgradeSymptomsComa();
             		airUp = true; 
                 	buttonPressed = true;
+                	try {
+						driver.gamePlay();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             	}	
             }
     	});
@@ -119,6 +164,12 @@ public class Pathogen{
             		upgradeResistivityGenetic();
                 	airUp = true;   
                 	buttonPressed = true;
+                	try {
+						driver.gamePlay();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             	}	
             }
     	});
@@ -130,6 +181,12 @@ public class Pathogen{
             		upgradeResistivityDrug();
                 	airUp = true;  
                 	buttonPressed = true;
+                	try {
+						driver.gamePlay();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             	}	
             }
     	});
