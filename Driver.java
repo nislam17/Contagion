@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 
 import java.awt.EventQueue;
@@ -10,7 +9,7 @@ public class Driver extends JPanel implements ActionListener{
 	
 	
 	
-	public Driver(){
+	public static void drive(){
 		pathogenChoose();
 	}
         
@@ -41,25 +40,21 @@ public class Driver extends JPanel implements ActionListener{
    	//resistivity - a sign of how bad the disease is if you catch it! It will slow down cure research and give you more DNA points. 
    	//lethality - How easily the disease can kill someone! It can slow/stop cure research and give you more DNA points.
    	
-   	private static int _DNApoints = 0; 
+   	protected static int _DNApoints = 0; 
    	// DNA points let you evolve. Get them automatically.
-   	protected static boolean airUp = false ;
-	protected static boolean waterUp = false;
-	protected static boolean liveStockUp = false;
-	protected static boolean buttonPressed = false;
 	
-	static Driver man;
+	//static Driver man;
     
         // =====================================================================    
         
    	
    	
-   	public void increaseDNApoints(int p) {
+   	public static void increaseDNApoints(int p) {
 		_DNApoints += p;
 	}
 	
 	/* transmit works based on infectivity and controls how fast the disease spreads inside countries*/
-	public  void transmit(Continent c) {
+	public static  void transmit(Continent c) {
 		if (c.getInvaded() == false){
 		c.setInvaded(true); //signifies when the pathogen first enters a continent
 		c.setInfected(1);
@@ -68,7 +63,7 @@ public class Driver extends JPanel implements ActionListener{
 	}
 	
 	/* infect works based on infectivity and controls how fast the disease spreads between countries*/
-	public void infect(Continent c) {
+	public static void infect(Continent c) {
 		if (!c.getInvaded() || (c.getPopulation() <= c.getInfected())); //If the continent has not been invaded yet, don't infect anyone or if the entire continent has been infected, stop infecting
 		else if (Math.random() * 1000 < _infectivity) { 
 			int points = c.getOldInfected() + c.getInfected();
@@ -81,7 +76,7 @@ public class Driver extends JPanel implements ActionListener{
 	/*Pre-cond: 
 	 * Post-cond: 
 	 * resist works based on resistivity and slows down the cure */
-	public void resist(Continent c) {
+	public static void resist(Continent c) {
 		if (Math.random() * 46 < _resistivity) {
 			if (c.getCure() >= 1) {
 				c.setCure((c.getCure() - 1)); /* if the production of the cure has been started, pathogen
@@ -127,107 +122,24 @@ public class Driver extends JPanel implements ActionListener{
 	
 	
 	//====================Accessor methods========================
-	public int getDNApoints() {
+	public static int getDNApoints() {
 		return _DNApoints;
 	}
 	
-	public double getInfectivity() {
+	public static double getInfectivity() {
 		return _infectivity;
 	}
 	
-	public double getResistivity() {
+	public static double getResistivity() {
 		return _resistivity; 
 		
 	}
 	
-	public double getLethality() {
+	public static double getLethality() {
 		return _lethality;
 	}
 	
-	//=====================UPGRADES====================== 
-	/*DNA points help upgrade Transmission */
-	public static void upgradeTransmissionAir() {
-		if (_DNApoints > 12 && airUp == false) {
-			
-			_DNApoints -= 12; 
-			_infectivity += 3; 
-			}
-			else{
-				System.out.println("You already upgraded this");
-			}
-	} // upgrades infectivity
-	
-	public static void upgradeTransmissionWater() {
-		if (_DNApoints < 10) {
-			return; 
-		}
-		_DNApoints -= 10; 
-		_infectivity += 2; 
-	} // upgrades infectivity
-	
-	public static void upgradeTransmissionLivestock() {
-		if (_DNApoints < 9) {
-			return; 
-		}
-		_DNApoints -= 9; 
-		_infectivity += 1; 
-	} // upgrades infectivity
-	
-	/* DNA points help upgrade symptoms */
-	public static void upgradeSymptomsInsomnia() {
-		if (_DNApoints < 8) {
-			return; 
-		}
-		_DNApoints -= 8; 
-		_lethality += 1; 
-	}
-	
-	/* DNA points help upgrade symptoms */
-	public static void upgradeSymptomsParanoia() {
-		if (_DNApoints < 9) {
-			return; 
-		}
-		_DNApoints -= 9; 
-		_lethality += 2; 
-	}
-	
-	/* DNA points help upgrade symptoms */
-	public static void upgradeSymptomsParalysis() {
-		if (_DNApoints < 12) {
-			return; 
-		}
-		_DNApoints -= 12; 
-		_lethality += 3; 
-	}
-	
-	/* DNA points help upgrade symptoms */
-	public static void upgradeSymptomsComa() {
-		if (_DNApoints < 12) {
-			return; 
-		}
-		_DNApoints -= 12; 
-		_lethality += 3; 
-	}
-	
-	/*DNA points help fight the cure */
-	public static void upgradeResistivityGenetic() {
-		if (_DNApoints < 11) {
-			return; 
-		}
-		_DNApoints -= 11; 
-		_resistivity += 1; 
-	}
-	
-	/*DNA points help fight the cure */
-	public static void upgradeResistivityDrug() {
-		if (_DNApoints < 12) {
-			return; 
-		}
-		_DNApoints -= 12; 
-		_resistivity += 2; 
-	}
-   	
-        
+
         //game play 
 	    public static void gamePlay() {
 	    	
@@ -235,7 +147,7 @@ public class Driver extends JPanel implements ActionListener{
 	                //System.out.println("ahhh");
 	    			
 	                for (Continent c: ContinentArray) {
-	                        man.infect(c);        //infects population of invaded continents  
+	                        Driver.infect(c);        //infects population of invaded continents  
 	                        //Thread.sleep(50);
 	                        if (c.getInfected() > c.getPopulation()){
 	                        	
@@ -246,8 +158,8 @@ public class Driver extends JPanel implements ActionListener{
 	                }
 	                
 
-	                man.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
-	                man.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
+	                Driver.transmit(ContinentArray[(int)(Math.random() * 6)] ); //transmits to a random continent
+	                Driver.resist(NorthAmerica);  //resists cure (doesn't matter of which continent because cure is static)
 	                /*
 	                for (Continent c: ContinentArray) {
 	                        pathogen.kill(c);  //kills population of infected continents
@@ -315,18 +227,19 @@ public class Driver extends JPanel implements ActionListener{
             }
 
 			JTextArea attributes = new JTextArea(" DNApoints: "
-	        + man.getDNApoints()
+	        + Driver.getDNApoints()
 	        + "\nInfectivity: "
-	        + man.getInfectivity()
+	        + Driver.getInfectivity()
 	        +"\nResistivity: "
-	        + man.getResistivity()
+	        + Driver.getResistivity()
 	        +"\nLethality: "
-	        + man.getLethality()); 
+	        + Driver.getLethality()); 
 	        stats.add(attributes);
 	        f3.setLocation(100, 300);
 	        f3.setContentPane(stats);
 	        f3.pack();
 	        f3.setVisible(true);
+	       
     	}
 
                 
@@ -339,7 +252,7 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-                    man.transmit(NorthAmerica);     
+                    Driver.transmit(NorthAmerica);     
                     f2.dispose();   
                     gamePlay();
                     
@@ -352,7 +265,7 @@ public class Driver extends JPanel implements ActionListener{
             public void actionPerformed(ActionEvent cr)
             {
                 //Execute when button is pressed
-                    man.transmit(SouthAmerica);
+                    Driver.transmit(SouthAmerica);
                     f2.dispose();  
                     gamePlay();
             }
@@ -363,7 +276,7 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                    man.transmit(Europe);
+                    Driver.transmit(Europe);
                     f2.dispose(); 
                     
 						gamePlay();
@@ -377,7 +290,7 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                    man.transmit(Africa);
+                    Driver.transmit(Africa);
                     f2.dispose();
                     
 						gamePlay();
@@ -391,7 +304,7 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                    man.transmit(Asia);                    
+                    Driver.transmit(Asia);                    
                     f2.dispose();
                     gamePlay();         
             }
@@ -402,7 +315,7 @@ public class Driver extends JPanel implements ActionListener{
                     
             public void actionPerformed(ActionEvent cr)
             {
-                    man.transmit(Australia);
+                    Driver.transmit(Australia);
                     f2.dispose();
                     gamePlay(); 
             }
@@ -509,8 +422,8 @@ public class Driver extends JPanel implements ActionListener{
           
                 
         public static void main (String[] args) {
-        	man = new Driver();
-        	//man.Pathogen();
+        	drive();
+        	//Driver.Pathogen();
         	
             
         }

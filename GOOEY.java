@@ -21,15 +21,12 @@ import javax.swing.JLabel;
 
 public class GOOEY extends Driver {
 	private static final Map<Integer, String> REDS;
-	protected static double _infectivity = 0;
-	protected static double _resistivity = 0;
-	protected static double _lethality = 0; 
    	
    	//infectivity - how quickly the disease will spread! Controls how fast the disease spreads both inside and between countries. 
    	//resistivity - a sign of how bad the disease is if you catch it! It will slow down cure research and give you more DNA points. 
    	//lethality - How easily the disease can kill someone! It can slow/stop cure research and give you more DNA points.
    	
-   	private static int _DNApoints = 0; 
+   
    	// DNA points let you evolve. Get them automatically.
    	protected static boolean airUp = false ;
 	protected static boolean waterUp = false;
@@ -60,12 +57,12 @@ public class GOOEY extends Driver {
 			REDS.put(100, "#000000");			
 		}
 	JFrame frame;
-	static Continent NorthAmerica = new Continent(528700000, 0.9, "NA");   
-    static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
-    static Continent Europe = new Continent(739200000, 0.4, "EU"); 
-    static Continent Africa = new Continent(1033000000,0.1, "AF"); 
-    static Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
-    static Continent Australia = new Continent(22680000,0.8, "AUS"); 
+	//static Continent NorthAmerica = new Continent(528700000, 0.9, "NA");   
+    //static Continent SouthAmerica = new Continent(387500000, 0.2, "SA");
+    //static Continent Europe = new Continent(739200000, 0.4, "EU"); 
+    //static Continent Africa = new Continent(1033000000,0.1, "AF"); 
+    //static Continent Asia = new Continent(2147482999,0.6, "ASIA"); 
+    //static Continent Australia = new Continent(22680000,0.8, "AUS"); 
 	static ImageIcon ic = new ImageIcon("mapfinale.jpg");
 	final static Image infoBg = ic.getImage();
 
@@ -98,6 +95,7 @@ a.addActionListener(new ActionListener() {
                 	airUp = true;
                 	buttonPressed = true;
                 	gamePlay();
+                	Submitter();
                 	
                 }
 
@@ -113,6 +111,8 @@ a.addActionListener(new ActionListener() {
                 	airUp = true;
                 	buttonPressed = true;
                 	gamePlay();
+                	Submitter();
+                	
             	}
             }
     	});
@@ -125,6 +125,7 @@ a.addActionListener(new ActionListener() {
                 	airUp = true;   
                 	buttonPressed = true;
                 	gamePlay();
+                	Submitter();
             	}
             }
     	});
@@ -137,6 +138,7 @@ a.addActionListener(new ActionListener() {
                 	airUp = true; 
                 	buttonPressed = true;
                 	gamePlay();
+                	Submitter();
             	}	                
             }
     	});
@@ -149,6 +151,7 @@ a.addActionListener(new ActionListener() {
                 	airUp = true;
                 	buttonPressed = true;
                 	gamePlay();
+                	Submitter();
             	}	
             }
     	});
@@ -161,6 +164,7 @@ a.addActionListener(new ActionListener() {
                 	airUp = true;
                 	buttonPressed = true;
                 	gamePlay();
+                	Submitter();
             	}	
             }
     	});
@@ -173,6 +177,7 @@ a.addActionListener(new ActionListener() {
             		airUp = true; 
                 	buttonPressed = true;
                 	gamePlay();
+                	Submitter();
             	}	
             }
     	});
@@ -185,6 +190,7 @@ a.addActionListener(new ActionListener() {
                 	airUp = true;   
                 	buttonPressed = true;
                 	gamePlay();
+                	Submitter();
             	}	
             }
     	});
@@ -197,10 +203,11 @@ a.addActionListener(new ActionListener() {
                 	airUp = true;  
                 	buttonPressed = true;
                 	gamePlay();
+                	Submitter();
             	}	
             }
     	});
-		frame = new JFrame();
+		frame = new JFrame("Contagion");
 		frame.setBounds(100, 100, 1600, 850);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
@@ -344,23 +351,7 @@ a.addActionListener(new ActionListener() {
     
     
 	
-	//====================Accessor methods========================
-	public int getDNApoints() {
-		return _DNApoints;
-	}
 	
-	public double getInfectivity() {
-		return _infectivity;
-	}
-	
-	public double getResistivity() {
-		return _resistivity; 
-		
-	}
-	
-	public double getLethality() {
-		return _lethality;
-	}
 	
 	//=====================UPGRADES====================== 
 	/*DNA points help upgrade Transmission */
