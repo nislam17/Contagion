@@ -38,7 +38,7 @@ public class Driver extends JPanel implements ActionListener{
         
         //game play 
 	    public static void gamePlay() throws InterruptedException {
-	    	while (game == "continue"){
+	    
 	    		
 	                //System.out.println("ahhh");
 	    			for (Continent c: ContinentArray){
@@ -103,8 +103,19 @@ public class Driver extends JPanel implements ActionListener{
 	                System.out.println("U SEE ME!");            
 	                
 	    	}
-	                
+	    
+	    public static void textbox() {
+	    	JTextArea stats = new JTextArea();
+	    	stats.add("Infectivity: " + pathogen.getInfectivity(), stats);
+	    	stats.add("Resistvity: " + pathogen.getResistivity(), stats);
+	    	stats.add("Lethality: " + pathogen.getLethality(), stats);
+	    	
+	    	JFrame text = new JFrame("stats");
+	    	text.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+	    	text.setVisible(true);
 	    }
+	                
+	    
 	    
 	    public static void pauser() throws InterruptedException{
 	    	up = down;
@@ -565,4 +576,5 @@ public class Driver extends JPanel implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
+        }
         }
