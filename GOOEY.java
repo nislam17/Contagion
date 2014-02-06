@@ -355,6 +355,7 @@ public class GOOEY extends Driver {
             	if (gUp == false){
             		upgradeResistivityGenetic();
                 	gUp = true;  
+                	counter += 1;
                 	
                 	
                 	Submitter();
@@ -378,7 +379,8 @@ public class GOOEY extends Driver {
             {
             	if (drUp == false){
             		upgradeResistivityDrug();
-                	drUp = true;  
+                	drUp = true;
+                	counter += 1;
                 	
                 	Submitter();
                 	int x = 5;
