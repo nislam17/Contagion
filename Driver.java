@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 
 import java.awt.EventQueue;
@@ -58,7 +57,7 @@ public class Driver extends JPanel implements ActionListener{
 		/* infect works based on infectivity and controls how fast the disease spreads between countries*/
 		public static void infect(Continent c) {
 			if (!c.getInvaded() || (c.getPopulation() <= c.getInfected())); //If the continent has not been invaded yet, don't infect anyone or if the entire continent has been infected, stop infecting
-			else if (Math.random() * 500 < _infectivity) { 
+			else if (Math.random() * 300 < _infectivity) { 
 				long points = c.getOldInfected() + c.getInfected();
 					increaseDNApoints((int)(Math.random() * 15) + 1);
 					c.setOldInfected(c.setInfected(points)); //based on the fib code, infect peeps
