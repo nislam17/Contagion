@@ -28,10 +28,9 @@ public class GOOEY extends Driver {
    	
    
    	// DNA points let you evolve. Get them automatically.
-   	protected static boolean airUp = false ;
-	protected static boolean waterUp = false;
-	protected static boolean liveStockUp = false;
-	protected static boolean buttonPressed = false;
+   	protected static boolean airUp = false, waterUp = false, liveStockUp = false, insomniaUp = false,
+   			paranoiaUp = false, paralysisUp = false, comaUp = false, gUp = false, drUp = false;
+
 		static {
 			REDS = new HashMap<Integer, String>();
 			REDS.put(0, "#FFFFFF");
@@ -65,6 +64,7 @@ public class GOOEY extends Driver {
     //static Continent Australia = new Continent(22680000,0.8, "AUS"); 
 	static ImageIcon ic = new ImageIcon("mapfinale.jpg");
 	final static Image infoBg = ic.getImage();
+	static JProgressBar progressBar = new JProgressBar();
 
 	public GOOEY() {
 		initialize();
@@ -85,135 +85,13 @@ public class GOOEY extends Driver {
 		JButton h = new JButton(); //genetic reshuffle
 		JButton i = new JButton(); //drug resistance
 		Upgrades u = new Upgrades(a,b,c,d,e,f,g,h,i);
-a.addActionListener(new ActionListener() {
-	   		
-            public void actionPerformed(ActionEvent e)
-            {
-            	gamePlay();
-            	if (airUp == false){
-                	upgradeTransmissionAir();
-                	airUp = true;
-                	buttonPressed = true;
-                	gamePlay();
-                	Submitter();
-                	
-                }
-
-            
-	   		}
-    	});
-		b.addActionListener(new ActionListener() {
-   		 
-            public void actionPerformed(ActionEvent e)
-            {            	
-            	if (waterUp == false){
-            		upgradeTransmissionWater(); 
-                	airUp = true;
-                	buttonPressed = true;
-                	gamePlay();
-                	Submitter();
-                	
-            	}
-            }
-    	});
-		c.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {     
-            	if (liveStockUp == false){
-            		upgradeTransmissionLivestock(); 
-                	airUp = true;   
-                	buttonPressed = true;
-                	gamePlay();
-                	Submitter();
-            	}
-            }
-    	});
-		d.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if (airUp == false){
-            		upgradeSymptomsInsomnia();
-                	airUp = true; 
-                	buttonPressed = true;
-                	gamePlay();
-                	Submitter();
-            	}	                
-            }
-    	});
-		e.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if (airUp == false){
-            		upgradeSymptomsParanoia();
-                	airUp = true;
-                	buttonPressed = true;
-                	gamePlay();
-                	Submitter();
-            	}	
-            }
-    	});
-		f.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if (airUp == false){
-            		upgradeSymptomsParalysis();
-                	airUp = true;
-                	buttonPressed = true;
-                	gamePlay();
-                	Submitter();
-            	}	
-            }
-    	});
-		g.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if (airUp == false){
-            		upgradeSymptomsComa();
-            		airUp = true; 
-                	buttonPressed = true;
-                	gamePlay();
-                	Submitter();
-            	}	
-            }
-    	});
-		h.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if (airUp == false){
-            		upgradeResistivityGenetic();
-                	airUp = true;   
-                	buttonPressed = true;
-                	gamePlay();
-                	Submitter();
-            	}	
-            }
-    	});
-		i.addActionListener(new ActionListener() {
-	   		 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if (airUp == false){
-            		upgradeResistivityDrug();
-                	airUp = true;  
-                	buttonPressed = true;
-                	gamePlay();
-                	Submitter();
-            	}	
-            }
-    	});
 		frame = new JFrame("Contagion");
 		frame.setBounds(100, 100, 1600, 850);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		
-		JPanel panel = new JPanel(){
+		final JPanel panel = new JPanel(){
 			public void paintComponent(Graphics g){
 	    	super.paintComponent(g);
 	    	setOpaque(false);
@@ -232,7 +110,8 @@ a.addActionListener(new ActionListener() {
 	        fillOvalEU(g);
 	        fillOvalAF(g);
 	        fillOvalASIA(g);
-	        fillOvalAUS(g);    
+	        fillOvalAUS(g);   
+	        progressorI();
 	        }
 		};
 		springLayout.putConstraint(SpringLayout.NORTH, panel, 10, SpringLayout.NORTH, frame.getContentPane());
@@ -240,7 +119,7 @@ a.addActionListener(new ActionListener() {
 		springLayout.putConstraint(SpringLayout.SOUTH, panel, 772, SpringLayout.NORTH, frame.getContentPane());
 		frame.getContentPane().add(panel);
 		
-		JProgressBar progressBar = new JProgressBar();
+		
 		springLayout.putConstraint(SpringLayout.NORTH, progressBar, 790, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, progressBar, 63, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, progressBar, -10, SpringLayout.SOUTH, frame.getContentPane());
@@ -296,9 +175,175 @@ a.addActionListener(new ActionListener() {
 		springLayout.putConstraint(SpringLayout.SOUTH, lblFightTheCure, -6, SpringLayout.NORTH, panel_3);
 		frame.getContentPane().add(lblFightTheCure);
 		
+		a.addActionListener(new ActionListener() {
+	   		
+            public void actionPerformed(ActionEvent e)
+            {
+            	
+            	if (airUp == false){
+                	upgradeTransmissionAir();
+                	airUp = true;
+                	
+                	Submitter();
+                	int x = 8;
+                	while (x > 0){
+                		gamePlay();
+                		x--;
+                		
+                		
+                	}
+                	
+                }
+
+	   		}
+    	});
+		b.addActionListener(new ActionListener() {
+   		 
+            public void actionPerformed(ActionEvent e)
+            {            	
+            	if (waterUp == false){
+            		upgradeTransmissionWater(); 
+                	waterUp = true;
+                	
+                	Submitter();
+                	int x = 7;
+                	while (x > 0){
+                		gamePlay();
+                		x--;
+                
+                	}
+            	}
+            }
+    	});
+		c.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {     
+            	if (liveStockUp == false){
+            		upgradeTransmissionLivestock(); 
+            		liveStockUp = true;   
+                	
+                	Submitter();
+                	int x = 6;
+                	while (x > 0){
+                		gamePlay();
+                		x--;
+                		
+                	}
+            	}
+            }
+    	});
+		d.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (insomniaUp == false){
+            		upgradeSymptomsInsomnia();
+            		insomniaUp = true; 
+                	
+                	Submitter();
+                	int x = 5;
+                	while (x > 0){
+                		gamePlay();
+                		x--;
+                		
+                	}
+            	}	                
+            }
+    	});
+		e.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (paranoiaUp == false){
+            		upgradeSymptomsParanoia();
+            		paranoiaUp = true;
+                	
+                	Submitter();
+                	int x = 4;
+                	while (x > 0){
+                		gamePlay();
+                		x--;
+                		
+                	}
+            	}	
+            }
+    	});
+		f.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (paralysisUp == false){
+            		upgradeSymptomsParalysis();
+            		paralysisUp = true;
+                	
+                	Submitter();
+                	int x = 4;
+                	while (x > 0){
+                		gamePlay();
+                		x--;
+                		
+                	}
+            	}	
+            }
+    	});
+		g.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (comaUp == false){
+            		upgradeSymptomsComa();
+            		comaUp = true; 
+                	
+                	Submitter();
+                	int x = 4;
+                	while (x > 0){
+                		gamePlay();
+                		x--;
+                		
+                	}
+            	}	
+            }
+    	});
+		h.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (gUp == false){
+            		upgradeResistivityGenetic();
+                	gUp = true;   
+                	
+                	Submitter();
+                	int x = 100;
+                	while (x > 0){
+                		gamePlay();
+                		x--;
+                		
+                	}
+            	}	
+            }
+    	});
+		i.addActionListener(new ActionListener() {
+	   		 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (drUp == false){
+            		upgradeResistivityDrug();
+                	drUp = true;  
+                	
+                	Submitter();
+                	int x = 5;
+                	while (x > 0){
+                		gamePlay();
+                		x--;
+                		
+                	}
+            	}	
+            }
+    	});
+		
 		
 	}
-	
 	
     
     static int round(int n){
@@ -347,11 +392,6 @@ a.addActionListener(new ActionListener() {
     	g.fillOval(1275,435,90,90);          	
     }
 
-    
-    
-    
-	
-	
 	
 	//=====================UPGRADES====================== 
 	/*DNA points help upgrade Transmission */
@@ -361,9 +401,9 @@ a.addActionListener(new ActionListener() {
 			_DNApoints -= 12; 
 			_infectivity += 3; 
 			}
-			else{
-				System.out.println("You already upgraded this");
-			}
+		else{
+			System.out.println("You already upgraded this");
+		}
 	} // upgrades infectivity
 	
 	public static void upgradeTransmissionWater() {
@@ -434,6 +474,19 @@ a.addActionListener(new ActionListener() {
 		}
 		_DNApoints -= 12; 
 		_resistivity += 2; 
+	}
+	
+	public static void progressorI(){
+		int total_infected = 0;
+		for (Continent c: ContinentArray) {
+			total_infected+= c.getInfected()/c.getPopulation();
+		
+		}
+		//total_infected = 91;
+		//total_infected = total_infected / 4858562999;
+		progressBar.setValue(total_infected);
+		progressBar.setStringPainted(true);
+	
 	}
     
 }
