@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 
 import java.awt.EventQueue;
@@ -16,7 +15,7 @@ public class Driver extends JPanel implements ActionListener{
         
 	// ===================== VARIABLES ====================================
         private static boolean winner, _submit; 
-        private static String game = "continue";
+        static String game = "continue";
         private static int up = 3, down = 3;
 
        
@@ -176,20 +175,23 @@ public class Driver extends JPanel implements ActionListener{
 	
 	            for (Continent c: ContinentArray) {
 	                    int counterDead = 0; //counter for the # of dead continents 
-	                    if (c.getDeadContinent() == true) { // checks if continent is dead
+	                    if (c.getDeadContinent() == true || 
+	                    		c.getInfected() > c.getPopulation()) { // checks if continent is dead
 	                            counterDead += 1; 
 	                    }
 	                    if (counterDead == 6) { // if all 6 continents are dead, the player is a winner 
 	                            winner = true; 
+	                            System.out.println("YOU WIN");
 	                            game = "stop";
 	                            break;
 	                    }
 	                    int counterHealthy = 0; //counter for the # of healthy continents
-	                    if (c.getInvaded() == false) { //checks if continent is healthy
+	                    if (c.getInvaded() == false || c.getInfected() < 0) { //checks if continent is healthy
 	                            counterHealthy += 1; 
 	                    }
 	                    if (counterHealthy == 6) { // if all 6 continents are healthy, the player is a loser
 	                            winner = false;
+	                            System.out.println("YOU LOSE");
 	                            game = "stop";
 	                            break;
 	                    }
