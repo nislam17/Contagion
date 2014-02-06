@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 
 public class GOOEY extends Driver {
 	private static final Map<Integer, String> REDS;
+	private static int counter = 0; 
    	
    	//infectivity - how quickly the disease will spread! Controls how fast the disease spreads both inside and between countries. 
    	//resistivity - a sign of how bad the disease is if you catch it! It will slow down cure research and give you more DNA points. 
@@ -183,6 +184,7 @@ public class GOOEY extends Driver {
             	if (airUp == false){
                 	upgradeTransmissionAir();
                 	airUp = true;
+                	counter += 1; 
                 	
                 	Submitter();
                 	int x = 8;
@@ -192,6 +194,11 @@ public class GOOEY extends Driver {
                 		
                 		
                 	}
+                if (counter == 9) {
+                	while (game.equals( "continue")) {
+                		gamePlay();
+                	}
+                }
                 	
                 }
 
@@ -204,6 +211,7 @@ public class GOOEY extends Driver {
             	if (waterUp == false){
             		upgradeTransmissionWater(); 
                 	waterUp = true;
+                	counter += 1; 
                 	
                 	Submitter();
                 	int x = 7;
@@ -213,6 +221,11 @@ public class GOOEY extends Driver {
                 
                 	}
             	}
+            	 if (counter == 9) {
+                 	while (game.equals( "continue")) {
+                 		gamePlay();
+                 	}
+                 }
             }
     	});
 		c.addActionListener(new ActionListener() {
@@ -221,7 +234,8 @@ public class GOOEY extends Driver {
             {     
             	if (liveStockUp == false){
             		upgradeTransmissionLivestock(); 
-            		liveStockUp = true;   
+            		liveStockUp = true; 
+            		counter += 1; 
                 	
                 	Submitter();
                 	int x = 6;
@@ -231,6 +245,11 @@ public class GOOEY extends Driver {
                 		
                 	}
             	}
+            	 if (counter == 9) {
+                 	while (game.equals( "continue")) {
+                 		gamePlay();
+                 	}
+                 }
             }
     	});
 		d.addActionListener(new ActionListener() {
@@ -240,6 +259,7 @@ public class GOOEY extends Driver {
             	if (insomniaUp == false){
             		upgradeSymptomsInsomnia();
             		insomniaUp = true; 
+            		counter += 1; 
                 	
                 	Submitter();
                 	int x = 5;
@@ -248,7 +268,12 @@ public class GOOEY extends Driver {
                 		x--;
                 		
                 	}
-            	}	                
+            	}
+            	 if (counter == 9) {
+                 	while (game.equals( "continue")) {
+                 		gamePlay();
+                 	}
+                 }
             }
     	});
 		e.addActionListener(new ActionListener() {
@@ -258,6 +283,7 @@ public class GOOEY extends Driver {
             	if (paranoiaUp == false){
             		upgradeSymptomsParanoia();
             		paranoiaUp = true;
+            		counter += 1; 
                 	
                 	Submitter();
                 	int x = 4;
@@ -266,7 +292,12 @@ public class GOOEY extends Driver {
                 		x--;
                 		
                 	}
-            	}	
+            	}
+            	 if (counter == 9) {
+                 	while (game.equals( "continue")) {
+                 		gamePlay();
+                 	}
+                 }
             }
     	});
 		f.addActionListener(new ActionListener() {
@@ -276,6 +307,7 @@ public class GOOEY extends Driver {
             	if (paralysisUp == false){
             		upgradeSymptomsParalysis();
             		paralysisUp = true;
+            		counter += 1; 
                 	
                 	Submitter();
                 	int x = 4;
@@ -284,7 +316,12 @@ public class GOOEY extends Driver {
                 		x--;
                 		
                 	}
-            	}	
+            	}
+            	 if (counter == 9) {
+                 	while (game.equals( "continue")) {
+                 		gamePlay();
+                 	}
+                 }
             }
     	});
 		g.addActionListener(new ActionListener() {
@@ -294,6 +331,7 @@ public class GOOEY extends Driver {
             	if (comaUp == false){
             		upgradeSymptomsComa();
             		comaUp = true; 
+            		counter += 1; 
                 	
                 	Submitter();
                 	int x = 4;
@@ -302,7 +340,12 @@ public class GOOEY extends Driver {
                 		x--;
                 		
                 	}
-            	}	
+            	}
+            	 if (counter == 9) {
+                 	while (game.equals( "continue")) {
+                 		gamePlay();
+                 	}
+                 }
             }
     	});
 		h.addActionListener(new ActionListener() {
@@ -311,16 +354,22 @@ public class GOOEY extends Driver {
             {
             	if (gUp == false){
             		upgradeResistivityGenetic();
-                	gUp = true;   
+                	gUp = true;  
+                	
                 	
                 	Submitter();
-                	int x = 100;
+                	int x = 5;
                 	while (x > 0){
                 		gamePlay();
                 		x--;
                 		
                 	}
-            	}	
+            	}
+            	 if (counter == 9) {
+                 	while (game.equals( "continue")) {
+                 		gamePlay();
+                 	}
+                 }
             }
     	});
 		i.addActionListener(new ActionListener() {
@@ -338,7 +387,12 @@ public class GOOEY extends Driver {
                 		x--;
                 		
                 	}
-            	}	
+            	}
+            	 if (counter == 9) {
+                 	while (game.equals( "continue")) {
+                 		gamePlay();
+                 	}
+                 }
             }
     	});
 		
